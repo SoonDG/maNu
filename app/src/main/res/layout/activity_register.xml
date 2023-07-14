@@ -3,44 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="Activity.RegisterActivity">
 
     <EditText
-        android:id="@+id/ID_Text"
+        android:id="@+id/editTextText"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="290dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="ID"
-        android:textColorHint="#808080"
+        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/Pass_Text"
+        android:id="@+id/editTextText2"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="290dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Password"
-        android:textColorHint="#808080"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="200dp"
-        android:text="Login In"
+        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Pass_Text"
-        app:layout_constraintVertical_bias="0.56" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

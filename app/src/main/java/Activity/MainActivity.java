@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar); //툴바 설정
 
-        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.app_name, R.string.app_name);
         drawer.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -47,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                int id = item.getItemId();
-               if(id == R.id.account){
+               if(id == R.id.account){ //계정 정보 창으로 전환
 
                }
-               else if(id == R.id.logout){
+               else if(id == R.id.logout){ //로그아웃 후, 다시 로그인 화면으로 전환
 
                }
                return true;

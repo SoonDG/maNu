@@ -3,12 +3,19 @@ package Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.my_first_project.R;
+
+import java.util.ArrayList;
+
+import Adapter.FoodAdapter;
+import Model.Food;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +33,11 @@ public class SearchFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private FoodAdapter foodAdapter;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+
+    private ArrayList<Food> arrayList;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -60,7 +72,25 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        arrayList = new ArrayList<>();
+        foodAdapter = new FoodAdapter(arrayList);
+        recyclerView.setAdapter(foodAdapter);
+
+        //테스트용 데이터, 이후 삭제 필요
+        Food test = new Food("테스트 식품", 120.5, 100, 50.5, 50.5, 50.5, 50.5, 50.5, 50.5, 50.5, 50.5);
+        Food test2 = new Food("테스트 2", 120.5, 100, 50.5, 50.5, 50.5, 50.5, 50.5, 50.5, 50.5, 50.5);
+        arrayList.add(test);
+        arrayList.add(test2);
+        foodAdapter.notifyDataSetChanged();
+
+        return view;
     }
 }

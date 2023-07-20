@@ -8,11 +8,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.my_first_project.R;
@@ -20,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
+import Adapter.FoodAdapter;
 import Fragment.MainFragment;
 import Fragment.MyMenuFragmet;
 import Fragment.SearchFragment;
@@ -80,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
 }

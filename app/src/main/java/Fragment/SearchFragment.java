@@ -107,6 +107,7 @@ public class SearchFragment extends Fragment {
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 String Search_String = textView.getText().toString();
                 if(!Search_String.isEmpty()) set_Food_list(Search_String);
+                else set_Food_list("");
                 return true;
             }
         });
@@ -120,6 +121,7 @@ public class SearchFragment extends Fragment {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                arrayList.clear();
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     for(int i = 0; i < jsonArray.length(); i++){
@@ -145,11 +147,8 @@ public class SearchFragment extends Fragment {
         };
 
         FoodRequest foodRequest;
-        if(Search_String.isEmpty()){
-            foodRequest = new FoodRequest(responseListener);
-        }
-        else foodRequest = new FoodRequest(Search_String, responseListener); //검색어가 있다면 해당 검색어에 해당하는 목록만 가져오기
-
+        if(!Search_String.isEmpty()) foodRequest = new FoodRequest(Search_String, responseListener); //검색어가 있다면 해당 검색어에 해당하는 목록만 가져오기
+        else foodRequest = new FoodRequest((responseListener));
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(foodRequest);
     }

@@ -19,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.my_first_project.R;
+import com.example.my_first_project.databinding.FragmentSearchBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +41,7 @@ import Request.LoginRequest;
  */
 public class SearchFragment extends Fragment {
 
+    private FragmentSearchBinding fragmentSearchBinding;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,9 +51,7 @@ public class SearchFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private TextView Search_Text;
     private FoodAdapter foodAdapter;
-    private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
 
     private ArrayList<Food> arrayList;
@@ -89,20 +89,19 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        fragmentSearchBinding = FragmentSearchBinding.inflate(inflater, container, false);
+        View view = fragmentSearchBinding.getRoot();
         // Inflate the layout for this fragment
 
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+        fragmentSearchBinding.searchRecyclerView.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        fragmentSearchBinding.searchRecyclerView.setLayoutManager(linearLayoutManager);
 
         arrayList = new ArrayList<>();
         foodAdapter = new FoodAdapter(arrayList);
-        recyclerView.setAdapter(foodAdapter);
+        fragmentSearchBinding.searchRecyclerView.setAdapter(foodAdapter);
 
-        Search_Text = view.findViewById(R.id.Search_Food_Text);
-        Search_Text.setOnEditorActionListener(new TextView.OnEditorActionListener() { //검색 버튼을 누를경우 해당 검색어로 검색된 식품만 출력
+        fragmentSearchBinding.SearchFoodText.setOnEditorActionListener(new TextView.OnEditorActionListener() { //검색 버튼을 누를경우 해당 검색어로 검색된 식품만 출력
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 String Search_String = textView.getText().toString();
@@ -115,6 +114,12 @@ public class SearchFragment extends Fragment {
         set_Food_list("");
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentSearchBinding = null; //프래그먼트는 뷰보다 오래 지속되므로 결합 클래스 인스턴스 참조를 정리
     }
 
     public void set_Food_list(String Search_String){

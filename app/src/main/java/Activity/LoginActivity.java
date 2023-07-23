@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.my_first_project.R;
+import com.example.my_first_project.databinding.ActivityLoginBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,27 +22,23 @@ import Request.LoginRequest;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText ID_Text, Pass_Text;
-    private Button login_btn, main_btn, to_reg_btn;
+    private ActivityLoginBinding loginBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
+        View view = loginBinding.getRoot();
+        setContentView(view);
 
-        ID_Text = findViewById(R.id.login_ID_Text);
-        Pass_Text = findViewById(R.id.login_Pass_Text);
-
-        login_btn = findViewById(R.id.login_btn);
-        main_btn = findViewById(R.id.imsi_btn); //로그인 기능 만들기 전까지 메인 화면 전환용 임시 버튼
-        to_reg_btn = findViewById(R.id.to_reg_btn); //회원가입 버튼
-        main_btn.setOnClickListener(new View.OnClickListener() {
+        loginBinding.imsiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
-        to_reg_btn.setOnClickListener(new View.OnClickListener() { //회원가입 화면으로 전환
+        loginBinding.toRegBtn.setOnClickListener(new View.OnClickListener() { //회원가입 화면으로 전환
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
@@ -49,11 +46,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        login_btn.setOnClickListener(new View.OnClickListener() {
+        loginBinding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String ID = ID_Text.getText().toString();
-                String Password = Pass_Text.getText().toString();
+                String ID = loginBinding.loginIDText.getText().toString();
+                String Password = loginBinding.loginPassText.getText().toString();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override

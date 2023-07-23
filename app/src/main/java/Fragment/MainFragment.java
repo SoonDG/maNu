@@ -3,12 +3,18 @@ package Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.my_first_project.R;
+import com.example.my_first_project.databinding.FragmentMainBinding;
+
+import java.util.ArrayList;
+
+import Model.Food;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +22,11 @@ import com.example.my_first_project.R;
  * create an instance of this fragment.
  */
 public class MainFragment extends Fragment {
+
+    private FragmentMainBinding fragmentMainBinding;
+
+    private LinearLayoutManager linearLayoutManager;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +36,8 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ArrayList<Food> arrayList;
 
     public MainFragment() {
         // Required empty public constructor
@@ -60,7 +73,20 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        fragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false);
+        View view = fragmentMainBinding.getRoot();
+
+        fragmentMainBinding.mainRecyclerView.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        fragmentMainBinding.mainRecyclerView.setLayoutManager(linearLayoutManager);
+
+        arrayList = new ArrayList<>();
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentMainBinding = null;
     }
 }

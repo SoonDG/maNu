@@ -80,7 +80,7 @@ public class MainFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         fragmentMainBinding.mainRecyclerView.setLayoutManager(linearLayoutManager);
 
-        arrayList = new ArrayList<>();
+        arrayList = new ArrayList<>(); //데이터 베이스에서 먹은 음식 테이블로 부터 유저id, 날짜를 통해 오늘 먹은 음식을 가져와 담음
         return view;
     }
 

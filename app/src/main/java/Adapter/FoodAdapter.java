@@ -11,11 +11,25 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.example.my_first_project.R;
+import com.example.my_first_project.databinding.RecyclerviewItemBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import Model.Food;
+import Request.EatFoodRequest;
+import Request.FoodRequest;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     private ArrayList<Food> arrayList;
@@ -34,6 +48,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
+        holder.food_code.setText(arrayList.get(position).getFood_code());
         holder.food_name.setText(arrayList.get(position).getFood_name());
         holder.food_kcal.setText(arrayList.get(position).getFood_kcal() + "(kcal)");
         holder.food_size.setText(arrayList.get(position).getFood_size() + "(g)");
@@ -56,6 +71,30 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                 ad.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) { //데이터 베이스에 먹은 음식에 추가
+                        Response.Listener<String> responseListener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    boolean success = jsonObject.getBoolean("success");
+                                    if(success){
+                                        Toast.makeText(view.getContext(), "먹은 음식 저장 성공", Toast.LENGTH_SHORT);
+                                        return;
+                                    }
+                                    else {
+                                        Toast.makeText(view.getContext(), "먹은 음식 저장 실패", Toast.LENGTH_SHORT);
+                                        return;
+                                    }
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        };
+                        Long eat_date = System.currentTimeMillis();
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                        EatFoodRequest eatFoodRequest = new EatFoodRequest("test", format.format(eat_date), holder.food_code.getText().toString(), responseListener);
+                        RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                        queue.add(eatFoodRequest);
 
                         dialogInterface.dismiss();
                     }
@@ -79,20 +118,22 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-       protected TextView food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
+       protected TextView food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            this.food_name = (TextView) itemView.findViewById(R.id.food_name);
-            this.food_kcal = (TextView) itemView.findViewById(R.id.food_kcal);
-            this.food_size = (TextView) itemView.findViewById(R.id.food_size);
-            this.food_carbs = (TextView) itemView.findViewById(R.id.food_carbs);
-            this.food_protein = (TextView) itemView.findViewById(R.id.food_protein);
-            this.food_fat = (TextView) itemView.findViewById(R.id.food_fat);
-            this.food_sugars = (TextView) itemView.findViewById(R.id.food_sugars);
-            this.food_sodium = (TextView) itemView.findViewById(R.id.food_sodium);
-            this.food_CH = (TextView) itemView.findViewById(R.id.food_CH);
-            this.food_Sat_fat = (TextView) itemView.findViewById(R.id.food_Sat_Fat);
-            this.food_trans_fat = (TextView) itemView.findViewById(R.id.food_trans_fat);
+            RecyclerviewItemBinding itemBinding = RecyclerviewItemBinding.bind(itemView);
+            this.food_code = itemBinding.foodCode;
+            this.food_name = itemBinding.foodName;
+            this.food_kcal = itemBinding.foodKcal;
+            this.food_size = itemBinding.foodSize;
+            this.food_carbs = itemBinding.foodCarbs;
+            this.food_protein = itemBinding.foodProtein;
+            this.food_fat = itemBinding.foodFat;
+            this.food_sugars = itemBinding.foodSugars;
+            this.food_sodium = itemBinding.foodSodium;
+            this.food_CH = itemBinding.foodCH;
+            this.food_Sat_fat = itemBinding.foodSatFat;
+            this.food_trans_fat = itemBinding.foodTransFat;
         }
     }
 }

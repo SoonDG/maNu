@@ -131,6 +131,7 @@ public class SearchFragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(response);
                     for(int i = 0; i < jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String food_code = jsonObject.getString("food_code");
                         String food_name = jsonObject.getString("food_name");
                         double food_kcal = jsonObject.getDouble("food_kcal");
                         int food_size = jsonObject.getInt("food_size");
@@ -142,7 +143,7 @@ public class SearchFragment extends Fragment {
                         double food_CH = jsonObject.getDouble("food_CH");
                         double food_Sat_fat = jsonObject.getDouble("food_Sat_fat");
                         double food_trans_fat = jsonObject.getDouble("food_trans_fat");
-                        arrayList.add(new Food(food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat));
+                        arrayList.add(new Food(food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat));
                     }
                     foodAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {

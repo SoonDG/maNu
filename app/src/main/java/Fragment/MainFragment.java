@@ -9,12 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.FragmentMainBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import Adapter.FoodAdapter;
 import Model.Food;
+import Request.FoodRequest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +34,7 @@ public class MainFragment extends Fragment {
 
     private FragmentMainBinding fragmentMainBinding;
 
+    private FoodAdapter foodAdapter;
     private LinearLayoutManager linearLayoutManager;
 
 
@@ -81,6 +91,8 @@ public class MainFragment extends Fragment {
         fragmentMainBinding.mainRecyclerView.setLayoutManager(linearLayoutManager);
 
         arrayList = new ArrayList<>(); //데이터 베이스에서 먹은 음식 테이블로 부터 유저id, 날짜를 통해 오늘 먹은 음식을 가져와 담음
+        foodAdapter = new FoodAdapter(arrayList);
+        fragmentMainBinding.mainRecyclerView.setAdapter(foodAdapter);
         return view;
     }
 
@@ -88,5 +100,40 @@ public class MainFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         fragmentMainBinding = null;
+    }
+
+    public void set_Food_list(){ //해당 부분 수정 필요 -> 먹은 음식 테이블에서 가져오도록
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                arrayList.clear();
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String food_code = jsonObject.getString("food_code");
+                        String food_name = jsonObject.getString("food_name");
+                        double food_kcal = jsonObject.getDouble("food_kcal");
+                        int food_size = jsonObject.getInt("food_size");
+                        double food_carbs = jsonObject.getDouble("food_carbs");
+                        double food_protein = jsonObject.getDouble("food_protein");
+                        double food_fat = jsonObject.getDouble("food_fat");
+                        double food_sugars = jsonObject.getDouble("food_sugars");
+                        double food_sodium = jsonObject.getDouble("food_sodium");
+                        double food_CH = jsonObject.getDouble("food_CH");
+                        double food_Sat_fat = jsonObject.getDouble("food_Sat_fat");
+                        double food_trans_fat = jsonObject.getDouble("food_trans_fat");
+                        arrayList.add(new Food(food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat));
+                    }
+                    foodAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        FoodRequest foodRequest = new FoodRequest(responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(foodRequest);
     }
 }

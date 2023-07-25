@@ -1,6 +1,8 @@
 package Model;
 
 public class Food {
+
+    private String food_code;
     private String food_name; //이름
     private double food_kcal; //칼로리
     private int food_size; //용량
@@ -13,7 +15,8 @@ public class Food {
     private double food_Sat_fat; //포화지방산
     private double food_trans_fat; //트랜스지방
 
-    public Food(String food_name, double food_kcal, int food_size, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
+    public Food(String food_code, String food_name, double food_kcal, int food_size, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
+        this.food_code = food_code;
         this.food_name = food_name;
         this.food_kcal = food_kcal;
         this.food_size = food_size;
@@ -25,6 +28,14 @@ public class Food {
         this.food_CH = food_CH;
         this.food_Sat_fat = food_Sat_fat;
         this.food_trans_fat = food_trans_fat;
+    }
+
+    public String getFood_code() {
+        return food_code;
+    }
+
+    public void setFood_code(String food_code) {
+        this.food_name = food_code;
     }
 
     public String getFood_name() {

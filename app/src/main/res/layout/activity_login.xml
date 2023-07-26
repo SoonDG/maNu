@@ -25,7 +25,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="290dp"
         android:ems="10"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:hint="Password"
         android:text="test"
         android:textColorHint="#808080"

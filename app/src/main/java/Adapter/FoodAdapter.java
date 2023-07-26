@@ -48,7 +48,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
-        holder.food_code.setText(arrayList.get(position).getFood_code());
+        holder.food_code = arrayList.get(position).getFood_code();
         holder.food_name.setText(arrayList.get(position).getFood_name());
         holder.food_kcal.setText(arrayList.get(position).getFood_kcal() + "(kcal)");
         holder.food_size.setText(arrayList.get(position).getFood_size() + "(g)");
@@ -68,7 +68,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                 AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
                 ad.setMessage(holder.food_name.getText() + "를 오늘 먹은 식품에 추가 하시겠습니까?");
 
-                ad.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                ad.setPositiveButton("네", new DialogInterface.OnClickListener() { //음식 먹은 갯수를 입력하도록 변경해야 함
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) { //데이터 베이스에 먹은 음식에 추가
                         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -92,7 +92,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                         };
                         Long eat_date = System.currentTimeMillis();
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        EatFoodRequest eatFoodRequest = new EatFoodRequest("test", format.format(eat_date), holder.food_code.getText().toString(), responseListener);
+                        EatFoodRequest eatFoodRequest = new EatFoodRequest("test", format.format(eat_date), holder.food_code, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
                         queue.add(eatFoodRequest);
 
@@ -118,11 +118,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-       protected TextView food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
+       protected TextView food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
+       protected String food_code;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             RecyclerviewItemBinding itemBinding = RecyclerviewItemBinding.bind(itemView);
-            this.food_code = itemBinding.foodCode;
             this.food_name = itemBinding.foodName;
             this.food_kcal = itemBinding.foodKcal;
             this.food_size = itemBinding.foodSize;

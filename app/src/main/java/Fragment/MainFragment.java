@@ -19,10 +19,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Adapter.FoodAdapter;
 import Model.Food;
+import Request.EatFoodRequest;
 import Request.FoodRequest;
 
 /**
@@ -93,6 +96,9 @@ public class MainFragment extends Fragment {
         arrayList = new ArrayList<>(); //데이터 베이스에서 먹은 음식 테이블로 부터 유저id, 날짜를 통해 오늘 먹은 음식을 가져와 담음
         foodAdapter = new FoodAdapter(arrayList);
         fragmentMainBinding.mainRecyclerView.setAdapter(foodAdapter);
+
+        set_Food_list();
+
         return view;
     }
 
@@ -132,8 +138,10 @@ public class MainFragment extends Fragment {
             }
         };
 
-        FoodRequest foodRequest = new FoodRequest(responseListener);
+        Long eat_date = System.currentTimeMillis();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        EatFoodRequest eatfoodRequest = new EatFoodRequest("test", format.format(eat_date), responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(foodRequest);
+        queue.add(eatfoodRequest);
     }
 }

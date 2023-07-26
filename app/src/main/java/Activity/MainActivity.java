@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.frame_layout, mainFragment).commit(); //시작 화면을 mainFragment로
 
         setSupportActionBar(mainBinding.toolbar); //툴바 설정
+        mainBinding.toolbar.setTitle("MyNu");
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mainBinding.drawerLayout, mainBinding.toolbar, R.string.app_name, R.string.app_name);
         mainBinding.drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -63,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
                }
                else if(id == R.id.logout){ //로그아웃 후, 다시 로그인 화면으로 전환
-
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                }
                return true;
             }

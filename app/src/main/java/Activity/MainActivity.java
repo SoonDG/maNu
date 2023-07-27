@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
                else if(id == R.id.logout){ //로그아웃 후, 다시 로그인 화면으로 전환
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE); //자동 로그인 정보를 초기화
+                    SharedPreferences.Editor autoLogin = sharedPreferences.edit();
+                    autoLogin.clear();
+                    autoLogin.commit();
                     finish();
                }
                return true;

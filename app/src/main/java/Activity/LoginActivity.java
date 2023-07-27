@@ -1,6 +1,7 @@
 package Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,9 @@ import Request.LoginRequest;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding loginBinding;
+    private String LoginID, LoginPass;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,12 @@ public class LoginActivity extends AppCompatActivity {
         View view = loginBinding.getRoot();
         setContentView(view);
 
+        sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        LoginID = sharedPreferences.getString("ID", null);
+        LoginPass = sharedPreferences.getString("Password", null);
+        if(LoginID != null && LoginPass != null){
+            check_login(LoginID, LoginPass); //자동 로그인
+        }
         loginBinding.imsiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,34 +62,46 @@ public class LoginActivity extends AppCompatActivity {
                 String ID = loginBinding.loginIDText.getText().toString();
                 String Password = loginBinding.loginPassText.getText().toString();
 
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            boolean success = jsonObject.getBoolean("success");
-                            if(success){
-                                String ID = jsonObject.getString("ID");
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                intent.putExtra("ID", ID);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT);
-                                return;
-                            }
-                        } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
-                            throw new RuntimeException(e);
-                        }
-                    }
-                };
-
-                LoginRequest loginRequest = new LoginRequest(ID, Password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                queue.add(loginRequest);
+                check_login(ID, Password); //입력한 정보로 로그인
             }
         });
+    }
+
+    public void check_login(String ID, String Password) { //로그인 함수
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if(success){
+                        int Age = jsonObject.getInt("Age");
+                        String Gender = jsonObject.getString("Gender");
+                        if(LoginID == null && LoginPass == null){ //자동 로그인 정보가 저장되어 있지 않다면
+                            SharedPreferences.Editor autoLogin = sharedPreferences.edit(); //자동 로그인 되도록 입력한 정보를 저장
+                            autoLogin.putString("ID", ID);
+                            autoLogin.putString("Password", Password);
+                            autoLogin.putInt("Age", Age);
+                            autoLogin.putString("Gender", Gender);
+                            autoLogin.commit();
+                        }
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT);
+                        return;
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        LoginRequest loginRequest = new LoginRequest(ID, Password, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+        queue.add(loginRequest);
     }
 }

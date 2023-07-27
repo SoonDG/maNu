@@ -115,6 +115,7 @@ public class MainFragment extends Fragment {
                 arrayList.clear();
                 try {
                     JSONArray jsonArray = new JSONArray(response);
+                    double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0;
                     for(int i = 0; i < jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String food_code = jsonObject.getString("food_code");
@@ -130,7 +131,26 @@ public class MainFragment extends Fragment {
                         double food_Sat_fat = jsonObject.getDouble("food_Sat_fat");
                         double food_trans_fat = jsonObject.getDouble("food_trans_fat");
                         arrayList.add(new Food(food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat));
+                        sum_kcal += food_kcal;
+                        sum_carbs += food_carbs;
+                        sum_protein += food_protein;
+                        sum_fat += food_fat;
+                        sum_sugars += food_sugars;
+                        sum_sodium += food_sodium;
+                        sum_CH += food_CH;
+                        sum_Sat_fat += food_Sat_fat;
+                        sum_trans_fat += food_trans_fat;
                     }
+                    fragmentMainBinding.myKcalVal.setText(String.format("%.2f", sum_kcal));
+                    fragmentMainBinding.myCarbsVal.setText(String.format("%.2f",sum_carbs));
+                    fragmentMainBinding.myProteinVal.setText(String.format("%.2f",sum_protein));
+                    fragmentMainBinding.myFatVal.setText(String.format("%.2f",sum_fat));
+                    fragmentMainBinding.mySugarsVal.setText(String.format("%.2f",sum_sugars));
+                    fragmentMainBinding.mySodiumVal.setText(String.format("%.2f",sum_sodium));
+                    fragmentMainBinding.myCHVal.setText(String.format("%.2f",sum_CH));
+                    fragmentMainBinding.mySatFatVal.setText(String.format("%.2f",sum_Sat_fat));
+                    fragmentMainBinding.myTransFatVal.setText(String.format("%.2f",sum_trans_fat));
+
                     foodAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

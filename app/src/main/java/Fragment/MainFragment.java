@@ -23,6 +23,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import Adapter.EatFoodAdapter;
 import Adapter.FoodAdapter;
 import Model.Food;
 import Request.EatFoodRequest;
@@ -37,7 +38,7 @@ public class MainFragment extends Fragment {
 
     private FragmentMainBinding fragmentMainBinding;
 
-    private FoodAdapter foodAdapter;
+    private EatFoodAdapter eatFoodAdapter;
     private LinearLayoutManager linearLayoutManager;
 
 
@@ -94,8 +95,8 @@ public class MainFragment extends Fragment {
         fragmentMainBinding.mainRecyclerView.setLayoutManager(linearLayoutManager);
 
         arrayList = new ArrayList<>(); //데이터 베이스에서 먹은 음식 테이블로 부터 유저id, 날짜를 통해 오늘 먹은 음식을 가져와 담음
-        foodAdapter = new FoodAdapter(arrayList);
-        fragmentMainBinding.mainRecyclerView.setAdapter(foodAdapter);
+        eatFoodAdapter = new EatFoodAdapter(arrayList);
+        fragmentMainBinding.mainRecyclerView.setAdapter(eatFoodAdapter);
 
         set_Food_list();
 
@@ -151,7 +152,7 @@ public class MainFragment extends Fragment {
                     fragmentMainBinding.mySatFatVal.setText(String.format("%.2f",sum_Sat_fat));
                     fragmentMainBinding.myTransFatVal.setText(String.format("%.2f",sum_trans_fat));
 
-                    foodAdapter.notifyDataSetChanged();
+                    eatFoodAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }

@@ -1,7 +1,9 @@
 package Adapter;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,8 @@ import Request.EatFoodRequest;
 
 public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHolder>{
     private ArrayList<Food> arrayList;
-
+    private SharedPreferences sharedPreferences;
+    private String user_ID;
     public EatFoodAdapter(ArrayList<Food> arrayList){
         this.arrayList = arrayList;
     }
@@ -36,8 +39,11 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
     @NonNull
     @Override
     public EatFoodAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+        Context context = parent.getContext();
+        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
+        sharedPreferences = context.getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        user_ID = sharedPreferences.getString("ID", null);
         return viewHolder;
     }
 
@@ -72,9 +78,11 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
                                     boolean success = jsonObject.getBoolean("success");
-                                    if(success){
+                                    if(success){ //데이터 베이스에서 제거가 되었다면
                                         Toast.makeText(view.getContext(), "먹은 음식에서 제거", Toast.LENGTH_SHORT);
-                                        notifyDataSetChanged();
+                                        int itemPosition = holder.getAdapterPosition();
+                                        arrayList.remove(itemPosition); //리스트에서 아이템 제거
+                                        notifyItemRemoved(itemPosition); //뷰에서 아이템 제거
                                         return;
                                     }
                                     else {
@@ -89,7 +97,7 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
 
                         Long eat_date = System.currentTimeMillis();
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        EatFoodRequest eatFoodRequest = new EatFoodRequest("test", format.format(eat_date), holder.food_code, 1, responseListener);
+                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), holder.food_code, 1, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
                         queue.add(eatFoodRequest);
 

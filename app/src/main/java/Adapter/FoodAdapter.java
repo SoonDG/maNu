@@ -1,7 +1,9 @@
 package Adapter;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,8 @@ import Request.FoodRequest;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     private ArrayList<Food> arrayList;
+    private SharedPreferences sharedPreferences;
+    private String user_ID;
 
     public FoodAdapter(ArrayList<Food> arrayList){
         this.arrayList = arrayList;
@@ -41,8 +45,11 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     @NonNull
     @Override
     public FoodAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+        Context context = parent.getContext();
+        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
+        sharedPreferences = context.getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        user_ID = sharedPreferences.getString("ID", null);
         return viewHolder;
     }
 
@@ -92,7 +99,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                         };
                         Long eat_date = System.currentTimeMillis();
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        EatFoodRequest eatFoodRequest = new EatFoodRequest("test", format.format(eat_date), holder.food_code, responseListener);
+                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), holder.food_code, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
                         queue.add(eatFoodRequest);
 

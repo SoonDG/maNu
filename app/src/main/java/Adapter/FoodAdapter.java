@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +77,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                 AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
                 ad.setMessage(holder.food_name.getText() + "를 오늘 먹은 식품에 추가 하시겠습니까?");
 
+                final Spinner spinner = new Spinner(ad.getContext());
+                String [] serving_Data = ad.getContext().getResources().getStringArray(R.array.serving);
+                ArrayAdapter servingAdapter = new ArrayAdapter(ad.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
+                spinner.setAdapter(servingAdapter);
+                ad.setView(spinner);
+
                 ad.setPositiveButton("네", new DialogInterface.OnClickListener() { //음식 먹은 갯수를 입력하도록 변경해야 함
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) { //데이터 베이스에 먹은 음식에 추가
@@ -99,7 +107,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                         };
                         Long eat_date = System.currentTimeMillis();
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), holder.food_code, responseListener);
+                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), Integer.parseInt(spinner.getSelectedItem().toString()), holder.food_code, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
                         queue.add(eatFoodRequest);
 

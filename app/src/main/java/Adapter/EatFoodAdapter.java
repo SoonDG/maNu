@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import Interface.EatFoodDelete;
 import Model.Food;
 import Request.EatFoodRequest;
 
@@ -32,8 +33,11 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
     private ArrayList<Food> arrayList;
     private SharedPreferences sharedPreferences;
     private String user_ID;
-    public EatFoodAdapter(ArrayList<Food> arrayList){
+
+    private EatFoodDelete eatFoodDelete;
+    public EatFoodAdapter(ArrayList<Food> arrayList, EatFoodDelete eatFoodDelete){
         this.arrayList = arrayList;
+        this.eatFoodDelete = eatFoodDelete;
     }
 
     @NonNull
@@ -81,6 +85,9 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                     if(success){ //데이터 베이스에서 제거가 되었다면
                                         Toast.makeText(view.getContext(), "먹은 음식에서 제거", Toast.LENGTH_SHORT);
                                         int itemPosition = holder.getAdapterPosition();
+                                        Food food = arrayList.get(itemPosition);
+                                        eatFoodDelete.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                                        //먹은 음식의 영양 성분을 MainFragment의 표에 반영하기 위한 함수 호출
                                         arrayList.remove(itemPosition); //리스트에서 아이템 제거
                                         notifyItemRemoved(itemPosition); //뷰에서 아이템 제거
                                         return;

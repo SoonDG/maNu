@@ -15,11 +15,12 @@ public class EatFoodRequest extends StringRequest {
 
     private Map<String, String> map;
 
-    public EatFoodRequest(String user_id, String eat_date, String food_code, Response.Listener<String> listener){ //선택한 음식을 먹은 음식 테이블에 저장
+    public EatFoodRequest(String user_id, String eat_date, int serving, String food_code, Response.Listener<String> listener){ //선택한 음식을 먹은 음식 테이블에 저장
         super(Method.POST, URL, listener, null);
         map = new HashMap<>();
         map.put("user_id", user_id);
         map.put("eat_date", eat_date);
+        map.put("serving", serving + "");
         map.put("food_code", food_code);
     }
 

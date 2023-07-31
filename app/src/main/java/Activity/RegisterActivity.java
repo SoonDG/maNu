@@ -48,19 +48,30 @@ public class RegisterActivity extends AppCompatActivity {
                 int Age = Integer.parseInt(registerBinding.ageSpinner.getSelectedItem().toString());
                 String Gender = registerBinding.genderSpinner.getSelectedItem().toString();
 
+                if(ID.isEmpty() || Password.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT);
+                    return;
+                }
+                else if(ID.length() > 20 || Password.length() > 20){
+                    Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호의 길이를 20자 내로 해주세요.", Toast.LENGTH_SHORT);
+                    return;
+                }
+
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            boolean success = jsonObject.getBoolean("success");
-                            if(success){
+                            int success = jsonObject.getInt("success");
+                            if(success == 0){
                                 Toast.makeText(getApplicationContext(), "회원가입 성공", Toast.LENGTH_SHORT);
                                 finish(); //회원가입 창 닫고 로그인 창으로 이동
                             }
-                            else {
-                                Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_SHORT);
-                                return;
+                            else if(success == 1){
+                                Toast.makeText(getApplicationContext(), "로그인 데이터 전송 실패", Toast.LENGTH_SHORT);
+                            }
+                            else if(success == 2){
+                                Toast.makeText(getApplicationContext(), "sql문 실행 실패", Toast.LENGTH_SHORT);
                             }
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);

@@ -57,6 +57,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
+        holder.serving.setText(arrayList.get(position).getServing() + " 인분");
         holder.food_code = arrayList.get(position).getFood_code();
         holder.food_name.setText(arrayList.get(position).getFood_name());
         holder.food_kcal.setText(arrayList.get(position).getFood_kcal() + "(kcal)");
@@ -133,11 +134,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-       protected TextView food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
+       protected TextView serving, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
        protected String food_code;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             RecyclerviewItemBinding itemBinding = RecyclerviewItemBinding.bind(itemView);
+            this.serving = itemBinding.serving;
             this.food_name = itemBinding.foodName;
             this.food_kcal = itemBinding.foodKcal;
             this.food_size = itemBinding.foodSize;

@@ -53,6 +53,7 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull EatFoodAdapter.ViewHolder holder, int position) {
+        holder.serving.setText(arrayList.get(position).getServing() + " 인분");
         holder.food_code = arrayList.get(position).getFood_code();
         holder.food_name.setText(arrayList.get(position).getFood_name());
         holder.food_kcal.setText(arrayList.get(position).getFood_kcal() + "(kcal)");
@@ -86,7 +87,7 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                         Toast.makeText(view.getContext(), "먹은 음식에서 제거", Toast.LENGTH_SHORT);
                                         int itemPosition = holder.getAdapterPosition();
                                         Food food = arrayList.get(itemPosition);
-                                        eatFoodDelete.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                                        eatFoodDelete.EatFoodDelete(food.getServing(), food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
                                         //먹은 음식의 영양 성분을 MainFragment의 표에 반영하기 위한 함수 호출
                                         arrayList.remove(itemPosition); //리스트에서 아이템 제거
                                         notifyItemRemoved(itemPosition); //뷰에서 아이템 제거
@@ -104,7 +105,7 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
 
                         Long eat_date = System.currentTimeMillis();
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), holder.food_code, 1, responseListener);
+                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), holder.food_code, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
                         queue.add(eatFoodRequest);
 
@@ -130,11 +131,12 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        protected TextView food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
+        protected TextView serving, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
         protected String food_code;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             RecyclerviewItemBinding itemBinding = RecyclerviewItemBinding.bind(itemView);
+            this.serving = itemBinding.serving;
             this.food_name = itemBinding.foodName;
             this.food_kcal = itemBinding.foodKcal;
             this.food_size = itemBinding.foodSize;

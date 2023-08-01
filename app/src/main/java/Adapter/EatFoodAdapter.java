@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import Activity.LoginActivity;
 import Interface.EatFoodDelete;
 import Model.Food;
 import Request.EatFoodRequest;
@@ -82,20 +83,21 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                             public void onResponse(String response) {
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
-                                    boolean success = jsonObject.getBoolean("success");
-                                    if(success){ //데이터 베이스에서 제거가 되었다면
+                                    int success = jsonObject.getInt("success");
+                                    if(success == 0){ //데이터 베이스에서 제거가 되었다면
                                         Toast.makeText(view.getContext(), "먹은 음식에서 제거", Toast.LENGTH_SHORT);
                                         int itemPosition = holder.getAdapterPosition();
                                         Food food = arrayList.get(itemPosition);
-                                        eatFoodDelete.EatFoodDelete(food.getServing(), food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
                                         //먹은 음식의 영양 성분을 MainFragment의 표에 반영하기 위한 함수 호출
+                                        eatFoodDelete.EatFoodDelete(food.getServing(), food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
                                         arrayList.remove(itemPosition); //리스트에서 아이템 제거
                                         notifyItemRemoved(itemPosition); //뷰에서 아이템 제거
-                                        return;
                                     }
-                                    else {
-                                        Toast.makeText(view.getContext(), "먹은 음식에서 제거 실패", Toast.LENGTH_SHORT);
-                                        return;
+                                    else if(success == 1){
+                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT);
+                                    }
+                                    else if(success == 2){
+                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT);
                                     }
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);

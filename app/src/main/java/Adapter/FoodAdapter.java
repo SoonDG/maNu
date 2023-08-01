@@ -92,14 +92,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                             public void onResponse(String response) {
                                 try {
                                     JSONObject jsonObject = new JSONObject(response);
-                                    boolean success = jsonObject.getBoolean("success");
-                                    if(success){
+                                    int success = jsonObject.getInt("success");
+                                    if(success == 0){
                                         Toast.makeText(view.getContext(), "먹은 음식 저장 성공", Toast.LENGTH_SHORT);
-                                        return;
                                     }
-                                    else {
-                                        Toast.makeText(view.getContext(), "먹은 음식 저장 실패", Toast.LENGTH_SHORT);
-                                        return;
+                                    else if(success == 1){
+                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT);
+                                    }
+                                    else if(success == 2){
+                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT);
                                     }
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);

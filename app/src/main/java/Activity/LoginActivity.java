@@ -32,10 +32,11 @@ public class LoginActivity extends AppCompatActivity {
         View view = loginBinding.getRoot();
         setContentView(view);
 
+        //자동 로그인
         sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         LoginID = sharedPreferences.getString("ID", null);
         LoginPass = sharedPreferences.getString("Password", null);
-        if(LoginID != null && LoginPass != null){
+        if(LoginID != null && LoginPass != null){ //로그인 한 기록이 있다면
             check_login(LoginID, LoginPass); //자동 로그인
         }
 
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                 String ID = loginBinding.loginIDText.getText().toString();
                 String Password = loginBinding.loginPassText.getText().toString();
                 if(ID.isEmpty() || Password.isEmpty()){
-                    Toast.makeText(getApplicationContext(), "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT);
+                    Toast.makeText(LoginActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT);
                 }
                 else check_login(ID, Password); //입력한 정보로 로그인
             }
@@ -83,17 +84,17 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                     else if(success == 1){
-                        Toast.makeText(getApplicationContext(), "로그인 데이터 전송 실패", Toast.LENGTH_SHORT);
+                        Toast.makeText(LoginActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT);
                     }
                     else if(success == 2){
-                        Toast.makeText(getApplicationContext(), "sql문 실행 실패", Toast.LENGTH_SHORT);
+                        Toast.makeText(LoginActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT);
                     }
                     else if(success == 3){
-                        Toast.makeText(getApplicationContext(), "일치하는 계정이 존재하지 않습니다.", Toast.LENGTH_SHORT);
+                        Toast.makeText(LoginActivity.this, "일치하는 계정이 존재하지 않습니다.", Toast.LENGTH_SHORT);
                     }
 
                 } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
+                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_SHORT);
                     throw new RuntimeException(e);
                 }
             }

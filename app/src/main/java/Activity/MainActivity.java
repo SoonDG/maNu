@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                int id = item.getItemId();
                if(id == R.id.account){ //계정 정보 창으로 전환
-
+                    Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
+                    startActivity(intent);
                }
                else if(id == R.id.logout){ //로그아웃 후, 다시 로그인 화면으로 전환
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);

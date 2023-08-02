@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -78,35 +79,43 @@ public class MainFragment extends Fragment implements EatFoodDelete {
                 arrayList.clear();
                 try {
                     JSONArray jsonArray = new JSONArray(response);
-                    for(int i = 0; i < jsonArray.length(); i++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        int serving = jsonObject.getInt("serving");
-                        String food_code = jsonObject.getString("food_code");
-                        String food_name = jsonObject.getString("food_name");
-                        double food_kcal = jsonObject.getDouble("food_kcal");
-                        int food_size = jsonObject.getInt("food_size");
-                        double food_carbs = jsonObject.getDouble("food_carbs");
-                        double food_protein = jsonObject.getDouble("food_protein");
-                        double food_fat = jsonObject.getDouble("food_fat");
-                        double food_sugars = jsonObject.getDouble("food_sugars");
-                        double food_sodium = jsonObject.getDouble("food_sodium");
-                        double food_CH = jsonObject.getDouble("food_CH");
-                        double food_Sat_fat = jsonObject.getDouble("food_Sat_fat");
-                        double food_trans_fat = jsonObject.getDouble("food_trans_fat");
-                        arrayList.add(new Food(serving, food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat));
-                        sum_kcal += food_kcal * serving;
-                        sum_carbs += food_carbs * serving;
-                        sum_protein += food_protein * serving;
-                        sum_fat += food_fat * serving;
-                        sum_sugars += food_sugars * serving;
-                        sum_sodium += food_sodium * serving;
-                        sum_CH += food_CH * serving;
-                        sum_Sat_fat += food_Sat_fat * serving;
-                        sum_trans_fat += food_trans_fat * serving;
+                    int success = jsonArray.getJSONObject(0).getInt("success");
+                    if(success == 0) {
+                        for (int i = 1; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            int serving = jsonObject.getInt("serving");
+                            String food_code = jsonObject.getString("food_code");
+                            String food_name = jsonObject.getString("food_name");
+                            double food_kcal = jsonObject.getDouble("food_kcal");
+                            int food_size = jsonObject.getInt("food_size");
+                            double food_carbs = jsonObject.getDouble("food_carbs");
+                            double food_protein = jsonObject.getDouble("food_protein");
+                            double food_fat = jsonObject.getDouble("food_fat");
+                            double food_sugars = jsonObject.getDouble("food_sugars");
+                            double food_sodium = jsonObject.getDouble("food_sodium");
+                            double food_CH = jsonObject.getDouble("food_CH");
+                            double food_Sat_fat = jsonObject.getDouble("food_Sat_fat");
+                            double food_trans_fat = jsonObject.getDouble("food_trans_fat");
+                            arrayList.add(new Food(serving, food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat));
+                            sum_kcal += food_kcal * serving;
+                            sum_carbs += food_carbs * serving;
+                            sum_protein += food_protein * serving;
+                            sum_fat += food_fat * serving;
+                            sum_sugars += food_sugars * serving;
+                            sum_sodium += food_sodium * serving;
+                            sum_CH += food_CH * serving;
+                            sum_Sat_fat += food_Sat_fat * serving;
+                            sum_trans_fat += food_trans_fat * serving;
+                        }
+                        set_My_Nu_Val(); //영양분 합을 아래 표에 반영
+                        eatFoodAdapter.notifyDataSetChanged(); //리스트의 변경 내용을 리스트 뷰에 반영
                     }
-                    set_My_Nu_Val(); //영양분 합을 아래 표에 반영
-
-                    eatFoodAdapter.notifyDataSetChanged(); //리스트의 변경 내용을 리스트 뷰에 반영
+                    else if(success == 1){
+                        Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT);
+                    }
+                    else if(success == 2){
+                        Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT);
+                    }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }

@@ -6,43 +6,95 @@
     android:layout_height="match_parent"
     tools:context="Activity.MyAccountActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/edit_information_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="TextView"
+        android:layout_marginTop="100dp"
+        android:text="회원 정보 수정"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="57dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:text="TextView"
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView4"
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="아이디 : "
+                android:textSize="20sp"></TextView>
+            <TextView
+                android:id="@+id/my_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="비밀번호 : "
+                android:textSize="20sp"></TextView>
+            <TextView
+                android:id="@+id/my_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="나이 : "
+                android:textSize="20sp"></TextView>
+            <TextView
+                android:id="@+id/my_age"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="성별 : "
+                android:textSize="20sp"></TextView>
+            <TextView
+                android:id="@+id/my_gender"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/withdrawal_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="TextView"
+        android:layout_marginTop="50dp"
+        android:text="회원 탈퇴"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_information_btn" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

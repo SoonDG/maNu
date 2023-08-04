@@ -25,8 +25,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import Activity.LoginActivity;
-import Interface.EatFoodDelete;
+import Fragment.MainFragment;
 import Model.Food;
 import Request.EatFoodRequest;
 
@@ -35,10 +34,10 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
     private SharedPreferences sharedPreferences;
     private String user_ID;
 
-    private EatFoodDelete eatFoodDelete;
-    public EatFoodAdapter(ArrayList<Food> arrayList, EatFoodDelete eatFoodDelete){
+    private MainFragment mainFragment;
+    public EatFoodAdapter(ArrayList<Food> arrayList, MainFragment mainFragment){
         this.arrayList = arrayList;
-        this.eatFoodDelete = eatFoodDelete;
+        this.mainFragment = mainFragment;
     }
 
     @NonNull
@@ -85,19 +84,19 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                     JSONObject jsonObject = new JSONObject(response);
                                     int success = jsonObject.getInt("success");
                                     if(success == 0){ //데이터 베이스에서 제거가 되었다면
-                                        Toast.makeText(view.getContext(), "먹은 음식에서 제거", Toast.LENGTH_SHORT);
+                                        Toast.makeText(view.getContext(), holder.food_name.getText() + "을 먹은 음식에서 제거했습니다.", Toast.LENGTH_SHORT).show();
                                         int itemPosition = holder.getAdapterPosition();
                                         Food food = arrayList.get(itemPosition);
                                         //먹은 음식의 영양 성분을 MainFragment의 표에 반영하기 위한 함수 호출
-                                        eatFoodDelete.EatFoodDelete(food.getServing(), food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                                        mainFragment.EatFoodDelete(food.getServing(), food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
                                         arrayList.remove(itemPosition); //리스트에서 아이템 제거
                                         notifyItemRemoved(itemPosition); //뷰에서 아이템 제거
                                     }
                                     else if(success == 1){
-                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT);
+                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
                                     }
                                     else if(success == 2){
-                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT);
+                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);

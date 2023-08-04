@@ -22,14 +22,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Adapter.EatFoodAdapter;
-import Interface.EatFoodDelete;
 import Model.Food;
 import Request.EatFoodRequest;
 
-public class MainFragment extends Fragment implements EatFoodDelete {
+public class MainFragment extends Fragment{
 
     private FragmentMainBinding fragmentMainBinding;
-
     private EatFoodAdapter eatFoodAdapter;
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<Food> arrayList;
@@ -47,8 +45,7 @@ public class MainFragment extends Fragment implements EatFoodDelete {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false);
         View view = fragmentMainBinding.getRoot();
 
@@ -111,10 +108,10 @@ public class MainFragment extends Fragment implements EatFoodDelete {
                         eatFoodAdapter.notifyDataSetChanged(); //리스트의 변경 내용을 리스트 뷰에 반영
                     }
                     else if(success == 1){
-                        Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
                     }
                     else if(success == 2){
-                        Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -129,7 +126,6 @@ public class MainFragment extends Fragment implements EatFoodDelete {
         queue.add(eatfoodRequest);
     }
 
-    @Override
     public void EatFoodDelete(int serving, double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
         sum_kcal -= (food_kcal * serving);
         sum_carbs -= (food_carbs * serving);

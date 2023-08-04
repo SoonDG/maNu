@@ -1,27 +1,20 @@
 package Fragment;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.FragmentSearchBinding;
 
 import org.json.JSONArray;
@@ -30,12 +23,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import Activity.LoginActivity;
-import Activity.MainActivity;
 import Adapter.FoodAdapter;
 import Model.Food;
 import Request.FoodRequest;
-import Request.LoginRequest;
 
 public class SearchFragment extends Fragment {
 
@@ -117,10 +107,10 @@ public class SearchFragment extends Fragment {
                         foodAdapter.notifyDataSetChanged();
                     }
                     else if(success == 1){
-                        Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
                     }
                     else if(success == 2){
-                        Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

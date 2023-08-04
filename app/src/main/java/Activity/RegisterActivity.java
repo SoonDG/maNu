@@ -45,45 +45,45 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String ID = registerBinding.regIDText.getText().toString();
                 String Password = registerBinding.regPassText.getText().toString();
+                String Repeat_Password = registerBinding.repeatRegPassText.getText().toString();
                 int Age = Integer.parseInt(registerBinding.ageSpinner.getSelectedItem().toString());
                 String Gender = registerBinding.genderSpinner.getSelectedItem().toString();
 
                 if(ID.isEmpty() || Password.isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT);
-                    return;
+                    Toast.makeText(RegisterActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT).show();
                 }
                 else if(ID.length() > 20 || Password.length() > 20){
-                    Toast.makeText(RegisterActivity.this, "아이디 또는 비밀번호의 길이를 20자 내로 해주세요.", Toast.LENGTH_SHORT);
-                    return;
+                    Toast.makeText(RegisterActivity.this, "아이디 또는 비밀번호의 길이를 20자 내로 해주세요.", Toast.LENGTH_SHORT).show();
                 }
-
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            int success = jsonObject.getInt("success");
-                            if(success == 0){
-                                Toast.makeText(RegisterActivity.this, "회원가입 성공", Toast.LENGTH_SHORT);
-                                finish(); //회원가입 창 닫고 로그인 창으로 이동
+                else if(!Password.equals(Repeat_Password)){
+                    Toast.makeText(RegisterActivity.this, "비밀번호가 다릅니다. 비밀번호를 똑같이 2번 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                int success = jsonObject.getInt("success");
+                                if (success == 0) {
+                                    Toast.makeText(RegisterActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                                    finish(); //회원가입 창 닫고 로그인 창으로 이동
+                                } else if (success == 1) {
+                                    Toast.makeText(RegisterActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                                } else if (success == 2) {
+                                    Toast.makeText(RegisterActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                throw new RuntimeException(e);
                             }
-                            else if(success == 1){
-                                Toast.makeText(RegisterActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT);
-                            }
-                            else if(success == 2){
-                                Toast.makeText(RegisterActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT);
-                            }
-                        } catch (JSONException e) {
-                            Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_SHORT);
-                            throw new RuntimeException(e);
                         }
-                    }
-                };
+                    };
 
-                RegisterRequest registerRequest = new RegisterRequest(ID, Password, Age, Gender, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                queue.add(registerRequest);
-
+                    RegisterRequest registerRequest = new RegisterRequest(ID, Password, Age, Gender, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                    queue.add(registerRequest);
+                }
             }
         });
     }

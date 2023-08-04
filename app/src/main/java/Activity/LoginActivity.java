@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                 String ID = loginBinding.loginIDText.getText().toString();
                 String Password = loginBinding.loginPassText.getText().toString();
                 if(ID.isEmpty() || Password.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT);
+                    Toast.makeText(LoginActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT).show();
                 }
                 else check_login(ID, Password); //입력한 정보로 로그인
             }
@@ -69,9 +69,12 @@ public class LoginActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     int success = jsonObject.getInt("success");
                     if(success == 0){
-                        int Age = jsonObject.getInt("Age");
-                        String Gender = jsonObject.getString("Gender");
-                        if(LoginID == null && LoginPass == null){ //자동 로그인 정보가 저장되어 있지 않다면
+                        Toast.makeText(LoginActivity.this, ID + "님 환영합니다.", Toast.LENGTH_SHORT).show();
+
+                        if(LoginID == null && LoginPass == null){ //자동 로그인 정보가 저장 되어 있지 않다면
+                            int Age = jsonObject.getInt("Age");
+                            String Gender = jsonObject.getString("Gender");
+
                             SharedPreferences.Editor autoLogin = sharedPreferences.edit(); //자동 로그인 되도록 입력한 정보를 저장
                             autoLogin.putString("ID", ID);
                             autoLogin.putString("Password", Password);
@@ -84,17 +87,17 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                     else if(success == 1){
-                        Toast.makeText(LoginActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT);
+                        Toast.makeText(LoginActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT).show();
                     }
                     else if(success == 2){
-                        Toast.makeText(LoginActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT);
+                        Toast.makeText(LoginActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT).show();
                     }
                     else if(success == 3){
-                        Toast.makeText(LoginActivity.this, "일치하는 계정이 존재하지 않습니다.", Toast.LENGTH_SHORT);
+                        Toast.makeText(LoginActivity.this, "일치하는 계정이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
-                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_SHORT);
+                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     throw new RuntimeException(e);
                 }
             }

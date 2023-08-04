@@ -94,13 +94,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                                     JSONObject jsonObject = new JSONObject(response);
                                     int success = jsonObject.getInt("success");
                                     if(success == 0){
-                                        Toast.makeText(view.getContext(), "먹은 음식 저장 성공", Toast.LENGTH_SHORT);
+                                        Toast.makeText(view.getContext(), holder.food_name.getText() + " " + spinner.getSelectedItem().toString() + "인분을 먹은 음식에 담았습니다.", Toast.LENGTH_SHORT).show();
                                     }
                                     else if(success == 1){
-                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT);
+                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
                                     }
                                     else if(success == 2){
-                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT);
+                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);

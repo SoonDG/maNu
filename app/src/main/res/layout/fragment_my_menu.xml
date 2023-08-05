@@ -2,12 +2,239 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Fragment.MyMenuFragmet">
+    tools:context="Fragment.MyMenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="마이메뉴" />
+        android:layout_height="335dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:stretchColumns="*"
+        android:layout_marginTop="335dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="칼로리"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="탄수화물"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="단백질"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/month_my_kcal_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/month_my_carbs_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/month_my_protein_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="지방"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="당분"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="나트륨"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/month_my_fat_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/month_my_sugars_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/month_my_sodium_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="콜레스테롤"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="포화지방산"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="트랜스지방"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/month_my_CH_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/month_my_Sat_fat_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/month_my_trans_fat_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="적정 영양소 섭취"
+                android:textSize="20sp"
+                android:layout_span="3">
+            </TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/goodDay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"
+                android:layout_span="3">
+            </TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="부적정 영양소 섭취"
+                android:textSize="20sp"
+                android:layout_span="3">
+            </TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/badDay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"
+                android:layout_span="3">
+            </TextView>
+        </TableRow>
+
+    </TableLayout>
 
 </FrameLayout>

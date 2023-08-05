@@ -13,13 +13,13 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="450dp"
         android:stretchColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="match_parent"
@@ -74,7 +74,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="match_parent"
@@ -100,86 +100,86 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/my_fat_val"
-                android:text="0"
-                android:textSize="20sp"
-                android:gravity="center">
-            </TextView>
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+
+            <TextView
                 android:id="@+id/my_sugars_val"
-                android:text="0"
-                android:textSize="20sp"
-                android:gravity="center">
-            </TextView>
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+
+            <TextView
                 android:id="@+id/my_sodium_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="0"
-                android:textSize="20sp"
-                android:gravity="center">
-            </TextView>
+                android:textSize="20sp"></TextView>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="콜레스테롤"
-                android:textSize="20sp"
-                android:gravity="center">
-            </TextView>
+                android:textSize="20sp"></TextView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="포화지방산"
-                android:textSize="20sp"
-                android:gravity="center">
-            </TextView>
+                android:textSize="20sp"></TextView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="트랜스지방"
-                android:textSize="20sp"
-                android:gravity="center">
-            </TextView>
+                android:textSize="20sp"></TextView>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/my_CH_val"
-                android:text="0"
-                android:textSize="20sp"
-                android:gravity="center">
-            </TextView>
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
+
+            <TextView
                 android:id="@+id/my_Sat_fat_val"
-                android:text="0"
-                android:textSize="20sp"
-                android:gravity="center">
-            </TextView>
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/my_trans_fat_val"
+                android:gravity="center"
                 android:text="0"
-                android:textSize="20sp"
-                android:gravity="center">
-            </TextView>
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/my_trans_fat_val"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp"></TextView>
         </TableRow>
 
     </TableLayout>

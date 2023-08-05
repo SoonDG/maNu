@@ -1,5 +1,7 @@
 package Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -121,7 +123,8 @@ public class MainFragment extends Fragment{
 
         Long eat_date = System.currentTimeMillis();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        EatFoodRequest eatfoodRequest = new EatFoodRequest("test", format.format(eat_date), responseListener);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        EatFoodRequest eatfoodRequest = new EatFoodRequest(sharedPreferences.getString("ID", null), format.format(eat_date), responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(eatfoodRequest);
     }

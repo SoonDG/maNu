@@ -4,17 +4,11 @@
     android:layout_height="match_parent"
     tools:context="Fragment.MyMenuFragment">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="335dp" />
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:stretchColumns="*"
-        android:layout_marginTop="335dp">
+        android:layout_marginTop="385dp"
+        android:stretchColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
@@ -184,57 +178,152 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_span="3"
                 android:gravity="center"
                 android:text="적정 영양소 섭취"
-                android:textSize="20sp"
-                android:layout_span="3">
-            </TextView>
+                android:textSize="20sp"></TextView>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/goodDay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_span="3"
                 android:gravity="center"
                 android:text="0"
-                android:textSize="20sp"
-                android:layout_span="3">
-            </TextView>
+                android:textSize="20sp"></TextView>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_span="3"
                 android:gravity="center"
                 android:text="부적정 영양소 섭취"
-                android:textSize="20sp"
-                android:layout_span="3">
-            </TextView>
+                android:textSize="20sp"></TextView>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/badDay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_span="3"
                 android:gravity="center"
                 android:text="0"
-                android:textSize="20sp"
-                android:layout_span="3">
-            </TextView>
+                android:textSize="20sp"></TextView>
         </TableRow>
 
     </TableLayout>
+
+
+    <TableLayout
+        android:id="@+id/Calendar"
+        android:layout_width="match_parent"
+        android:layout_height="331dp"
+        android:layout_marginTop="50dp"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="일"
+                android:textColor="#ff0000"
+                android:textSize="18sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="월"
+                android:textSize="18sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="화"
+                android:textSize="18sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="수"
+                android:textSize="18sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="목"
+                android:textSize="18sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="금"
+                android:textSize="18sp"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="토"
+                android:textColor="#0067a3"
+                android:textSize="18sp"></TextView>
+
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/pre_month_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:text="◀"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:background="#00ff0000" />
+
+    <Button
+        android:id="@+id/next_month_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:text="▶"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:background="#00ff0000"/>
+
+    <TextView
+        android:id="@+id/Calendar_Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:text="2000.12"
+        android:textSize="30sp"
+        android:layout_marginTop="5dp"/>
 
 </FrameLayout>

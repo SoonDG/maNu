@@ -52,7 +52,7 @@ public class MainFragment extends Fragment{
         fragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false);
         View view = fragmentMainBinding.getRoot();
 
-        fragmentMainBinding.mainRecyclerView.setHasFixedSize(true);
+        fragmentMainBinding.mainRecyclerView.setHasFixedSize(true); //리사이클러 뷰 설정
         linearLayoutManager = new LinearLayoutManager(getActivity());
         fragmentMainBinding.mainRecyclerView.setLayoutManager(linearLayoutManager);
 
@@ -60,7 +60,7 @@ public class MainFragment extends Fragment{
         eatFoodAdapter = new EatFoodAdapter(arrayList, this);
         fragmentMainBinding.mainRecyclerView.setAdapter(eatFoodAdapter);
 
-        set_Food_list();
+        set_Food_list(); //오늘 먹은 음식 데이터를 데이터베이스로 부터 가져와 리사이클러 뷰에 표시
 
         return view;
     }
@@ -150,9 +150,9 @@ public class MainFragment extends Fragment{
         if(sum_Sat_fat < 0) sum_Sat_fat = 0;
         if(sum_trans_fat < 0) sum_trans_fat = 0;
         set_My_Nu_Val(); //삭제된 음식의 영양분 정보를 표에 반영
-    }
+    } //먹은 음식을 클릭하여 삭제했을 때 실행되는 메소드.
 
-    public void set_My_Nu_Val(){
+    public void set_My_Nu_Val(){ //영양분 정보를 표에 표시
         fragmentMainBinding.myKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
         fragmentMainBinding.myCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
         fragmentMainBinding.myProteinVal.setText(String.format("%.2f(g)", sum_protein));

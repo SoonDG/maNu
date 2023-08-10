@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +76,12 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                 AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
                 ad.setMessage(holder.food_name.getText() + "정보를 수정하시겠습니까?");
 
+                final Spinner spinner = new Spinner(ad.getContext());
+                String [] serving_Data = ad.getContext().getResources().getStringArray(R.array.serving);
+                ArrayAdapter servingAdapter = new ArrayAdapter(ad.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
+                spinner.setAdapter(servingAdapter);
+                ad.setView(spinner);
+
                 ad.setPositiveButton("삭제", new DialogInterface.OnClickListener() { //음식 먹은 갯수를 입력하도록 변경해야 함
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) { //데이터 베이스에 먹은 음식에 추가
@@ -85,6 +93,8 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                     int success = jsonObject.getInt("success");
                                     if(success == 0){ //데이터 베이스에서 제거가 되었다면
                                         Toast.makeText(view.getContext(), holder.food_name.getText() + "을 먹은 음식에서 제거했습니다.", Toast.LENGTH_SHORT).show();
+
+                                        //현재 화면에서 변경 내용을 반영하기 위한 작업
                                         int itemPosition = holder.getAdapterPosition();
                                         Food food = arrayList.get(itemPosition);
                                         //먹은 음식의 영양 성분을 MainFragment의 표에 반영하기 위한 함수 호출
@@ -117,6 +127,41 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                 ad.setNegativeButton("수정", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        int serving = Integer.parseInt(spinner.getSelectedItem().toString());
+                        Response.Listener<String> responseListener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    int success = jsonObject.getInt("success");
+                                    if(success == 0){ //데이터 베이스에서 변경이 성공했다면.
+                                        Toast.makeText(view.getContext(), holder.food_name.getText() + " 정보를 수정 했습니다.", Toast.LENGTH_SHORT).show();
+
+                                        //현재 화면에서 변경 내용을 반영하기 위한 작업
+                                        int itemPosition = holder.getAdapterPosition();
+                                        Food food = arrayList.get(itemPosition);
+                                        food.setServing(serving); //serving정보 변경
+                                        arrayList.set(itemPosition, food); //리스트에서 아이템 변경
+                                        notifyItemChanged(itemPosition);//뷰에서 아이템 변경 감지
+                                    }
+                                    else if(success == 1){
+                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if(success == 2){
+                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        };
+
+                        Long eat_date = System.currentTimeMillis();
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                        EatFoodRequest eatFoodRequest = new EatFoodRequest(serving, user_ID, format.format(eat_date), holder.food_code, responseListener);
+                        RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                        queue.add(eatFoodRequest);
+
                         dialogInterface.dismiss();
                     }
                 });

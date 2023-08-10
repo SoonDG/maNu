@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,7 @@ import Request.EatFoodRequest;
 public class MyMenuFragment extends Fragment {
     private FragmentMyMenuBinding fragmentMyMenuBinding;
     private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0;
-    private int year = 0, month = 0; //달력에 표시되는 날짜
+    private int year = 0, month = 0, day = 0; //현재 표시 되는 년도, 월, 일
     private int cur_year = 0, cur_month = 0, cur_day = 0; //오늘 날짜
 
     private TextView [] textViews = new TextView[43]; //1 ~ 42번 칸
@@ -80,6 +81,9 @@ public class MyMenuFragment extends Fragment {
         fragmentMyMenuBinding.preMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fragmentMyMenuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
+                fragmentMyMenuBinding.nextMonthBtn.setClickable(false);
+
                 month -= 1;
                 if(month == 0){ //달 설정
                     year -= 1;
@@ -95,12 +99,25 @@ public class MyMenuFragment extends Fragment {
                     set_display_Nu(cur_day);
                 }
                 else set_display_Nu(1);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fragmentMyMenuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
+                        fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
+                    }
+                }, 500); //모든 작업이 끝난 후 0.5초 뒤에 활성화
             }
         });
 
         fragmentMyMenuBinding.nextMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                fragmentMyMenuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
+                fragmentMyMenuBinding.nextMonthBtn.setClickable(false);
+
                 month += 1;
                 if(month == 13){ //달 설정
                     year += 1;
@@ -115,6 +132,15 @@ public class MyMenuFragment extends Fragment {
                     set_display_Nu(cur_day);
                 }
                 else set_display_Nu(1);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fragmentMyMenuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
+                        fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
+                    }
+                }, 500); //모든 작업이 끝난 후 0.5초 뒤에 활성화
             }
         });
 
@@ -245,7 +271,15 @@ public class MyMenuFragment extends Fragment {
                         textView.setOnClickListener(new View.OnClickListener() { //자동으로 setClickable(true);
                             @Override
                             public void onClick(View view) {
-                                set_display_Nu(Integer.parseInt(textView.getText().toString()));
+                                set_display_Nu(Integer.parseInt(textView.getText().toString())); //선택한 날의 정보를 표시
+
+                                calendar.set(year, month - 1, day);
+                                if(calendar.get(Calendar.DAY_OF_WEEK) == 1) textViews[day + first_day].setTextColor(Color.parseColor("#ff0000")); //이전에 클릭한 날짜에 색으로 표신한 것을 없애기
+                                else if(calendar.get(Calendar.DAY_OF_WEEK) == 7) textViews[day + first_day].setTextColor(Color.parseColor("#0067a3"));
+                                else textViews[day + first_day].setTextColor(Color.parseColor("#ffffff"));
+
+                                textView.setTextColor(Color.parseColor("#008000")); //선택한 날을 가시적으로 표현하기 위해 초록색으로 설정
+                                day = Integer.parseInt(textView.getText().toString()); //선택한 날을 저장
                             }
                         });
 

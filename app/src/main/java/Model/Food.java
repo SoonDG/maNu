@@ -63,6 +63,10 @@ public class Food {
         this.food_trans_fat = food_trans_fat;
     }
 
+    public Food(){
+
+    }
+
     public int getServing() {
         return serving;
     }

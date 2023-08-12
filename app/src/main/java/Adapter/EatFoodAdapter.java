@@ -140,7 +140,12 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                         //현재 화면에서 변경 내용을 반영하기 위한 작업
                                         int itemPosition = holder.getAdapterPosition();
                                         Food food = arrayList.get(itemPosition);
+                                        int pre_serving = food.getServing(); //변경 전의 인분 값
+
                                         food.setServing(serving); //serving정보 변경
+                                        //병견된 정보를 반영
+                                        mainFragment.EatFoodEdit(food.getServing() - pre_serving, food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+
                                         arrayList.set(itemPosition, food); //리스트에서 아이템 변경
                                         notifyItemChanged(itemPosition);//뷰에서 아이템 변경 감지
                                     }

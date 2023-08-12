@@ -152,6 +152,28 @@ public class MainFragment extends Fragment{
         set_My_Nu_Val(); //삭제된 음식의 영양분 정보를 표에 반영
     } //먹은 음식을 클릭하여 삭제했을 때 실행되는 메소드.
 
+    public void EatFoodEdit(int serving_def, double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat){
+        sum_kcal += (food_kcal * serving_def);
+        sum_carbs += (food_carbs * serving_def);
+        sum_protein += (food_protein * serving_def);
+        sum_fat += (food_fat * serving_def);
+        sum_sugars += (food_sugars * serving_def);
+        sum_sodium += (food_sodium * serving_def);
+        sum_CH += (food_CH * serving_def);
+        sum_Sat_fat += (food_Sat_fat * serving_def);
+        sum_trans_fat += (food_trans_fat * serving_def);
+        if(sum_kcal < 0) sum_kcal = 0;
+        if(sum_carbs < 0) sum_carbs = 0;
+        if(sum_protein < 0) sum_protein = 0;
+        if(sum_fat < 0) sum_fat = 0;
+        if(sum_sugars < 0) sum_sugars = 0;
+        if(sum_sodium < 0) sum_sodium = 0;
+        if(sum_CH < 0) sum_CH = 0;
+        if(sum_Sat_fat < 0) sum_Sat_fat = 0;
+        if(sum_trans_fat < 0) sum_trans_fat = 0;
+        set_My_Nu_Val(); //삭제된 음식의 영양분 정보를 표에 반영
+    } //병경된 인분 값과 이전 인분 값을 통해 변경된 값 만큼 반영
+
     public void set_My_Nu_Val(){ //영양분 정보를 표에 표시
         fragmentMainBinding.myKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
         fragmentMainBinding.myCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
@@ -162,5 +184,71 @@ public class MainFragment extends Fragment{
         fragmentMainBinding.myCHVal.setText(String.format("%.2f(mg)", sum_CH));
         fragmentMainBinding.mySatFatVal.setText(String.format("%.2f(g)", sum_Sat_fat));
         fragmentMainBinding.myTransFatVal.setText(String.format("%.2f(g)", sum_trans_fat));
+        check_Nu();
+    }
+
+    public void check_Nu(){ //영양분을 적절히 섭취 했는지 확인
+        if(sum_kcal > 3000){
+            fragmentMainBinding.myKcalVal.setTextColor(Color.parseColor("#808080"));
+        }
+        else {
+            fragmentMainBinding.myKcalVal.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        if(sum_carbs > 2000){
+            fragmentMainBinding.myCarbsVal.setTextColor(Color.parseColor("#808080"));
+        }
+        else {
+            fragmentMainBinding.myCarbsVal.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        if(sum_protein > 2000){
+            fragmentMainBinding.myProteinVal.setTextColor(Color.parseColor("#808080"));
+        }
+        else {
+            fragmentMainBinding.myProteinVal.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        if(sum_fat > 2000){
+            fragmentMainBinding.myFatVal.setTextColor(Color.parseColor("#808080"));
+        }
+        else {
+            fragmentMainBinding.myFatVal.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        if(sum_sugars > 500){
+            fragmentMainBinding.mySugarsVal.setTextColor(Color.parseColor("#808080"));
+        }
+        else {
+            fragmentMainBinding.mySugarsVal.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        if(sum_sodium > 500){
+            fragmentMainBinding.mySodiumVal.setTextColor(Color.parseColor("#808080"));
+        }
+        else {
+            fragmentMainBinding.mySodiumVal.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        if(sum_CH > 500){
+            fragmentMainBinding.myCHVal.setTextColor(Color.parseColor("#808080"));
+        }
+        else {
+            fragmentMainBinding.myCHVal.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        if(sum_Sat_fat > 100){
+            fragmentMainBinding.mySatFatVal.setTextColor(Color.parseColor("#808080"));
+        }
+        else {
+            fragmentMainBinding.mySatFatVal.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        if(sum_trans_fat > 100){
+            fragmentMainBinding.myTransFatVal.setTextColor(Color.parseColor("#808080"));
+        }
+        else {
+            fragmentMainBinding.myTransFatVal.setTextColor(Color.parseColor("#ffffff"));
+        }
     }
 }

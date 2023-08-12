@@ -111,10 +111,12 @@ public class MyMenuFragment extends Fragment {
 
                 setting_Calendar(); //캘린더에 표시되는 년도와 달을 변경한 년도와 달로 수정
 
-                if(year == cur_year && month == cur_month){ //이번 달이면 오늘 정보를, 아니면 1일의 정보를 표시하도록 함
+                //처음 표시되는 날짜 설정
+                if(year == cur_year && month == cur_month){ //이번 달이면 오늘 정보를 표시
                     textViews[cur_day + first_day].performClick();
                 }
-                else if(year < cur_year || (year == cur_year && month < cur_month)) textViews[1 + first_day].performClick();
+                else if(year < cur_year || (year == cur_year && month < cur_month)) textViews[1 + first_day].performClick(); //이전 달인 경우 1일의 정보 표시
+                //미래(이후)의 달에 대해서는 처음 표시되는 날짜X
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -123,7 +125,7 @@ public class MyMenuFragment extends Fragment {
                         fragmentMyMenuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
                         fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
                     }
-                }, 500); //모든 작업이 끝난 후 0.5초 뒤에 활성화
+                }, 500); //모든 작업이 끝난 후 0.5초 뒤에 활성화 -> 연속적으로 클릭하는 경우를 방지
             }
         });
 
@@ -146,10 +148,11 @@ public class MyMenuFragment extends Fragment {
 
                 setting_Calendar(); //캘린더에 표시되는 년도와 달을 변경한 년도와 달로 수정
 
-                if(year == cur_year && month == cur_month){ //이번 달이면 오늘 정보를, 아니면 1일의 정보를 표시하도록 함
+                if(year == cur_year && month == cur_month){ //이번 달이면 오늘 정보를 표시
                     textViews[cur_day + first_day].performClick();
                 }
-                else if(year < cur_year || (year == cur_year && month < cur_month)) textViews[1 + first_day].performClick();
+                else if(year < cur_year || (year == cur_year && month < cur_month)) textViews[1 + first_day].performClick(); //이전 달인 경우 1일의 정보 표시
+                //미래(이후)의 달에 대해서는 처음 표시되는 날짜X
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -171,6 +174,7 @@ public class MyMenuFragment extends Fragment {
         fragmentMyMenuBinding = null; //프래그먼트는 뷰보다 오래 지속되므로 결합 클래스 인스턴스 참조를 정리
     }
 
+    ////////// 영양분 정보를 표시하는 함수들
     public void set_display_Nu(int day){ //선택한 날의 영양분 정보를 foods배열로 부터 가져와 아래 레이아웃에 표시.
         Food food = foods[day];
         sum_kcal = food.getFood_kcal();
@@ -182,30 +186,23 @@ public class MyMenuFragment extends Fragment {
         sum_CH = food.getFood_CH();
         sum_Sat_fat = food.getFood_Sat_fat();
         sum_trans_fat = food.getFood_trans_fat();
-        set_My_Nu_Val();
+        set_My_Nu_Val(); //위에 값을 저장한 변수(sum_***)의 값을 통해 아래에 있는 영양분 표에 값을 표싯
     }
 
-    public void clear_display(){
-        if(day != 0) {
-            return_display_click_date_to_default(); //이전에 클릭 한 날짜 표시를 제거
-            day = 0;
-        }
-
-        sum_kcal = 0;
-        sum_carbs = 0;
-        sum_protein = 0;
-        sum_fat = 0;
-        sum_sugars = 0;
-        sum_sodium = 0;
-        sum_CH = 0;
-        sum_Sat_fat = 0;
-        sum_trans_fat = 0;
-        set_My_Nu_Val(); //영양분 정보 모두 초기화
-
-        fragmentMyMenuBinding.goodDay.setText("0"); //달의 적합한&적합하지 않은 영양분 섭취 날 정보를 0으로 수정
-        fragmentMyMenuBinding.badDay.setText("0");
+    public void set_My_Nu_Val(){ //레이아웃 밑에 있는 영양분 표시를 수정하는 함수.
+        fragmentMyMenuBinding.monthMyKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
+        fragmentMyMenuBinding.monthMyCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
+        fragmentMyMenuBinding.monthMyProteinVal.setText(String.format("%.2f(g)", sum_protein));
+        fragmentMyMenuBinding.monthMyFatVal.setText(String.format("%.2f(g)", sum_fat));
+        fragmentMyMenuBinding.monthMySugarsVal.setText(String.format("%.2f(g)", sum_sugars));
+        fragmentMyMenuBinding.monthMySodiumVal.setText(String.format("%.2f(mg)", sum_sodium));
+        fragmentMyMenuBinding.monthMyCHVal.setText(String.format("%.2f(mg)", sum_CH));
+        fragmentMyMenuBinding.monthMySatFatVal.setText(String.format("%.2f(g)", sum_Sat_fat));
+        fragmentMyMenuBinding.monthMyTransFatVal.setText(String.format("%.2f(g)", sum_trans_fat));
     }
+    ////////// 영양분 정보를 표시하는 함수들
 
+    ////////// 각 날짜의 영양분 정보를 가져오는 함수
     public void check_Nu(String eat_date, TextView textView){ //표시되는 달의 각 날짜의 영양분 정보를 데이터 베이스에서 가져와서, foods배열에 저장, 적합한 영양분 섭취했는지 확인
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -266,19 +263,9 @@ public class MyMenuFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(eatfoodRequest);
     }
+    ////////// 각 날짜의 영양분 정보를 가져오는 함수
 
-    public void set_My_Nu_Val(){ //레이아웃 밑에 있는 영양분 표시를 수정하는 함수.
-        fragmentMyMenuBinding.monthMyKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
-        fragmentMyMenuBinding.monthMyCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
-        fragmentMyMenuBinding.monthMyProteinVal.setText(String.format("%.2f(g)", sum_protein));
-        fragmentMyMenuBinding.monthMyFatVal.setText(String.format("%.2f(g)", sum_fat));
-        fragmentMyMenuBinding.monthMySugarsVal.setText(String.format("%.2f(g)", sum_sugars));
-        fragmentMyMenuBinding.monthMySodiumVal.setText(String.format("%.2f(mg)", sum_sodium));
-        fragmentMyMenuBinding.monthMyCHVal.setText(String.format("%.2f(mg)", sum_CH));
-        fragmentMyMenuBinding.monthMySatFatVal.setText(String.format("%.2f(g)", sum_Sat_fat));
-        fragmentMyMenuBinding.monthMyTransFatVal.setText(String.format("%.2f(g)", sum_trans_fat));
-    }
-
+    ////////// 달력 제작하는 함수
     public void setting_Calendar(){ //설정한 년도와 달에 따라 달력을 만들고, 날짜 클릭이벤트를 설정
         fragmentMyMenuBinding.CalendarDate.setText(year + "." + month);
 
@@ -319,19 +306,44 @@ public class MyMenuFragment extends Fragment {
             }
         }
     }
+    ////////// 달력 제작하는 함수
 
-    public void return_display_click_date_to_default(){
+    ////////// 표시되는 정보 제거하는 함수들
+    public void clear_display(){ //현재 표시되는 정보 제거
+        if(day != 0) {
+            return_display_click_date_to_default(); //이전에 클릭 한 날짜 표시를 제거
+            day = 0;
+        }
+
+        sum_kcal = 0;
+        sum_carbs = 0;
+        sum_protein = 0;
+        sum_fat = 0;
+        sum_sugars = 0;
+        sum_sodium = 0;
+        sum_CH = 0;
+        sum_Sat_fat = 0;
+        sum_trans_fat = 0;
+        set_My_Nu_Val(); //영양분 정보 모두 초기화
+
+        fragmentMyMenuBinding.goodDay.setText("0"); //달의 적합한&적합하지 않은 영양분 섭취 날 정보를 0으로 수정
+        fragmentMyMenuBinding.badDay.setText("0");
+    }
+
+    public void return_display_click_date_to_default(){ //이전에 선택한 날짜의 표시(초록색)을 제거하는 함수
         TextView textView = textViews[day + first_day];
 
         calendar.set(year, month - 1, day);
         if(calendar.get(Calendar.DAY_OF_WEEK) == 1){
-            textView.setTextColor(Color.parseColor("#ff0000")); //선택한 날을 가시적으로 표현하기 위해 초록색으로 설정
+            textView.setTextColor(Color.parseColor("#ff0000")); //일요일이면 빨간색으로 되돌림
         }
         else if(calendar.get(Calendar.DAY_OF_WEEK) == 7){
-            textView.setTextColor(Color.parseColor("#0067a3")); //선택한 날을 가시적으로 표현하기 위해 초록색으로 설정
+            textView.setTextColor(Color.parseColor("#0067a3")); //토요일이면 파란색으로 되돌림
         }
         else {
-            textView.setTextColor(Color.parseColor("#ffffff")); //선택한 날을 가시적으로 표현하기 위해 초록색으로 설정
+            textView.setTextColor(Color.parseColor("#ffffff")); //평일이면 하얀색으로 되돌림
         }
     }
+    ////////// 표시되는 정보 제거하는 함수들
+
 }

@@ -86,26 +86,26 @@ public class MainFragment extends Fragment{
                             int serving = jsonObject.getInt("serving");
                             String food_code = jsonObject.getString("food_code");
                             String food_name = jsonObject.getString("food_name");
-                            double food_kcal = jsonObject.getDouble("food_kcal");
-                            int food_size = jsonObject.getInt("food_size");
-                            double food_carbs = jsonObject.getDouble("food_carbs");
-                            double food_protein = jsonObject.getDouble("food_protein");
-                            double food_fat = jsonObject.getDouble("food_fat");
-                            double food_sugars = jsonObject.getDouble("food_sugars");
-                            double food_sodium = jsonObject.getDouble("food_sodium");
-                            double food_CH = jsonObject.getDouble("food_CH");
-                            double food_Sat_fat = jsonObject.getDouble("food_Sat_fat");
-                            double food_trans_fat = jsonObject.getDouble("food_trans_fat");
+                            double food_kcal = jsonObject.getDouble("food_kcal") * serving;
+                            int food_size = jsonObject.getInt("food_size") * serving;
+                            double food_carbs = jsonObject.getDouble("food_carbs") * serving;
+                            double food_protein = jsonObject.getDouble("food_protein") * serving;
+                            double food_fat = jsonObject.getDouble("food_fat") * serving;
+                            double food_sugars = jsonObject.getDouble("food_sugars") * serving;
+                            double food_sodium = jsonObject.getDouble("food_sodium") * serving;
+                            double food_CH = jsonObject.getDouble("food_CH") * serving;
+                            double food_Sat_fat = jsonObject.getDouble("food_Sat_fat") * serving;
+                            double food_trans_fat = jsonObject.getDouble("food_trans_fat") * serving;
                             arrayList.add(new Food(serving, food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat));
-                            sum_kcal += food_kcal * serving;
-                            sum_carbs += food_carbs * serving;
-                            sum_protein += food_protein * serving;
-                            sum_fat += food_fat * serving;
-                            sum_sugars += food_sugars * serving;
-                            sum_sodium += food_sodium * serving;
-                            sum_CH += food_CH * serving;
-                            sum_Sat_fat += food_Sat_fat * serving;
-                            sum_trans_fat += food_trans_fat * serving;
+                            sum_kcal += food_kcal;
+                            sum_carbs += food_carbs;
+                            sum_protein += food_protein;
+                            sum_fat += food_fat;
+                            sum_sugars += food_sugars;
+                            sum_sodium += food_sodium;
+                            sum_CH += food_CH;
+                            sum_Sat_fat += food_Sat_fat;
+                            sum_trans_fat += food_trans_fat;
                         }
                         set_My_Nu_Val(); //영양분 합을 아래 표에 반영
                         eatFoodAdapter.notifyDataSetChanged(); //리스트의 변경 내용을 리스트 뷰에 반영
@@ -130,16 +130,16 @@ public class MainFragment extends Fragment{
         queue.add(eatfoodRequest);
     }
 
-    public void EatFoodDelete(int serving, double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
-        sum_kcal -= (food_kcal * serving);
-        sum_carbs -= (food_carbs * serving);
-        sum_protein -= (food_protein * serving);
-        sum_fat -= (food_fat * serving);
-        sum_sugars -= (food_sugars * serving);
-        sum_sodium -= (food_sodium * serving);
-        sum_CH -= (food_CH * serving);
-        sum_Sat_fat -= (food_Sat_fat * serving);
-        sum_trans_fat -= (food_trans_fat * serving);
+    public void EatFoodDelete(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
+        sum_kcal -= food_kcal;
+        sum_carbs -= food_carbs;
+        sum_protein -= food_protein;
+        sum_fat -= food_fat;
+        sum_sugars -= food_sugars;
+        sum_sodium -= food_sodium;
+        sum_CH -= food_CH;
+        sum_Sat_fat -= food_Sat_fat;
+        sum_trans_fat -= food_trans_fat;
         if(sum_kcal < 0) sum_kcal = 0;
         if(sum_carbs < 0) sum_carbs = 0;
         if(sum_protein < 0) sum_protein = 0;
@@ -152,25 +152,16 @@ public class MainFragment extends Fragment{
         set_My_Nu_Val(); //삭제된 음식의 영양분 정보를 표에 반영
     } //먹은 음식을 클릭하여 삭제했을 때 실행되는 메소드.
 
-    public void EatFoodEdit(int serving_def, double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat){
-        sum_kcal += (food_kcal * serving_def);
-        sum_carbs += (food_carbs * serving_def);
-        sum_protein += (food_protein * serving_def);
-        sum_fat += (food_fat * serving_def);
-        sum_sugars += (food_sugars * serving_def);
-        sum_sodium += (food_sodium * serving_def);
-        sum_CH += (food_CH * serving_def);
-        sum_Sat_fat += (food_Sat_fat * serving_def);
-        sum_trans_fat += (food_trans_fat * serving_def);
-        if(sum_kcal < 0) sum_kcal = 0;
-        if(sum_carbs < 0) sum_carbs = 0;
-        if(sum_protein < 0) sum_protein = 0;
-        if(sum_fat < 0) sum_fat = 0;
-        if(sum_sugars < 0) sum_sugars = 0;
-        if(sum_sodium < 0) sum_sodium = 0;
-        if(sum_CH < 0) sum_CH = 0;
-        if(sum_Sat_fat < 0) sum_Sat_fat = 0;
-        if(sum_trans_fat < 0) sum_trans_fat = 0;
+    public void EatFoodAdd(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat){
+        sum_kcal += food_kcal;
+        sum_carbs += food_carbs;
+        sum_protein += food_protein;
+        sum_fat += food_fat;
+        sum_sugars += food_sugars;
+        sum_sodium += food_sodium;
+        sum_CH += food_CH;
+        sum_Sat_fat += food_Sat_fat;
+        sum_trans_fat += food_trans_fat;
         set_My_Nu_Val(); //삭제된 음식의 영양분 정보를 표에 반영
     } //병경된 인분 값과 이전 인분 값을 통해 변경된 값 만큼 반영
 

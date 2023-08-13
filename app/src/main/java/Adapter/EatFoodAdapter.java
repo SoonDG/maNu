@@ -58,16 +58,16 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
         holder.serving.setText(arrayList.get(position).getServing() + " 인분");
         holder.food_code = arrayList.get(position).getFood_code();
         holder.food_name.setText(arrayList.get(position).getFood_name());
-        holder.food_kcal.setText(arrayList.get(position).getFood_kcal() + "(kcal)");
+        holder.food_kcal.setText(String.format("%.2f(kcal)", arrayList.get(position).getFood_kcal()));
         holder.food_size.setText(arrayList.get(position).getFood_size() + "(g)");
-        holder.food_carbs.setText(arrayList.get(position).getFood_carbs() + "(g)");
-        holder.food_protein.setText(arrayList.get(position).getFood_protein() + "(g)");
-        holder.food_fat.setText(arrayList.get(position).getFood_fat() + "(g)");
-        holder.food_sugars.setText(arrayList.get(position).getFood_sugars() + "(g)");
-        holder.food_sodium.setText(arrayList.get(position).getFood_sodium() + "(mg)");
-        holder.food_CH.setText(arrayList.get(position).getFood_CH() + "(mg)");
-        holder.food_Sat_fat.setText(arrayList.get(position).getFood_Sat_fat() + "(g)");
-        holder.food_trans_fat.setText(arrayList.get(position).getFood_trans_fat() + "(g)");
+        holder.food_carbs.setText(String.format("%.2f(g)", arrayList.get(position).getFood_carbs()));
+        holder.food_protein.setText(String.format("%.2f(g)", arrayList.get(position).getFood_protein()));
+        holder.food_fat.setText(String.format("%.2f(g)", arrayList.get(position).getFood_fat()));
+        holder.food_sugars.setText(String.format("%.2f(g)", arrayList.get(position).getFood_sugars()));
+        holder.food_sodium.setText(String.format("%.2f(mg)", arrayList.get(position).getFood_sodium()));
+        holder.food_CH.setText(String.format("%.2f(mg)", arrayList.get(position).getFood_CH()));
+        holder.food_Sat_fat.setText(String.format("%.2f(g)", arrayList.get(position).getFood_Sat_fat()));
+        holder.food_trans_fat.setText(String.format("%.2f(g)", arrayList.get(position).getFood_trans_fat()));
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() { //클릭했을 때 먹은 음식 정보를 수정할 수 있는 기능 추가
@@ -98,7 +98,7 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                         int itemPosition = holder.getAdapterPosition();
                                         Food food = arrayList.get(itemPosition);
                                         //먹은 음식의 영양 성분을 MainFragment의 표에 반영하기 위한 함수 호출
-                                        mainFragment.EatFoodDelete(food.getServing(), food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                                        mainFragment.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
                                         arrayList.remove(itemPosition); //리스트에서 아이템 제거
                                         notifyItemRemoved(itemPosition); //뷰에서 아이템 제거
                                     }
@@ -140,11 +140,25 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                         //현재 화면에서 변경 내용을 반영하기 위한 작업
                                         int itemPosition = holder.getAdapterPosition();
                                         Food food = arrayList.get(itemPosition);
-                                        int pre_serving = food.getServing(); //변경 전의 인분 값
+                                        int pre_serving = food.getServing();
+                                        mainFragment.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(),
+                                                food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+
 
                                         food.setServing(serving); //serving정보 변경
+                                        food.setFood_size(food.getFood_size() / pre_serving * serving);
+                                        food.setFood_kcal(food.getFood_kcal() / pre_serving * serving);
+                                        food.setFood_carbs(food.getFood_carbs() / pre_serving * serving);
+                                        food.setFood_protein(food.getFood_protein() / pre_serving * serving);
+                                        food.setFood_fat(food.getFood_fat() / pre_serving * serving);
+                                        food.setFood_sugars(food.getFood_sugars() / pre_serving * serving);
+                                        food.setFood_sodium(food.getFood_sodium() / pre_serving * serving);
+                                        food.setFood_CH(food.getFood_CH() / pre_serving * serving);
+                                        food.setFood_Sat_fat(food.getFood_Sat_fat() / pre_serving * serving);
+                                        food.setFood_trans_fat(food.getFood_trans_fat() / pre_serving * serving);
                                         //병견된 정보를 반영
-                                        mainFragment.EatFoodEdit(food.getServing() - pre_serving, food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                                        mainFragment.EatFoodAdd(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(),
+                                                food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
 
                                         arrayList.set(itemPosition, food); //리스트에서 아이템 변경
                                         notifyItemChanged(itemPosition);//뷰에서 아이템 변경 감지

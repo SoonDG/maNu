@@ -11,27 +11,27 @@
         android:id="@+id/food_trans_fat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:text="트랜스지방"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/food_trans_fat_label"
         app:layout_constraintTop_toBottomOf="@+id/food_Sat_Fat" />
 
     <TextView
         android:id="@+id/food_Sat_Fat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:text="포화지방산"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/food_Sat_Fat_label"
         app:layout_constraintTop_toBottomOf="@+id/food_CH" />
 
     <TextView
         android:id="@+id/food_sugars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="10dp"
         android:text="당류"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +41,10 @@
         android:id="@+id/food_CH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:text="콜레스테롤"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/food_CH_label"
         app:layout_constraintTop_toBottomOf="@+id/food_sodium" />
 
     <TextView
@@ -61,7 +61,7 @@
         android:id="@+id/food_carbs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="50dp"
         android:text="탄수화물"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,17 +71,17 @@
         android:id="@+id/food_sodium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
         android:text="나트륨"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/food_sodium_label"
         app:layout_constraintTop_toBottomOf="@+id/food_kcal" />
 
     <TextView
         android:id="@+id/food_fat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="10dp"
         android:text="지방"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +91,7 @@
         android:id="@+id/food_protein"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="10dp"
         android:text="단백질"
         app:layout_constraintStart_toStartOf="parent"
@@ -146,5 +146,85 @@
         android:text="인분"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/food_name" />
+
+    <TextView
+        android:id="@+id/food_carbs_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:text="탄수화물: "
+        app:layout_constraintEnd_toStartOf="@+id/food_carbs"
+        app:layout_constraintTop_toBottomOf="@+id/food_name" />
+
+    <TextView
+        android:id="@+id/food_protein_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="단백질: "
+        app:layout_constraintEnd_toStartOf="@+id/food_protein"
+        app:layout_constraintTop_toBottomOf="@+id/food_carbs_label" />
+
+    <TextView
+        android:id="@+id/food_fat_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="지방: "
+        app:layout_constraintEnd_toStartOf="@+id/food_fat"
+        app:layout_constraintTop_toBottomOf="@+id/food_protein_label" />
+
+    <TextView
+        android:id="@+id/food_sugars_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="당류: "
+        app:layout_constraintEnd_toStartOf="@+id/food_sugars"
+        app:layout_constraintTop_toBottomOf="@+id/food_fat_label" />
+
+    <TextView
+        android:id="@+id/food_sodium_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="100dp"
+        android:text="나트륨: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/food_kcal_lable" />
+
+    <TextView
+        android:id="@+id/food_CH_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="100dp"
+        android:text="콜레스테롤: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/food_sodium_label" />
+
+    <TextView
+        android:id="@+id/food_Sat_Fat_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="100dp"
+        android:text="포화지방산: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/food_CH_label" />
+
+    <TextView
+        android:id="@+id/food_trans_fat_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="100dp"
+        android:text="트랜스지방: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/food_Sat_Fat_label" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

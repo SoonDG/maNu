@@ -31,10 +31,10 @@ public class EditInformationActivity extends AppCompatActivity {
         View view = editInformationBinding.getRoot();
         setContentView(view);
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-        editInformationBinding.curID.setText("아이디: " + sharedPreferences.getString("ID", null));
-        editInformationBinding.curPassword.setText("비밀번호: " + sharedPreferences.getString("Password", null));
-        editInformationBinding.curAge.setText("나이: " + String.valueOf(sharedPreferences.getInt("Age", 0)));
-        editInformationBinding.curGender.setText("성별: " + sharedPreferences.getString("Gender", null));
+        editInformationBinding.curID.setText(sharedPreferences.getString("ID", null));
+        editInformationBinding.curPassword.setText(sharedPreferences.getString("Password", null));
+        editInformationBinding.curAge.setText(String.valueOf(sharedPreferences.getInt("Age", 0)));
+        editInformationBinding.curGender.setText(sharedPreferences.getString("Gender", null));
 
         String [] age_Data = getResources().getStringArray(R.array.age);
         String [] gen_Data = getResources().getStringArray(R.array.gender);

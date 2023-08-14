@@ -75,56 +75,84 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
-                ad.setMessage(holder.food_name.getText() + "를 오늘 먹은 식품에 추가 하시겠습니까?");
-
-                final Spinner spinner = new Spinner(ad.getContext());
-                String [] serving_Data = ad.getContext().getResources().getStringArray(R.array.serving);
-                ArrayAdapter servingAdapter = new ArrayAdapter(ad.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
-                spinner.setAdapter(servingAdapter);
-                ad.setView(spinner);
-
-                ad.setPositiveButton("네", new DialogInterface.OnClickListener() { //음식 먹은 갯수를 입력하도록 변경해야 함
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) { //데이터 베이스에 먹은 음식에 추가
-                        Response.Listener<String> responseListener = new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    int success = jsonObject.getInt("success");
-                                    if(success == 0){
-                                        Toast.makeText(view.getContext(), holder.food_name.getText() + " " + spinner.getSelectedItem().toString() + "인분을 먹은 음식에 담았습니다.", Toast.LENGTH_SHORT).show();
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int success = jsonObject.getInt("success");
+                            if(success == 0){ //오류X, 오늘 먹은 음식이 아니라면 이 음식을 먹은 음식에 추가하는 기능을 호출
+                                AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
+                                ad.setMessage(holder.food_name.getText() + "를 오늘 먹은 식품에 추가 하시겠습니까?");
+
+                                final Spinner spinner = new Spinner(ad.getContext());
+                                String [] serving_Data = ad.getContext().getResources().getStringArray(R.array.serving);
+                                ArrayAdapter servingAdapter = new ArrayAdapter(ad.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
+                                spinner.setAdapter(servingAdapter);
+                                ad.setView(spinner);
+
+                                ad.setPositiveButton("네", new DialogInterface.OnClickListener() { //음식 먹은 갯수를 입력하도록 변경해야 함
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) { //데이터 베이스에 먹은 음식에 추가
+                                        Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(response);
+                                                    int success = jsonObject.getInt("success");
+                                                    if(success == 0){
+                                                        Toast.makeText(view.getContext(), holder.food_name.getText() + " " + spinner.getSelectedItem().toString() + "인분을 먹은 음식에 담았습니다.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                    else if(success == 1){
+                                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                    else if(success == 2){
+                                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                } catch (JSONException e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                            }
+                                        };
+                                        Long eat_date = System.currentTimeMillis();
+                                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), Integer.parseInt(spinner.getSelectedItem().toString()), holder.food_code, responseListener);
+                                        RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                                        queue.add(eatFoodRequest);
+
+                                        dialogInterface.dismiss();
                                     }
-                                    else if(success == 1){
-                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                                });
+
+                                ad.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
                                     }
-                                    else if(success == 2){
-                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                }
+                                });
+
+                                ad.show();
                             }
-                        };
-                        Long eat_date = System.currentTimeMillis();
-                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), Integer.parseInt(spinner.getSelectedItem().toString()), holder.food_code, responseListener);
-                        RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                        queue.add(eatFoodRequest);
-
-                        dialogInterface.dismiss();
+                            else if(success == -1){ //이미 오늘 먹은 음식에 포함된 음식을 클릭 함.
+                                Toast.makeText(view.getContext(), holder.food_name.getText() + "는 이미 오늘 먹은 음식에 포함되어 있습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                            else if(success == 1){
+                                Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                            }
+                            else if(success == 2){
+                                Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                });
 
-                ad.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                ad.show();
+                };
+                Long eat_date = System.currentTimeMillis();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), holder.food_code, 1, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                queue.add(eatFoodRequest);
             }
         });
     }

@@ -29,7 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import Model.Food;
-import Request.EatFoodRequest;
+import Request.GetEatFoodRequest;
 
 public class MyMenuFragment extends Fragment {
     private FragmentMyMenuBinding fragmentMyMenuBinding;
@@ -259,9 +259,9 @@ public class MyMenuFragment extends Fragment {
         };
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        EatFoodRequest eatfoodRequest = new EatFoodRequest(sharedPreferences.getString("ID", null), eat_date, responseListener);
+        GetEatFoodRequest getEatfoodRequest = new GetEatFoodRequest(sharedPreferences.getString("ID", null), eat_date, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(eatfoodRequest);
+        queue.add(getEatfoodRequest);
     }
     ////////// 각 날짜의 영양분 정보를 가져오는 함수
 

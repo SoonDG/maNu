@@ -8,21 +8,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.ActivityMyAccountBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import Request.AccountRequest;
-import Request.RegisterRequest;
+import Request.WithdrawalRequest;
 
 public class MyAccountActivity extends AppCompatActivity {
     private ActivityMyAccountBinding myAccountBinding;
@@ -91,9 +88,9 @@ public class MyAccountActivity extends AppCompatActivity {
                             }
                         };
 
-                        AccountRequest accountRequest = new AccountRequest(ID, responseListener);
+                        WithdrawalRequest withdrawalRequest = new WithdrawalRequest(ID, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(MyAccountActivity.this);
-                        queue.add(accountRequest);
+                        queue.add(withdrawalRequest);
                     }
                 });
 

@@ -2,8 +2,6 @@ package Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +17,7 @@ import com.example.my_first_project.databinding.ActivityEditInformationBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import Request.AccountRequest;
+import Request.EditUserRequest;
 
 public class EditInformationActivity extends AppCompatActivity {
 
@@ -94,9 +92,9 @@ public class EditInformationActivity extends AppCompatActivity {
                         }
                     };
 
-                    AccountRequest accountRequest = new AccountRequest(ID, Password, Age, Gender, responseListener);
+                    EditUserRequest editUserRequest = new EditUserRequest(ID, Password, Age, Gender, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(EditInformationActivity.this);
-                    queue.add(accountRequest);
+                    queue.add(editUserRequest);
                 }
             }
         });

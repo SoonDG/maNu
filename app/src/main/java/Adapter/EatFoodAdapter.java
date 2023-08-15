@@ -24,12 +24,12 @@ import com.example.my_first_project.databinding.RecyclerviewItemBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Fragment.MainFragment;
 import Model.Food;
-import Request.EatFoodRequest;
+import Request.DeleteEatFoodRequest;
+import Request.EditEatFoodRequest;
 
 public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHolder>{
     private ArrayList<Food> arrayList;
@@ -82,7 +82,7 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                 spinner.setAdapter(servingAdapter);
                 ad.setView(spinner);
 
-                ad.setPositiveButton("삭제", new DialogInterface.OnClickListener() { //음식 먹은 갯수를 입력하도록 변경해야 함
+                ad.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) { //데이터 베이스에 먹은 음식에 추가
                         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -114,11 +114,9 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                             }
                         };
 
-                        Long eat_date = System.currentTimeMillis();
-                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), holder.food_code, responseListener);
+                        DeleteEatFoodRequest deleteEatFoodRequest = new DeleteEatFoodRequest(user_ID, holder.food_code, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                        queue.add(eatFoodRequest);
+                        queue.add(deleteEatFoodRequest);
 
                         dialogInterface.dismiss();
                     }
@@ -175,11 +173,9 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                             }
                         };
 
-                        Long eat_date = System.currentTimeMillis();
-                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        EatFoodRequest eatFoodRequest = new EatFoodRequest(serving, user_ID, format.format(eat_date), holder.food_code, responseListener);
+                        EditEatFoodRequest editEatFoodRequest = new EditEatFoodRequest(serving, user_ID, holder.food_code, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                        queue.add(eatFoodRequest);
+                        queue.add(editEatFoodRequest);
 
                         dialogInterface.dismiss();
                     }

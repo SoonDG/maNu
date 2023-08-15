@@ -21,19 +21,14 @@ import com.android.volley.toolbox.Volley;
 import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.RecyclerviewItemBinding;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import Model.Food;
+import Request.CheckEatFoodRequest;
 import Request.EatFoodRequest;
-import Request.FoodRequest;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     private ArrayList<Food> arrayList;
@@ -114,9 +109,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                                                 }
                                             }
                                         };
-                                        Long eat_date = System.currentTimeMillis();
-                                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), Integer.parseInt(spinner.getSelectedItem().toString()), holder.food_code, responseListener);
+
+                                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, Integer.parseInt(spinner.getSelectedItem().toString()), holder.food_code, responseListener);
                                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
                                         queue.add(eatFoodRequest);
 
@@ -148,11 +142,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                     }
 
                 };
-                Long eat_date = System.currentTimeMillis();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, format.format(eat_date), holder.food_code, 1, responseListener);
+
+                CheckEatFoodRequest checkEatFoodRequest = new CheckEatFoodRequest(user_ID, holder.food_code, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                queue.add(eatFoodRequest);
+                queue.add(checkEatFoodRequest);
             }
         });
     }

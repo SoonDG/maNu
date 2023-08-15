@@ -21,12 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Adapter.EatFoodAdapter;
 import Model.Food;
-import Request.EatFoodRequest;
+import Request.GetEatFoodRequest;
 
 public class MainFragment extends Fragment{
 
@@ -122,12 +121,10 @@ public class MainFragment extends Fragment{
             }
         };
 
-        Long eat_date = System.currentTimeMillis();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        EatFoodRequest eatfoodRequest = new EatFoodRequest(sharedPreferences.getString("ID", null), format.format(eat_date), responseListener);
+        GetEatFoodRequest getEatfoodRequest = new GetEatFoodRequest(sharedPreferences.getString("ID", null), "", responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(eatfoodRequest);
+        queue.add(getEatfoodRequest);
     }
 
     public void EatFoodDelete(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {

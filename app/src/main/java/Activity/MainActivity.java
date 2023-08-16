@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.ActivityMainBinding;
+import com.example.my_first_project.databinding.NavigationHaederBinding;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -41,11 +42,15 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.frame_layout, mainFragment).commit(); //시작 화면을 mainFragment로
 
         setSupportActionBar(mainBinding.toolbar); //툴바 설정
-        mainBinding.toolbar.setTitle("MyNu");
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mainBinding.drawerLayout, mainBinding.toolbar, R.string.app_name, R.string.app_name);
         mainBinding.drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+
+        NavigationHaederBinding navigationHaederBinding = NavigationHaederBinding.bind(mainBinding.menuNavigation.getHeaderView(0));
+        navigationHaederBinding.navID.setText(sharedPreferences.getString("ID", null) +"님"); //아이디를 네비게이션 헤더에 표시
 
         mainBinding.menuNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {//사이드 바 메뉴 클릭 이벤트
             @Override

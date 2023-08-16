@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 import Adapter.FoodAdapter;
 import Model.Food;
-import Request.FoodRequest;
+import Request.GetFoodRequest;
 
 public class SearchFragment extends Fragment {
 
@@ -106,9 +106,6 @@ public class SearchFragment extends Fragment {
                         }
                         foodAdapter.notifyDataSetChanged();
                     }
-                    else if(success == 1){
-                        Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
-                    }
                     else if(success == 2){
                         Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
                     }
@@ -118,10 +115,8 @@ public class SearchFragment extends Fragment {
             }
         };
 
-        FoodRequest foodRequest;
-        if(!Search_String.isEmpty()) foodRequest = new FoodRequest(Search_String, responseListener); //검색어가 있다면 해당 검색어에 해당하는 목록만 가져오기
-        else foodRequest = new FoodRequest((responseListener));
+        GetFoodRequest getFoodRequest = new GetFoodRequest(Search_String, responseListener); //검색어가 있다면 해당 검색어에 해당하는 목록만 가져오기
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(foodRequest);
+        queue.add(getFoodRequest);
     }
 }

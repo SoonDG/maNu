@@ -62,49 +62,42 @@ public class EditInformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String ID = sharedPreferences.getString("ID", null);
-                String Password = editInformationBinding.editPassword.getText().toString();
                 int Age = Integer.parseInt(editInformationBinding.editAge.getSelectedItem().toString());
                 String Gender = editInformationBinding.editGender.getSelectedItem().toString();
 
-                if(Password.isEmpty()){
-                    Toast.makeText(EditInformationActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Response.Listener<String> responseListener = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                int success = jsonObject.getInt("success");
-                                if (success == 0) {
-                                    Toast.makeText(EditInformationActivity.this, "회원정보 수정 성공", Toast.LENGTH_SHORT).show();
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int success = jsonObject.getInt("success");
+                            if (success == 0) {
+                                Toast.makeText(EditInformationActivity.this, "회원정보 수정 성공", Toast.LENGTH_SHORT).show();
 
-                                    SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE); //자동 로그인 정보를 초기화
-                                    SharedPreferences.Editor autoLogin = sharedPreferences.edit();
-                                    autoLogin.putString("Password", Password);
-                                    autoLogin.putInt("Age", Age);
-                                    autoLogin.putString("Gender", Gender); //Password, Age, Gender 정보를 입력한 값으로 갱신
-                                    autoLogin.commit(); //커밋
+                                SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE); //자동 로그인 정보를 초기화
+                                SharedPreferences.Editor autoLogin = sharedPreferences.edit();
+                                autoLogin.putInt("Age", Age);
+                                autoLogin.putString("Gender", Gender); //Password, Age, Gender 정보를 입력한 값으로 갱신
+                                autoLogin.commit(); //커밋
 
-                                    ((MyAccountActivity) MyAccountActivity.context).set_myAccount(); //MyAccount Layout의 회원정보를 갱신
+                                ((MyAccountActivity) MyAccountActivity.context).set_myAccount(); //MyAccount Layout의 회원정보를 갱신
 
-                                    finish(); //창 닫고 회원 정보 창으로 이동
-                                } else if (success == 1) {
-                                    Toast.makeText(EditInformationActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT).show();
-                                } else if (success == 2) {
-                                    Toast.makeText(EditInformationActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                Toast.makeText(EditInformationActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                                throw new RuntimeException(e);
+                                finish(); //창 닫고 회원 정보 창으로 이동
+                            } else if (success == 1) {
+                                Toast.makeText(EditInformationActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                            } else if (success == 2) {
+                                Toast.makeText(EditInformationActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT).show();
                             }
+                        } catch (JSONException e) {
+                            Toast.makeText(EditInformationActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                            throw new RuntimeException(e);
                         }
-                    };
+                    }
+                };
 
-                    EditUserRequest editUserRequest = new EditUserRequest(ID, Password, Age, Gender, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(EditInformationActivity.this);
-                    queue.add(editUserRequest);
-                }
+                EditUserRequest editUserRequest = new EditUserRequest(ID, Age, Gender, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(EditInformationActivity.this);
+                queue.add(editUserRequest);
             }
         });
     }

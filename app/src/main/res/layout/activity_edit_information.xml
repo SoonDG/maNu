@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="15dp"
         android:text="변경 성별: "
         app:layout_constraintEnd_toStartOf="@+id/edit_Gender"
         app:layout_constraintTop_toBottomOf="@+id/cur_Age" />
@@ -20,11 +20,11 @@
         android:id="@+id/edit_Age_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="15dp"
         android:text="변경 나이: "
         app:layout_constraintEnd_toStartOf="@+id/edit_Age"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Password_label" />
+        app:layout_constraintTop_toBottomOf="@+id/cur_Password_label" />
 
     <TextView
         android:id="@+id/cur_Gender_label"
@@ -41,10 +41,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:text="나이: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Password_label" />
+        app:layout_constraintTop_toBottomOf="@+id/cur_Password_label" />
 
     <TextView
         android:id="@+id/cur_Password"
@@ -77,16 +77,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/edit_Password_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:text="변경 패스워드: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cur_Password_label" />
-
-    <TextView
         android:id="@+id/cur_Gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,54 +90,41 @@
         android:id="@+id/edit_Age"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginTop="232dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Password" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cur_Age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/cur_Age_label"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Password_label" />
+        app:layout_constraintTop_toBottomOf="@+id/cur_Password_label" />
 
     <Spinner
         android:id="@+id/edit_Gender"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_Age" />
-
-    <EditText
-        android:id="@+id/edit_Password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="176dp"
-        android:layout_marginEnd="50dp"
-        android:ems="10"
-        android:hint="Edit_Password"
-        android:inputType="textPassword"
-        android:textColorHint="#808080"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/edit_Password_label"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/edit_information_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="100dp"
         android:text="회원 정보 수정"
         app:layout_constraintBottom_toTopOf="@+id/cancle_edit_information_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_Gender_label" />
 
     <Button
         android:id="@+id/cancle_edit_information_btn"

@@ -1,6 +1,7 @@
 package Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -162,6 +163,13 @@ public class MyMenuFragment extends Fragment {
                         fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
                     }
                 }, 500); //모든 작업이 끝난 후 0.5초 뒤에 활성화
+            }
+        });
+
+        fragmentMyMenuBinding.showDetailNuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //그 날의 먹은 음식을 보여주는 팝업 창 띄우기
             }
         });
 

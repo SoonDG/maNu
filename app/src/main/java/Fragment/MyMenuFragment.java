@@ -27,8 +27,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.Month;
+import java.time.Year;
 import java.util.Calendar;
 
+import Activity.PopupDetailShowNuActivity;
 import Model.Food;
 import Request.GetEatFoodRequest;
 
@@ -170,6 +173,11 @@ public class MyMenuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //그 날의 먹은 음식을 보여주는 팝업 창 띄우기
+                if(day != 0) {
+                    Intent intent = new Intent(getContext(), PopupDetailShowNuActivity.class);
+                    intent.putExtra("date", year + "-" + month + "-" + day);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import Activity.PopupDetailShowNuActivity;
 import Fragment.MainFragment;
 import Model.Food;
 import Request.DeleteEatFoodRequest;
@@ -35,11 +36,16 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
     private ArrayList<Food> arrayList;
     private SharedPreferences sharedPreferences;
     private String user_ID;
-
     private MainFragment mainFragment;
+    private PopupDetailShowNuActivity popupDetailShowNuActivity;
     public EatFoodAdapter(ArrayList<Food> arrayList, MainFragment mainFragment){
         this.arrayList = arrayList;
         this.mainFragment = mainFragment;
+    }
+
+    public EatFoodAdapter(ArrayList<Food> arrayList, PopupDetailShowNuActivity popupDetailShowNuActivity){
+        this.arrayList = arrayList;
+        this.popupDetailShowNuActivity = popupDetailShowNuActivity;
     }
 
     @NonNull

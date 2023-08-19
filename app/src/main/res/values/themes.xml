@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.My_First_Project" parent="Base.Theme.My_First_Project" />
+
+    <style name="DialogTheme" parent ="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/dialogColor</item>
+        <item name="background">@color/white</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
 </resources>

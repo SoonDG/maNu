@@ -175,7 +175,8 @@ public class MyMenuFragment extends Fragment {
                 //그 날의 먹은 음식을 보여주는 팝업 창 띄우기
                 if(day != 0) {
                     Intent intent = new Intent(getContext(), PopupDetailShowNuActivity.class);
-                    intent.putExtra("date", year + "-" + month + "-" + day);
+                    intent.putExtra("eat_date", year + "-" + month + "-" + day);
+                    intent.putExtra("food", foods[day]);
                     startActivity(intent);
                 }
             }

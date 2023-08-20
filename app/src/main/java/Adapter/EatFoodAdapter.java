@@ -104,7 +104,9 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                         int itemPosition = holder.getAdapterPosition();
                                         Food food = arrayList.get(itemPosition);
                                         //먹은 음식의 영양 성분을 MainFragment의 표에 반영하기 위한 함수 호출
-                                        mainFragment.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                                        if(mainFragment != null) { //메인프래그먼트에서 작동 중이라면 아래의 표에서도 변경된 내용이 반영되도록 함
+                                            mainFragment.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                                        }
                                         arrayList.remove(itemPosition); //리스트에서 아이템 제거
                                         notifyItemRemoved(itemPosition); //뷰에서 아이템 제거
                                     }
@@ -120,7 +122,13 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                             }
                         };
 
-                        DeleteEatFoodRequest deleteEatFoodRequest = new DeleteEatFoodRequest(user_ID, holder.food_code, responseListener);
+                        DeleteEatFoodRequest deleteEatFoodRequest;
+                        if(mainFragment != null) { //메인프래그먼트에서 작동하는 경우 eat_date에 오늘 날짜가 자동으로 들어가도록 빈 문자열 전달
+                            deleteEatFoodRequest = new DeleteEatFoodRequest(user_ID, "", holder.food_code, responseListener);
+                        }
+                        else { //popupdetailshownu액티비티에서 작동하는 경우 eat_date에 해당하는 날짜를 전달
+                            deleteEatFoodRequest = new DeleteEatFoodRequest(user_ID, popupDetailShowNuActivity.getEat_date(), holder.food_code, responseListener);
+                        }
                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
                         queue.add(deleteEatFoodRequest);
 
@@ -145,9 +153,10 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                         int itemPosition = holder.getAdapterPosition();
                                         Food food = arrayList.get(itemPosition);
                                         int pre_serving = food.getServing();
-                                        mainFragment.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(),
-                                                food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
-
+                                        if(mainFragment != null) {
+                                            mainFragment.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(),
+                                                    food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                                        }
 
                                         food.setServing(serving); //serving정보 변경
                                         food.setFood_size(food.getFood_size() / pre_serving * serving);
@@ -160,10 +169,12 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                                         food.setFood_CH(food.getFood_CH() / pre_serving * serving);
                                         food.setFood_Sat_fat(food.getFood_Sat_fat() / pre_serving * serving);
                                         food.setFood_trans_fat(food.getFood_trans_fat() / pre_serving * serving);
-                                        //병견된 정보를 반영
-                                        mainFragment.EatFoodAdd(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(),
-                                                food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
 
+                                        if(mainFragment != null) {
+                                            //변경된 정보를 반영
+                                            mainFragment.EatFoodAdd(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(),
+                                                    food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                                        }
                                         arrayList.set(itemPosition, food); //리스트에서 아이템 변경
                                         notifyItemChanged(itemPosition);//뷰에서 아이템 변경 감지
                                     }
@@ -179,7 +190,14 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
                             }
                         };
 
-                        EditEatFoodRequest editEatFoodRequest = new EditEatFoodRequest(serving, user_ID, holder.food_code, responseListener);
+                        EditEatFoodRequest editEatFoodRequest;
+                        if(mainFragment != null) { //메인프래그먼트에서 작동 중이면 오늘 날짜가 전달되도록 eat_date에 빈 문자열 전달
+                            editEatFoodRequest = new EditEatFoodRequest(serving, user_ID, "", holder.food_code, responseListener);
+                        }
+                        else {//popupdetailshownu에서 작동 중이면 해다아 날짜를 전달
+                            editEatFoodRequest = new EditEatFoodRequest(serving, user_ID, popupDetailShowNuActivity.getEat_date(), holder.food_code, responseListener);
+                        }
+
                         RequestQueue queue = Volley.newRequestQueue(view.getContext());
                         queue.add(editEatFoodRequest);
 

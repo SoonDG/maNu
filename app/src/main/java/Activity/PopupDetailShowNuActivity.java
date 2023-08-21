@@ -54,6 +54,7 @@ public class PopupDetailShowNuActivity extends AppCompatActivity {
         popupDetailShowNuBinding.canclePopipDetailShwoNu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(RESULT_OK);
                 finish();
             }
         });
@@ -101,46 +102,11 @@ public class PopupDetailShowNuActivity extends AppCompatActivity {
             }
         };
 
-        Intent intent = getIntent();
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
         GetEatFoodRequest getEatfoodRequest = new GetEatFoodRequest(sharedPreferences.getString("ID", null), eat_date, responseListener);
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(getEatfoodRequest);
     }
-
-    public void EatFoodDelete(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
-        food.setFood_kcal(food.getFood_kcal() - food_kcal);
-        food.setFood_carbs(food.getFood_carbs() - food_carbs);
-        food.setFood_protein(food.getFood_protein() - food_protein);
-        food.setFood_fat(food.getFood_fat() - food_fat);
-        food.setFood_sugars(food.getFood_sugars() - food_sugars);
-        food.setFood_sodium(food.getFood_sodium() - food_sodium);
-        food.setFood_CH(food.getFood_CH() - food_CH);
-        food.setFood_Sat_fat(food.getFood_Sat_fat() - food_Sat_fat);
-        food.setFood_trans_fat(food.getFood_trans_fat() - food_trans_fat);
-        if(food.getFood_kcal() < 0) food.setFood_kcal(0);
-        if(food.getFood_carbs() < 0) food.setFood_carbs(0);
-        if(food.getFood_protein() < 0) food.setFood_protein(0);
-        if(food.getFood_fat() < 0) food.setFood_fat(0);
-        if(food.getFood_sugars() < 0) food.setFood_sugars(0);
-        if(food.getFood_sodium() < 0) food.setFood_sodium(0);
-        if(food.getFood_CH() < 0) food.setFood_CH(0);
-        if(food.getFood_Sat_fat() < 0) food.setFood_Sat_fat(0);
-        if(food.getFood_trans_fat() < 0) food.setFood_trans_fat(0);
-
-    } //먹은 음식을 클릭하여 삭제했을 때 실행되는 메소드.
-
-    public void EatFoodAdd(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat){
-        food.setFood_kcal(food.getFood_kcal() + food_kcal);
-        food.setFood_carbs(food.getFood_carbs() + food_carbs);
-        food.setFood_protein(food.getFood_protein() + food_protein);
-        food.setFood_fat(food.getFood_fat() + food_fat);
-        food.setFood_sugars(food.getFood_sugars() + food_sugars);
-        food.setFood_sodium(food.getFood_sodium() + food_sodium);
-        food.setFood_CH(food.getFood_CH() + food_CH);
-        food.setFood_Sat_fat(food.getFood_Sat_fat() + food_Sat_fat);
-        food.setFood_trans_fat(food.getFood_trans_fat() + food_trans_fat);
-    } //병경된 인분 값과 이전 인분 값을 통해 변경된 값 만큼 반영
 
     public String getEat_date(){
         return eat_date;

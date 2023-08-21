@@ -1,11 +1,16 @@
 package Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -37,16 +42,15 @@ import Request.GetEatFoodRequest;
 
 public class MyMenuFragment extends Fragment {
     private FragmentMyMenuBinding fragmentMyMenuBinding;
-    private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0;
+    private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0; //아래 영양분 표에 표시될 영양분 정보를 담는 변수
     private int year = 0, month = 0, day = 0; //현재 표시 되는 년도, 월, 일
     private int cur_year = 0, cur_month = 0, cur_day = 0; //오늘 날짜
 
     private int first_day = 0, last_day = 0; //현재 표시 되는 년도, 월의 첫번째 날(정확힌 첫번째 날의 요일(일 = 0, 월 = 1 ... 토 = 6), 마지막 날
 
-    private Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance(); //달력 제작에 사용되는 Calendar 객체
 
-    private TextView [] textViews = new TextView[43]; //1 ~ 42번 칸
-    private Food [] foods = new Food[32]; //1 ~ 31일의 영양분 정보를 담음 -> check_Nu에서 담음, set_display_Nu에서 사용
+    private TextView [] textViews = new TextView[43]; //달력의 1 ~ 42번 칸을 나타내는 TextView
     public MyMenuFragment() {
         // Required empty public constructor
     }
@@ -66,10 +70,10 @@ public class MyMenuFragment extends Fragment {
             textViews[i] = new TextView(getContext());
         }
 
-        for(int i = 1; i <= 6; i++) { //6개의 열, 각 열의 날짜 칸들을 달력 화면에 추가.
+        for(int i = 0; i <= 5; i++) { //6개의 열, 각 열의 날짜 칸들을 달력 화면에 추가.
             TableRow tableRow = new TableRow(getContext());
             for (int j = 1; j <= 7; j++) {
-                TextView textView = textViews[(i - 1) * 7 + j];
+                TextView textView = textViews[i * 7 + j];
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -174,10 +178,11 @@ public class MyMenuFragment extends Fragment {
             public void onClick(View view) {
                 //그 날의 먹은 음식을 보여주는 팝업 창 띄우기
                 if(day != 0) {
+                    String eat_date = year + "-" + month + "-" + day;
                     Intent intent = new Intent(getContext(), PopupDetailShowNuActivity.class);
-                    intent.putExtra("eat_date", year + "-" + month + "-" + day);
-                    intent.putExtra("food", foods[day]);
-                    startActivity(intent);
+                    intent.putExtra("eat_date", eat_date);
+
+                    activityResultLauncher.launch(intent);
                 }
             }
         });
@@ -191,19 +196,58 @@ public class MyMenuFragment extends Fragment {
         fragmentMyMenuBinding = null; //프래그먼트는 뷰보다 오래 지속되므로 결합 클래스 인스턴스 참조를 정리
     }
 
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        set_display_Nu(day); //자세히 보기 화면에서 변경된 음식 정보와 관련하여 바뀐 영양분 정보를 다시 표시
+                        check_Nu(year + "-" + month + "-" + day, textViews[first_day + day]); //변경된 영양분정보가 적합한지 확인
+                    }
+                }
+            });
+
     ////////// 영양분 정보를 표시하는 함수들
-    public void set_display_Nu(int day){ //선택한 날의 영양분 정보를 foods배열로 부터 가져와 아래 레이아웃에 표시.
-        Food food = foods[day];
-        sum_kcal = food.getFood_kcal();
-        sum_carbs = food.getFood_carbs();
-        sum_protein = food.getFood_protein();
-        sum_fat = food.getFood_fat();
-        sum_sugars = food.getFood_sugars();
-        sum_sodium = food.getFood_sodium();
-        sum_CH = food.getFood_CH();
-        sum_Sat_fat = food.getFood_Sat_fat();
-        sum_trans_fat = food.getFood_trans_fat();
-        set_My_Nu_Val(); //위에 값을 저장한 변수(sum_***)의 값을 통해 아래에 있는 영양분 표에 값을 표싯
+    public void set_display_Nu(int display_day){ //선택한 날의 영양분 정보를 데이터베이스로부터 가져와 아래 레이아웃에 표시.
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    int success = jsonArray.getJSONObject(0).getInt("success");
+                    if(success == 0) {
+                        sum_kcal = 0; sum_carbs = 0; sum_protein = 0; sum_fat = 0; sum_sugars = 0; sum_sodium = 0; sum_CH = 0; sum_Sat_fat = 0; sum_trans_fat = 0;
+                        for (int i = 1; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            int serving = jsonObject.getInt("serving");
+                            sum_kcal += jsonObject.getDouble("food_kcal") * serving;
+                            sum_carbs += jsonObject.getDouble("food_carbs") * serving;
+                            sum_protein += jsonObject.getDouble("food_protein") * serving;
+                            sum_fat += jsonObject.getDouble("food_fat") * serving;
+                            sum_sugars += jsonObject.getDouble("food_sugars") * serving;
+                            sum_sodium += jsonObject.getDouble("food_sodium") * serving;
+                            sum_CH += jsonObject.getDouble("food_CH") * serving;
+                            sum_Sat_fat += jsonObject.getDouble("food_Sat_fat") * serving;
+                            sum_trans_fat += jsonObject.getDouble("food_trans_fat") * serving;
+                        }
+                        set_My_Nu_Val(); //위에 값을 저장한 변수(sum_***)의 값을 통해 아래에 있는 영양분 표에 값을 표싯
+                    }
+                    else if(success == 1){
+                        Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(success == 2){
+                        Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        GetEatFoodRequest getEatfoodRequest = new GetEatFoodRequest(sharedPreferences.getString("ID", null), year + "-" + month + "-" + display_day, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(getEatfoodRequest);
     }
 
     public void set_My_Nu_Val(){ //레이아웃 밑에 있는 영양분 표시를 수정하는 함수.
@@ -220,7 +264,7 @@ public class MyMenuFragment extends Fragment {
     ////////// 영양분 정보를 표시하는 함수들
 
     ////////// 각 날짜의 영양분 정보를 가져오는 함수
-    public void check_Nu(String eat_date, TextView textView){ //표시되는 달의 각 날짜의 영양분 정보를 데이터 베이스에서 가져와서, foods배열에 저장, 적합한 영양분 섭취했는지 확인
+    public void check_Nu(String eat_date, TextView textView){ //표시되는 달의 각 날짜의 영양분 정보를 데이터 베이스에서 가져와서, 적합한 영양분 섭취했는지 확인
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -228,40 +272,31 @@ public class MyMenuFragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(response);
                     int success = jsonArray.getJSONObject(0).getInt("success");
                     if(success == 0) {
-                        sum_kcal = 0; sum_carbs = 0; sum_protein = 0; sum_fat = 0; sum_sugars = 0; sum_sodium = 0; sum_CH = 0; sum_Sat_fat = 0; sum_trans_fat = 0;
+                        int serving;
+                        double food_kcal = 0, food_carbs = 0, food_protein = 0, food_fat = 0, food_sugars = 0, food_sodium = 0, food_CH = 0, food_Sat_fat = 0, food_trans_fat = 0;
                         for (int i = 1; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            int serving = jsonObject.getInt("serving");
-                            double food_kcal = jsonObject.getDouble("food_kcal");
-                            double food_carbs = jsonObject.getDouble("food_carbs");
-                            double food_protein = jsonObject.getDouble("food_protein");
-                            double food_fat = jsonObject.getDouble("food_fat");
-                            double food_sugars = jsonObject.getDouble("food_sugars");
-                            double food_sodium = jsonObject.getDouble("food_sodium");
-                            double food_CH = jsonObject.getDouble("food_CH");
-                            double food_Sat_fat = jsonObject.getDouble("food_Sat_fat");
-                            double food_trans_fat = jsonObject.getDouble("food_trans_fat");
-                            sum_kcal += food_kcal * serving;
-                            sum_carbs += food_carbs * serving;
-                            sum_protein += food_protein * serving;
-                            sum_fat += food_fat * serving;
-                            sum_sugars += food_sugars * serving;
-                            sum_sodium += food_sodium * serving;
-                            sum_CH += food_CH * serving;
-                            sum_Sat_fat += food_Sat_fat * serving;
-                            sum_trans_fat += food_trans_fat * serving;
+                            serving = jsonObject.getInt("serving");
+                            food_kcal += jsonObject.getDouble("food_kcal") * serving;
+                            food_carbs += jsonObject.getDouble("food_carbs") * serving;
+                            food_protein += jsonObject.getDouble("food_protein") * serving;
+                            food_fat += jsonObject.getDouble("food_fat") * serving;
+                            food_sugars += jsonObject.getDouble("food_sugars") * serving;
+                            food_sodium += jsonObject.getDouble("food_sodium") * serving;
+                            food_CH += jsonObject.getDouble("food_CH") * serving;
+                            food_Sat_fat += jsonObject.getDouble("food_Sat_fat") * serving;
+                            food_trans_fat += jsonObject.getDouble("food_trans_fat") * serving;
                         }
-                        if(sum_kcal > 3000 || sum_carbs > 2000 || sum_protein > 2000 || sum_fat > 2000 || sum_sugars > 500 || sum_sodium > 500 || sum_CH > 500 || sum_Sat_fat > 100 || sum_trans_fat > 100){
+                        if(food_kcal > 3000 || food_carbs > 2000 || food_protein > 2000 || food_fat > 2000 || food_sugars > 500 || food_sodium > 500 || food_CH > 500 || food_Sat_fat > 100 || food_trans_fat > 100){
                             textView.setBackgroundColor(Color.parseColor("#808080")); //적절하지 않은 영양분 섭취 시 해당 요일의 백그라운드 색을 회색으로 변경
                             int bad = Integer.parseInt(fragmentMyMenuBinding.badDay.getText().toString()) + 1;
                             fragmentMyMenuBinding.badDay.setText(String.valueOf(bad));
                         }
                         else {
+                            textView.setBackgroundColor(Color.parseColor("#00ff0000")); //배경색이 존재(이전 달에 부적절한 영양분 섭취 날로 계산되어)된 것을 지움
                             int good = Integer.parseInt(fragmentMyMenuBinding.goodDay.getText().toString()) + 1;
                             fragmentMyMenuBinding.goodDay.setText(String.valueOf(good));
                         }
-
-                        foods[Integer.parseInt(textView.getText().toString())] = new Food(sum_kcal, sum_carbs, sum_protein, sum_fat, sum_sugars, sum_sodium, sum_CH, sum_Sat_fat, sum_trans_fat);
                     }
                     else if(success == 1){
                         Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();

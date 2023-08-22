@@ -1,7 +1,12 @@
 package Activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,12 +28,14 @@ import Request.EditUserRequest;
 public class EditInformationActivity extends AppCompatActivity {
 
     private ActivityEditInformationBinding editInformationBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         editInformationBinding = ActivityEditInformationBinding.inflate(getLayoutInflater());
         View view = editInformationBinding.getRoot();
         setContentView(view);
+
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         editInformationBinding.curID.setText(sharedPreferences.getString("ID", null));
         editInformationBinding.curPassword.setText(sharedPreferences.getString("Password", null));
@@ -54,7 +61,7 @@ public class EditInformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditInformationActivity.this, EditPasswordActivity.class);
-                startActivity(intent);
+                activityResultLauncher.launch(intent);
             }
         });
 
@@ -80,8 +87,7 @@ public class EditInformationActivity extends AppCompatActivity {
                                 autoLogin.putString("Gender", Gender); //Password, Age, Gender 정보를 입력한 값으로 갱신
                                 autoLogin.commit(); //커밋
 
-                                ((MyAccountActivity) MyAccountActivity.context).set_myAccount(); //MyAccount Layout의 회원정보를 갱신
-
+                                setResult(RESULT_OK);
                                 finish(); //창 닫고 회원 정보 창으로 이동
                             } else if (success == 1) {
                                 Toast.makeText(EditInformationActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT).show();
@@ -101,4 +107,15 @@ public class EditInformationActivity extends AppCompatActivity {
             }
         });
     }
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        setResult(RESULT_OK); //비밀번호가 변경되었어도 MyAccount에서 변경되도록 수정
+                        finish(); //변경 창을 닫고, MyAccountActivity 창으로 전환
+                    }
+                }
+            });
 }

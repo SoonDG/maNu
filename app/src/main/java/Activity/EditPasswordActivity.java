@@ -54,8 +54,7 @@ public class EditPasswordActivity extends AppCompatActivity {
                                     autoLogin.putString("Password", new_Password); //Password, Age, Gender 정보를 입력한 값으로 갱신
                                     autoLogin.commit(); //커밋
 
-                                    ((MyAccountActivity) MyAccountActivity.context).set_myAccount(); //MyAccount Layout의 회원정보를 갱신
-
+                                    setResult(RESULT_OK);
                                     finish(); //창 닫고 회원 정보 창으로 이동
                                 } else if (success == 1) {
                                     Toast.makeText(EditPasswordActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT).show();

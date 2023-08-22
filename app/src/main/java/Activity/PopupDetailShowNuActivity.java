@@ -62,6 +62,12 @@ public class PopupDetailShowNuActivity extends AppCompatActivity {
         set_Food_list();
     }
 
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
     public void set_Food_list(){ //해당 부분 수정 필요 -> 먹은 음식 테이블에서 가져오도록
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override

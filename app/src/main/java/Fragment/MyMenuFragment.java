@@ -84,6 +84,7 @@ public class MyMenuFragment extends Fragment {
                         } //해당 날짜의 표시를 없애기
 
                         textView.setTextColor(Color.parseColor("#008000")); //선택한 날을 가시적으로 표현하기 위해 초록색으로 설정
+                        textView.setClickable(false);
                         day = Integer.parseInt(textView.getText().toString()); //선택한 날을 저장
                     }
                 });
@@ -395,6 +396,8 @@ public class MyMenuFragment extends Fragment {
         else {
             textView.setTextColor(Color.parseColor("#ffffff")); //평일이면 하얀색으로 되돌림
         }
+
+        textView.setClickable(true);
     }
     ////////// 표시되는 정보 제거하는 함수들
 

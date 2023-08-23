@@ -32,7 +32,6 @@ public class PopupDetailShowNuActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<Food> arrayList;
     private String eat_date;
-    private Food food;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

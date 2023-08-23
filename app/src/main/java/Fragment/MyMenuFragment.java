@@ -174,6 +174,17 @@ public class MyMenuFragment extends Fragment {
             }
         });
 
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            set_display_Nu(day); //자세히 보기 화면에서 변경된 음식 정보와 관련하여 바뀐 영양분 정보를 다시 표시
+                            check_Nu(year + "-" + month + "-" + day, textViews[first_day + day]); //변경된 영양분정보가 적합한지 확인
+                        }
+                    }
+                });
+
         fragmentMyMenuBinding.showDetailNuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,17 +207,6 @@ public class MyMenuFragment extends Fragment {
         super.onDestroyView();
         fragmentMyMenuBinding = null; //프래그먼트는 뷰보다 오래 지속되므로 결합 클래스 인스턴스 참조를 정리
     }
-
-    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == Activity.RESULT_OK){
-                        set_display_Nu(day); //자세히 보기 화면에서 변경된 음식 정보와 관련하여 바뀐 영양분 정보를 다시 표시
-                        check_Nu(year + "-" + month + "-" + day, textViews[first_day + day]); //변경된 영양분정보가 적합한지 확인
-                    }
-                }
-            });
 
     ////////// 영양분 정보를 표시하는 함수들
     public void set_display_Nu(int display_day){ //선택한 날의 영양분 정보를 데이터베이스로부터 가져와 아래 레이아웃에 표시.

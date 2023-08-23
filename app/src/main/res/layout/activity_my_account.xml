@@ -7,7 +7,7 @@
     tools:context="Activity.MyAccountActivity">
 
     <Button
-        android:id="@+id/to_edit_information_btn"
+        android:id="@+id/to_Edit_Information_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -95,6 +95,6 @@
         android:text="회원 탈퇴"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/to_edit_information_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/to_Edit_Information_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

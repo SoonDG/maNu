@@ -41,7 +41,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/month_my_kcal_val"
+                android:id="@+id/month_My_Kcal_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -49,7 +49,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/month_my_carbs_val"
+                android:id="@+id/month_My_Carbs_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -57,7 +57,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/month_my_protein_val"
+                android:id="@+id/month_My_Protein_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -96,7 +96,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/month_my_fat_val"
+                android:id="@+id/month_My_Fat_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -104,7 +104,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/month_my_sugars_val"
+                android:id="@+id/month_My_Sugars_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -112,7 +112,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/month_my_sodium_val"
+                android:id="@+id/month_My_Sodium_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -151,7 +151,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/month_my_CH_val"
+                android:id="@+id/month_My_CH_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -159,7 +159,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/month_my_Sat_fat_val"
+                android:id="@+id/month_My_Sat_Fat_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -167,7 +167,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/month_my_trans_fat_val"
+                android:id="@+id/month_My_Trans_Fat_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -233,7 +233,7 @@
 
 
     <TableLayout
-        android:id="@+id/Calendar"
+        android:id="@+id/calendar_View"
         android:layout_width="match_parent"
         android:layout_height="331dp"
         android:layout_marginTop="50dp"
@@ -298,7 +298,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/pre_month_btn"
+        android:id="@+id/pre_Month_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|left"
@@ -308,7 +308,7 @@
         android:background="#00ff0000" />
 
     <Button
-        android:id="@+id/next_month_btn"
+        android:id="@+id/next_Month_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
@@ -318,7 +318,7 @@
         android:background="#00ff0000"/>
 
     <TextView
-        android:id="@+id/Calendar_Date"
+        android:id="@+id/calendar_Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center"

@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/cancle_popip_detail_shwo_nu"
+            android:id="@+id/cancle_Popup_Detail_Show_Nu"
             android:text="닫기"
             android:textSize="15sp"
             android:textColor="#0067a3"

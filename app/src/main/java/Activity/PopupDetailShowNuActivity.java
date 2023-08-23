@@ -51,7 +51,7 @@ public class PopupDetailShowNuActivity extends AppCompatActivity {
         eatFoodAdapter = new EatFoodAdapter(arrayList, this);
         popupDetailShowNuBinding.popupDetailShowNuRecyclerView.setAdapter(eatFoodAdapter);
 
-        popupDetailShowNuBinding.canclePopipDetailShwoNu.setOnClickListener(new View.OnClickListener() {
+        popupDetailShowNuBinding.canclePopupDetailShowNu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setResult(RESULT_OK);

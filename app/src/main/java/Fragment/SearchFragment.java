@@ -58,7 +58,7 @@ public class SearchFragment extends Fragment {
         foodAdapter = new FoodAdapter(arrayList);
         fragmentSearchBinding.searchRecyclerView.setAdapter(foodAdapter);
 
-        fragmentSearchBinding.SearchFoodText.setOnEditorActionListener(new TextView.OnEditorActionListener() { //검색 버튼을 누를경우 해당 검색어로 검색된 식품만 출력
+        fragmentSearchBinding.searchFoodText.setOnEditorActionListener(new TextView.OnEditorActionListener() { //검색 버튼을 누를경우 해당 검색어로 검색된 식품만 출력
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 String Search_String = textView.getText().toString();

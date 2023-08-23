@@ -5,7 +5,7 @@
     tools:context="Fragment.SearchFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_recycler_view"
+        android:id="@+id/search_Recycler_View"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarFadeDuration="0"
@@ -14,7 +14,7 @@
         android:layout_marginTop="50dp"/>
 
     <EditText
-        android:id="@+id/Search_Food_Text"
+        android:id="@+id/search_Food_Text"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:ems="10"

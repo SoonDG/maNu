@@ -5,7 +5,7 @@
     tools:context="Fragment.MainFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_recycler_view"
+        android:id="@+id/main_Recycler_View"
         android:layout_width="match_parent"
         android:layout_height="450dp">
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/my_kcal_val"
+                android:id="@+id/my_Kcal_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -56,7 +56,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/my_carbs_val"
+                android:id="@+id/my_Carbs_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -64,7 +64,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/my_protein_val"
+                android:id="@+id/my_Protein_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -103,7 +103,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/my_fat_val"
+                android:id="@+id/my_Fat_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -111,7 +111,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/my_sugars_val"
+                android:id="@+id/my_Sugars_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -119,7 +119,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/my_sodium_val"
+                android:id="@+id/my_Sodium_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -158,7 +158,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/my_CH_val"
+                android:id="@+id/my_CH_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -166,7 +166,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/my_Sat_fat_val"
+                android:id="@+id/my_Sat_Fat_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -174,7 +174,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
-                android:id="@+id/my_trans_fat_val"
+                android:id="@+id/my_Trans_Fat_Val"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

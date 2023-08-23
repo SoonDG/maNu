@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.ActivityMainBinding;
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         View view = mainBinding.getRoot();
         setContentView(view);
 
-        fragmentManager.beginTransaction().replace(R.id.frame_layout, mainFragment).commit(); //시작 화면을 mainFragment로
+        fragmentManager.beginTransaction().replace(R.id.frame_Layout, mainFragment).commit(); //시작 화면을 mainFragment로
 
         setSupportActionBar(mainBinding.toolbar); //툴바 설정
 
@@ -57,8 +61,36 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                int id = item.getItemId();
                if(id == R.id.account){ //계정 정보 창으로 전환
-                    Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
-                    startActivity(intent);
+                   AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
+                   ad.setMessage("확인을 위해 비밀번호를 입력해주세요.");
+                   final EditText editText = new EditText(ad.getContext());
+                   ad.setView(editText);
+
+                   ad.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialogInterface, int i) {
+                           SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+                           String password = sharedPreferences.getString("Password", null);
+                           if(password.equals(editText.getText().toString())){ //비밀번호 확인
+                               Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
+                               startActivity(intent); //계정 정보 창으로 이동
+                               dialogInterface.dismiss();
+                           }
+                           else {
+                               Toast.makeText(getApplicationContext(), "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                               dialogInterface.dismiss();
+                           }
+                       }
+                   });
+
+                   ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialogInterface, int i) {
+                           dialogInterface.dismiss();
+                       }
+                   });
+
+                   ad.show();
                }
                else if(id == R.id.logout){ //로그아웃 후, 다시 로그인 화면으로 전환
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -81,13 +113,13 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 int id = item.getItemId();
                 if(id == R.id.menu_home){
-                    transaction.replace(R.id.frame_layout, mainFragment).commit();
+                    transaction.replace(R.id.frame_Layout, mainFragment).commit();
                 }
                 else if(id == R.id.menu_my){
-                    transaction.replace(R.id.frame_layout, myMenuFragmet).commit();
+                    transaction.replace(R.id.frame_Layout, myMenuFragmet).commit();
                 }
                 else if(id == R.id.menu_search){
-                    transaction.replace(R.id.frame_layout, searchFragment).commit();
+                    transaction.replace(R.id.frame_Layout, searchFragment).commit();
                 }
                 return true;
             }

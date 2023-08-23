@@ -91,7 +91,7 @@ public class MyMenuFragment extends Fragment {
 
                 tableRow.addView(textView);
             }
-            fragmentMyMenuBinding.Calendar.addView(tableRow);
+            fragmentMyMenuBinding.calendarView.addView(tableRow);
         }
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -320,7 +320,7 @@ public class MyMenuFragment extends Fragment {
 
     ////////// 달력 제작하는 함수
     public void setting_Calendar(){ //설정한 년도와 달에 따라 달력을 만들고, 날짜 클릭이벤트를 설정
-        fragmentMyMenuBinding.CalendarDate.setText(year + "." + month);
+        fragmentMyMenuBinding.calendarDate.setText(year + "." + month);
 
         int textView_day = 0; //last_day = 캘린더에 표시된 달의 마지막 날, first_day = 캘린더에 표시된 달의 첫번째 날, day = 각 칸이 나타내는 날짜
 

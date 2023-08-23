@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/login_Pass_Text"
+        android:id="@+id/login_Password_Text"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginBottom="290dp"
@@ -44,11 +44,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_Pass_Text"
+        app:layout_constraintTop_toBottomOf="@+id/login_Password_Text"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/to_reg_btn"
+        android:id="@+id/to_Reg_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"

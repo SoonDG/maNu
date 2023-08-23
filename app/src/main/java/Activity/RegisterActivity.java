@@ -44,8 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String ID = registerBinding.regIDText.getText().toString();
-                String Password = registerBinding.regPassText.getText().toString();
-                String Repeat_Password = registerBinding.repeatRegPassText.getText().toString();
+                String Password = registerBinding.regPasswordText.getText().toString();
+                String Repeat_Password = registerBinding.repeatRegPasswordText.getText().toString();
                 int Age = Integer.parseInt(registerBinding.ageSpinner.getSelectedItem().toString());
                 String Gender = registerBinding.genderSpinner.getSelectedItem().toString();
 

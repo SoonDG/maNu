@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String ID = loginBinding.loginIDText.getText().toString();
-                String Password = loginBinding.loginPassText.getText().toString();
+                String Password = loginBinding.loginPasswordText.getText().toString();
                 if(ID.isEmpty() || Password.isEmpty()){
                     Toast.makeText(LoginActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT).show();
                 }

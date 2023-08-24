@@ -43,6 +43,16 @@ public class MyAccountActivity extends AppCompatActivity {
         set_myAccount(); //회원 정보 표시
 
 
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            set_myAccount();
+                        }
+                    }
+                });
+
         myAccountBinding.toEditInformationBtn.setOnClickListener(new View.OnClickListener() { //회원 정보 수정
             @Override
             public void onClick(View view) {
@@ -120,14 +130,4 @@ public class MyAccountActivity extends AppCompatActivity {
         myAccountBinding.myAge.setText(String.valueOf(sharedPreferences.getInt("Age", 0)));
         myAccountBinding.myGender.setText(sharedPreferences.getString("Gender", null));
     }
-
-    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == Activity.RESULT_OK){
-                        set_myAccount();
-                    }
-                }
-            });
 }

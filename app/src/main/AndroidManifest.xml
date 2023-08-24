@@ -16,9 +16,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="Activity.LoadingActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="Activity.PopupDetailShowNuActivity"
             android:exported="false"
-            android:theme="@style/DialogTheme"/>
+            android:theme="@style/DialogTheme" />
         <activity
             android:name="Activity.EditPasswordActivity"
             android:exported="false" />
@@ -34,11 +43,6 @@
         <activity
             android:name="Activity.LoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="Activity.MainActivity"

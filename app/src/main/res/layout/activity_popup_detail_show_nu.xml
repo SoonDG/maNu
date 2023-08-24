@@ -29,7 +29,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popup_detail_show_nu_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="450dp">
+            android:layout_height="450dp"
+            android:background="#464646">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 

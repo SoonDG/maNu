@@ -7,112 +7,167 @@
     tools:context="Activity.EditInformationActivity">
 
     <TextView
-        android:id="@+id/edit_Gender_Label"
+        android:id="@+id/User_Information_Lable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="15dp"
-        android:text="변경 성별: "
-        app:layout_constraintEnd_toStartOf="@+id/edit_Gender"
-        app:layout_constraintTop_toBottomOf="@+id/cur_Age_Label" />
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="회원 정보"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/edit_Age_Label"
+        android:id="@+id/Account_Information_Lable"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="계정 정보"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="15dp"
-        android:text="변경 나이: "
-        app:layout_constraintEnd_toStartOf="@+id/edit_Age"
-        app:layout_constraintTop_toBottomOf="@+id/cur_Password_Label" />
-
-    <TextView
-        android:id="@+id/cur_Gender_Label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:text="성별: "
+        android:stretchColumns="*"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cur_Age_Label" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/cur_Age_Label"
-        android:layout_width="wrap_content"
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/cur_ID_Label"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="아이디: "
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cur_ID"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/cur_ID_Label"
+                app:layout_constraintTop_toTopOf="parent" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/cur_Password_Label"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="패스워드: "
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cur_ID_Label" />
+
+            <TextView
+                android:id="@+id/cur_Password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/cur_Password_Label"
+                app:layout_constraintTop_toBottomOf="@+id/cur_ID_Label" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="100dp"
-        android:text="나이: "
+        android:layout_marginTop="300dp"
+        android:stretchColumns="*"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cur_Password_Label" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/cur_Password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/cur_Password_Label"
-        app:layout_constraintTop_toBottomOf="@+id/cur_ID_Label" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/cur_Password_Label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:text="패스워드: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cur_ID_Label" />
+            <TextView
+                android:id="@+id/cur_Age_Label"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="나이: "
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/cur_ID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/cur_ID_Label"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/cur_Age"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/cur_Gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/cur_Gender_Label"
-        app:layout_constraintTop_toBottomOf="@+id/cur_Age_Label" />
+            <TextView
+                android:id="@+id/edit_Age_Label"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="변경 나이: "
+                android:textSize="20sp" />
 
-    <Spinner
-        android:id="@+id/edit_Age"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <Spinner
+                android:id="@+id/edit_Age"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"/>
+        </TableRow>
 
-    <TextView
-        android:id="@+id/cur_Age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="100dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/cur_Age_Label"
-        app:layout_constraintTop_toBottomOf="@+id/cur_Password_Label" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/edit_Gender"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Age" />
+            <TextView
+                android:id="@+id/cur_Gender_Label"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="성별: "
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/cur_Gender"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/edit_Gender_Label"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="변경 성별: "
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/edit_Gender"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"/>
+        </TableRow>
+    </TableLayout>
 
     <Button
         android:id="@+id/edit_Information_btn"
@@ -121,10 +176,13 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="100dp"
         android:text="회원 정보 수정"
+        android:background="@drawable/button_style"
+        android:textColor="#3CB371"
         app:layout_constraintBottom_toTopOf="@+id/cancle_Edit_Information_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Gender_Label" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+        app:layout_constraintVertical_bias="0.51" />
 
     <Button
         android:id="@+id/cancle_Edit_Information_btn"
@@ -132,28 +190,23 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:text="취소"
+        android:background="@drawable/button_style"
+        android:textColor="#3CB371"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/cur_ID_Label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:text="아이디: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/to_Edit_Password_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="비밀번호 변경"
+        android:background="@drawable/button_style"
+        android:textColor="#3CB371"
         app:layout_constraintBottom_toTopOf="@+id/cancle_Edit_Information_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_Information_btn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

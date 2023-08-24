@@ -50,6 +50,17 @@ public class EditInformationActivity extends AppCompatActivity {
         editInformationBinding.editAge.setAdapter(ageAdapter);
         editInformationBinding.editGender.setAdapter(genderAdapter);
 
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            setResult(RESULT_OK); //비밀번호가 변경되었어도 MyAccount에서 변경되도록 수정
+                            finish(); //변경 창을 닫고, MyAccountActivity 창으로 전환
+                        }
+                    }
+                });
+
         editInformationBinding.cancleEditInformationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,15 +118,4 @@ public class EditInformationActivity extends AppCompatActivity {
             }
         });
     }
-
-    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == Activity.RESULT_OK){
-                        setResult(RESULT_OK); //비밀번호가 변경되었어도 MyAccount에서 변경되도록 수정
-                        finish(); //변경 창을 닫고, MyAccountActivity 창으로 전환
-                    }
-                }
-            });
 }

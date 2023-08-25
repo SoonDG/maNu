@@ -37,7 +37,9 @@ public class LoginActivity extends AppCompatActivity {
         LoginID = sharedPreferences.getString("ID", null);
         LoginPass = sharedPreferences.getString("Password", null);
         if(LoginID != null && LoginPass != null){ //로그인 한 기록이 있다면
-            check_login(LoginID, LoginPass); //자동 로그인
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class); //메인화면으로 이동
+            startActivity(intent);
+            finish();
         }
 
         loginBinding.toRegBtn.setOnClickListener(new View.OnClickListener() { //회원가입 화면으로 전환
@@ -48,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginBinding.loginBtn.setOnClickListener(new View.OnClickListener() {
+        loginBinding.loginBtn.setOnClickListener(new View.OnClickListener() { //로그인 기능 호출
             @Override
             public void onClick(View view) {
                 String ID = loginBinding.loginIDText.getText().toString();

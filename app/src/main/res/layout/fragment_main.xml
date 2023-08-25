@@ -11,10 +11,21 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="450dp"
+        android:gravity="center"
+        android:background="@color/MyNuGreen"
+        android:textColor="@color/white"
+        android:text="섭취 영양분"
+        android:textSize="20sp"/>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="500dp"
         android:stretchColumns="*">
 
         <TableRow

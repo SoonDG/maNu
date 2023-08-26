@@ -26,7 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="500dp"
-        android:stretchColumns="*">
+        android:stretchColumns="*"
+        android:background="@drawable/textview_style">
 
         <TableRow
             android:layout_width="match_parent"

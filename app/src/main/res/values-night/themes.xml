@@ -5,6 +5,12 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 
+    <style name="Theme.My_First_Project" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/MyNuGreen</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:windowBackground">#646464</item>
+    </style>
+
     <style name="SplashTheme" parent="@style/Theme.AppCompat.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>

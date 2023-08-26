@@ -22,6 +22,7 @@
         android:text=""
         android:hint="식품 검색"
         android:textColorHint="#808080"
+        android:background="@drawable/textview_style"
         android:imeOptions="actionSearch"/>
 
 </FrameLayout>

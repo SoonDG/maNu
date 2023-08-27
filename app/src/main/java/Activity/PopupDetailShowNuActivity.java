@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -38,6 +41,11 @@ public class PopupDetailShowNuActivity extends AppCompatActivity {
         popupDetailShowNuBinding = ActivityPopupDetailShowNuBinding.inflate(getLayoutInflater());
         View view = popupDetailShowNuBinding.getRoot();
         setContentView(view);
+
+        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
+        int width = (int)(displayMetrics.widthPixels * 0.9);
+        getWindow().getAttributes().width = width;
+        //크기조절
 
         Intent intent = getIntent();
         eat_date = intent.getStringExtra("eat_date");

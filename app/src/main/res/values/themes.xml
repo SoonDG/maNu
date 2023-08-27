@@ -11,18 +11,20 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
+    <!-- 로딩 창(SplashActivity 전용 테마)-->
     <style name="SplashTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@drawable/mynu_background</item>
     </style>
 
-    <style name="DialogTheme" parent ="@style/Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@color/dialogColor</item>
-        <item name="background">@color/white</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@null</item>
+    <!-- Dialog 전용 테마-->
+    <style name="NoTitleBarDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">#07000000</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
+
 </resources>

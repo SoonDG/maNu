@@ -1,11 +1,16 @@
 package Activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -56,41 +61,24 @@ public class MainActivity extends AppCompatActivity {
         NavigationHaederBinding navigationHaederBinding = NavigationHaederBinding.bind(mainBinding.menuNavigation.getHeaderView(0));
         navigationHaederBinding.navID.setText(sharedPreferences.getString("ID", null) +"님"); //아이디를 네비게이션 헤더에 표시
 
+        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
+
         mainBinding.menuNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {//사이드 바 메뉴 클릭 이벤트
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                int id = item.getItemId();
                if(id == R.id.account){ //계정 정보 창으로 전환
-                   AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
-                   ad.setMessage("확인을 위해 비밀번호를 입력해주세요.");
-                   final EditText editText = new EditText(ad.getContext());
-                   ad.setView(editText);
-
-                   ad.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                       @Override
-                       public void onClick(DialogInterface dialogInterface, int i) {
-                           SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-                           String password = sharedPreferences.getString("Password", null);
-                           if(password.equals(editText.getText().toString())){ //비밀번호 확인
-                               Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
-                               startActivity(intent); //계정 정보 창으로 이동
-                               dialogInterface.dismiss();
-                           }
-                           else {
-                               Toast.makeText(getApplicationContext(), "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
-                               dialogInterface.dismiss();
-                           }
-                       }
-                   });
-
-                   ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                       @Override
-                       public void onClick(DialogInterface dialogInterface, int i) {
-                           dialogInterface.dismiss();
-                       }
-                   });
-
-                   ad.show();
+                   Intent intent = new Intent(MainActivity.this, PopupCheckPassword.class);
+                   activityResultLauncher.launch(intent);
                }
                else if(id == R.id.logout){ //로그아웃 후, 다시 로그인 화면으로 전환
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);

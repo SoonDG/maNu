@@ -1,4 +1,4 @@
-package Activity;
+package Activity.PopupActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,15 +8,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-
 import com.example.my_first_project.databinding.ActivityPopupDetailShowNuBinding;
 
 import org.json.JSONArray;

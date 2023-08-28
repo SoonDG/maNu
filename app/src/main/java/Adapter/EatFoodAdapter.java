@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import Activity.PopupDetailShowNuActivity;
+import Activity.PopupActivity.PopupDetailShowNuActivity;
 import Fragment.MainFragment;
 import Model.Food;
 import Request.DeleteEatFoodRequest;

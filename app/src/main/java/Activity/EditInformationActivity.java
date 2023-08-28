@@ -23,6 +23,7 @@ import com.example.my_first_project.databinding.ActivityEditInformationBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import Activity.PopupActivity.PopupInformationActivity;
 import Request.EditUserRequest;
 
 public class EditInformationActivity extends AppCompatActivity {
@@ -89,8 +90,11 @@ public class EditInformationActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             int success = jsonObject.getInt("success");
+
+                            Intent intent = new Intent(EditInformationActivity.this, PopupInformationActivity.class);
                             if (success == 0) {
-                                Toast.makeText(EditInformationActivity.this, "회원정보 수정 성공", Toast.LENGTH_SHORT).show();
+                                intent.putExtra("Title", "회원정보 수정 성공");
+                                startActivity(intent);
 
                                 SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE); //자동 로그인 정보를 초기화
                                 SharedPreferences.Editor autoLogin = sharedPreferences.edit();
@@ -101,9 +105,11 @@ public class EditInformationActivity extends AppCompatActivity {
                                 setResult(RESULT_OK);
                                 finish(); //창 닫고 회원 정보 창으로 이동
                             } else if (success == 1) {
-                                Toast.makeText(EditInformationActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                                intent.putExtra("Title", "데이터 전송 실패");
+                                startActivity(intent);
                             } else if (success == 2) {
-                                Toast.makeText(EditInformationActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT).show();
+                                intent.putExtra("Title", "sql문 실행 실패");
+                                startActivity(intent);
                             }
                         } catch (JSONException e) {
                             Toast.makeText(EditInformationActivity.this, e.toString(), Toast.LENGTH_SHORT).show();

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    tools:context="Activity.PopupActivity.PopupDetailShowNuActivity">
+    android:orientation="vertical"
+    tools:context="Activity.PopupActivity.PopupInformationActivity">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -22,15 +21,18 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popup_detail_show_nu_recycler_view"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/popup_Information_Title"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:background="#464646">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text=""
+            android:textSize="25sp"></TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -38,15 +40,15 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
-            android:id="@+id/cancle_Popup_Detail_Show_Nu"
-            android:text="닫기"
-            android:textSize="15sp"
-            android:textColor="@color/MyNuGreen"
-            android:gravity="center"
-            android:background="#ffffff"
+            android:id="@+id/popup_Information_close_btn"
             android:layout_width="match_parent"
-            android:layout_height="53dp">
-        </Button>
+            android:layout_height="53dp"
+            android:background="@drawable/button_style4"
+            android:gravity="center"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="20sp"></Button>
     </LinearLayout>
 </LinearLayout>

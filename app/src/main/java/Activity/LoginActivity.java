@@ -16,6 +16,7 @@ import com.example.my_first_project.databinding.ActivityLoginBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import Activity.PopupActivity.PopupInformationActivity;
 import Request.LoginRequest;
 
 public class LoginActivity extends AppCompatActivity {
@@ -56,7 +57,9 @@ public class LoginActivity extends AppCompatActivity {
                 String ID = loginBinding.loginIDText.getText().toString();
                 String Password = loginBinding.loginPasswordText.getText().toString();
                 if(ID.isEmpty() || Password.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, PopupInformationActivity.class);
+                    intent.putExtra("Title", "비어있는 칸을 모두 채워주세요.");
+                    startActivity(intent);
                 }
                 else check_login(ID, Password); //입력한 정보로 로그인
             }
@@ -70,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     int success = jsonObject.getInt("success");
+
                     if(success == 0){
                         Toast.makeText(LoginActivity.this, ID + "님 환영합니다.", Toast.LENGTH_SHORT).show();
 
@@ -89,13 +93,19 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                     else if(success == 1){
-                        Toast.makeText(LoginActivity.this, "로그인 데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, PopupInformationActivity.class);
+                        intent.putExtra("Title", "로그인 데이터 전송 실패");
+                        startActivity(intent);
                     }
                     else if(success == 2){
-                        Toast.makeText(LoginActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, PopupInformationActivity.class);
+                        intent.putExtra("Title", "sql뮨 실행 실패");
+                        startActivity(intent);
                     }
                     else if(success == 3){
-                        Toast.makeText(LoginActivity.this, "일치하는 계정이 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, PopupInformationActivity.class);
+                        intent.putExtra("Title", "일치하는 계정이 존재하지 않습니다.");
+                        startActivity(intent);
                     }
 
                 } catch (JSONException e) {

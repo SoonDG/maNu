@@ -16,9 +16,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="Activity.PopupCheckPassword"
+            android:name="Activity.PopupActivity.PopupEatFoodEditActivity"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog"  />
+            android:theme="@style/NoTitleBarDialog"/>
+        <activity
+            android:name="Activity.PopupActivity.PopupFoodEatActivity"
+            android:exported="false"
+            android:theme="@style/NoTitleBarDialog"/>
+        <activity
+            android:name="Activity.PopupActivity.PopupInformationActivity"
+            android:exported="false"
+            android:theme="@style/NoTitleBarDialog" />
+        <activity
+            android:name="Activity.PopupActivity.PopupCheckPasswordActivity"
+            android:exported="false"
+            android:theme="@style/NoTitleBarDialog" />
         <activity
             android:name="Activity.LoadingActivity"
             android:exported="true"
@@ -30,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="Activity.PopupDetailShowNuActivity"
+            android:name="Activity.PopupActivity.PopupDetailShowNuActivity"
             android:exported="false"
             android:theme="@style/NoTitleBarDialog" />
         <activity
@@ -47,7 +59,7 @@
             android:exported="false" />
         <activity
             android:name="Activity.LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name="Activity.MainActivity"
             android:exported="true" />

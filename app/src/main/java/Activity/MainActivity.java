@@ -11,15 +11,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.ActivityMainBinding;
@@ -27,6 +23,7 @@ import com.example.my_first_project.databinding.NavigationHaederBinding;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
+import Activity.PopupActivity.PopupCheckPasswordActivity;
 import Fragment.MainFragment;
 import Fragment.MyMenuFragment;
 import Fragment.SearchFragment;
@@ -77,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                int id = item.getItemId();
                if(id == R.id.account){ //계정 정보 창으로 전환
-                   Intent intent = new Intent(MainActivity.this, PopupCheckPassword.class);
+                   Intent intent = new Intent(MainActivity.this, PopupCheckPasswordActivity.class);
                    activityResultLauncher.launch(intent);
                }
                else if(id == R.id.logout){ //로그아웃 후, 다시 로그인 화면으로 전환

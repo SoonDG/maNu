@@ -1,17 +1,15 @@
-package Activity;
+package Activity.PopupActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.ActivityPopupCheckPasswordBinding;
 
-public class PopupCheckPassword extends AppCompatActivity {
+public class PopupCheckPasswordActivity extends AppCompatActivity {
 
     private ActivityPopupCheckPasswordBinding popupCheckPasswordBinding;
     @Override

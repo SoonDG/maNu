@@ -3,6 +3,7 @@ package Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import Activity.PopupActivity.PopupFoodEatActivity;
 import Model.Food;
 import Request.CheckEatFoodRequest;
 import Request.EatFoodRequest;
@@ -77,55 +79,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                             JSONObject jsonObject = new JSONObject(response);
                             int success = jsonObject.getInt("success");
                             if(success == 0){ //오류X, 오늘 먹은 음식이 아니라면 이 음식을 먹은 음식에 추가하는 기능을 호출
-                                AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
-                                ad.setMessage(holder.food_name.getText() + "를 오늘 먹은 식품에 추가 하시겠습니까?");
-
-                                final Spinner spinner = new Spinner(ad.getContext());
-                                String [] serving_Data = ad.getContext().getResources().getStringArray(R.array.serving);
-                                ArrayAdapter servingAdapter = new ArrayAdapter(ad.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
-                                spinner.setAdapter(servingAdapter);
-                                ad.setView(spinner);
-
-                                ad.setPositiveButton("네", new DialogInterface.OnClickListener() { //음식 먹은 갯수를 입력하도록 변경해야 함
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) { //데이터 베이스에 먹은 음식에 추가
-                                        Response.Listener<String> responseListener = new Response.Listener<String>() {
-                                            @Override
-                                            public void onResponse(String response) {
-                                                try {
-                                                    JSONObject jsonObject = new JSONObject(response);
-                                                    int success = jsonObject.getInt("success");
-                                                    if(success == 0){
-                                                        Toast.makeText(view.getContext(), holder.food_name.getText() + " " + spinner.getSelectedItem().toString() + "인분을 먹은 음식에 담았습니다.", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                    else if(success == 1){
-                                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                    else if(success == 2){
-                                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                } catch (JSONException e) {
-                                                    throw new RuntimeException(e);
-                                                }
-                                            }
-                                        };
-
-                                        EatFoodRequest eatFoodRequest = new EatFoodRequest(user_ID, Integer.parseInt(spinner.getSelectedItem().toString()), holder.food_code, responseListener);
-                                        RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                                        queue.add(eatFoodRequest);
-
-                                        dialogInterface.dismiss();
-                                    }
-                                });
-
-                                ad.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                    }
-                                });
-
-                                ad.show();
+                                Intent intent = new Intent(view.getContext(), PopupFoodEatActivity.class);
+                                intent.putExtra("food_code", holder.food_code);
+                                intent.putExtra("food_name", holder.food_name.getText().toString());
+                                view.getContext().startActivity(intent);
                             }
                             else if(success == -1){ //이미 오늘 먹은 음식에 포함된 음식을 클릭 함.
                                 Toast.makeText(view.getContext(), holder.food_name.getText() + "는 이미 오늘 먹은 음식에 포함되어 있습니다.", Toast.LENGTH_SHORT).show();

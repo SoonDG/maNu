@@ -32,12 +32,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.time.Month;
-import java.time.Year;
 import java.util.Calendar;
 
-import Activity.PopupDetailShowNuActivity;
-import Model.Food;
+import Activity.PopupActivity.PopupDetailShowNuActivity;
 import Request.GetEatFoodRequest;
 
 public class MyMenuFragment extends Fragment {

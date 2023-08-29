@@ -1,9 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="Activity.PopupActivity.PopupEatFoodEditActivity">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:text="음식 정보 수정"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="@color/MyNuGreen"
+            android:textColor="#ffffff">
+        </TextView>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="5">
+        <Spinner
+            android:id="@+id/eat_Food_Serving_Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:layout_weight="3">
+        </Spinner>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="인분"
+            android:gravity="center"
+            android:textSize="20sp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/eat_Food_Edit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/button_style4"
+            android:gravity="center"
+            android:text="수정"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_weight="1"></Button>
+        <Button
+            android:id="@+id/eat_Food_Delete_btn"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/button_style4"
+            android:gravity="center"
+            android:text="삭제"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_weight="1"></Button>
+        <Button
+            android:id="@+id/cancle_Popup_Eat_Food_Edit_btn"
+            android:text="취소"
+            android:textSize="15sp"
+            android:textColor="@color/MyNuGreen"
+            android:gravity="center"
+            android:background="@drawable/button_style3"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_weight="1">
+        </Button>
+    </LinearLayout>
+</LinearLayout>

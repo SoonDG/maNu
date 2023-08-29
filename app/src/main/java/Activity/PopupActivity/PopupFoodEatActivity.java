@@ -19,6 +19,8 @@ import com.example.my_first_project.databinding.ActivityPopupFoodEatBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.Year;
+
 import Request.EatFoodRequest;
 
 public class PopupFoodEatActivity extends AppCompatActivity {
@@ -39,8 +41,19 @@ public class PopupFoodEatActivity extends AppCompatActivity {
         String food_name = intent.getStringExtra("food_name");
 
         String [] serving_Data = this.getResources().getStringArray(R.array.serving);
+        String [] year_Data = this.getResources().getStringArray(R.array.Year);
+        String [] month_Data = this.getResources().getStringArray(R.array.Month);
+        String [] day_Data = this.getResources().getStringArray(R.array.Day);
+
         ArrayAdapter servingAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
+        ArrayAdapter yearAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, year_Data);
+        ArrayAdapter monthAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, month_Data);
+        ArrayAdapter dayAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, day_Data);
+
         popupFoodEatBinding.foodServingSpinner.setAdapter(servingAdapter);
+        popupFoodEatBinding.foodYearSpinner.setAdapter(yearAdapter);
+        popupFoodEatBinding.foodMonthSpinner.setAdapter(monthAdapter);
+        popupFoodEatBinding.foodDaySpinner.setAdapter(dayAdapter);
 
         popupFoodEatBinding.foodEatBtn.setOnClickListener(new View.OnClickListener() {
             @Override

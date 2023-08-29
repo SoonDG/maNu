@@ -1,8 +1,10 @@
 package Adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import Activity.PopupActivity.PopupDetailShowNuActivity;
+import Activity.PopupActivity.PopupEatFoodEditActivity;
 import Fragment.MainFragment;
 import Model.Food;
 import Request.DeleteEatFoodRequest;
@@ -38,6 +45,8 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
     private String user_ID;
     private MainFragment mainFragment;
     private PopupDetailShowNuActivity popupDetailShowNuActivity;
+
+
     public EatFoodAdapter(ArrayList<Food> arrayList, MainFragment mainFragment){
         this.arrayList = arrayList;
         this.mainFragment = mainFragment;

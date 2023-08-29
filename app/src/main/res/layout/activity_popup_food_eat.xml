@@ -24,6 +24,52 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="9">
+        <Spinner
+            android:id="@+id/food_Year_Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:layout_weight="2">
+        </Spinner>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="년"
+            android:gravity="center"
+            android:textSize="20sp"></TextView>
+        <Spinner
+            android:id="@+id/food_Month_Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:layout_weight="2">
+        </Spinner>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="월"
+            android:gravity="center"
+            android:textSize="20sp"></TextView>
+        <Spinner
+            android:id="@+id/food_Day_Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:layout_weight="2">
+        </Spinner>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="일"
+            android:gravity="center"
+            android:textSize="20sp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:weightSum="5">
         <Spinner
             android:id="@+id/food_Serving_Spinner"

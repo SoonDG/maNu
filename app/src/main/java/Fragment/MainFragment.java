@@ -1,6 +1,7 @@
 package Fragment;
 
 import android.app.Activity;
+import android.app.LauncherActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,16 +30,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import Activity.PopupActivity.PopupEatFoodEditActivity;
 import Adapter.EatFoodAdapter;
+import Interface.ListItemClickInterface;
 import Model.Food;
 import Request.GetEatFoodRequest;
 
-public class MainFragment extends Fragment{
+public class MainFragment extends Fragment implements ListItemClickInterface {
 
     private FragmentMainBinding fragmentMainBinding;
     private EatFoodAdapter eatFoodAdapter;
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<Food> arrayList;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
+    private int selected_index;
 
     //오늘 유저가 먹은 음식의 영양분의 합을 저장할 변수들
     private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0;
@@ -63,9 +68,54 @@ public class MainFragment extends Fragment{
 
         arrayList = new ArrayList<>(); //데이터 베이스에서 먹은 음식 테이블로 부터 유저id, 날짜를 통해 오늘 먹은 음식을 가져와 담음
         eatFoodAdapter = new EatFoodAdapter(arrayList, this);
+
         fragmentMainBinding.mainRecyclerView.setAdapter(eatFoodAdapter);
 
         set_Food_list(); //오늘 먹은 음식 데이터를 데이터베이스로 부터 가져와 리사이클러 뷰에 표시
+
+        activityResultLauncher = registerForActivityResult( //RecyclerView의 아이템 클릭시 발생하는 클릭 이벤트 작성 부분
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == 1){ //먹은 음식 수정
+                            Food food = arrayList.get(selected_index);
+                            int serving = result.getData().getIntExtra("serving", -1); //변경된 인분 정보
+                            int pre_serving = food.getServing(); //변경되기 전의 인분 정보
+
+                            if(serving == -1){ //오류 발생, 예외 처리 필요
+
+                            }
+                            else {
+                                EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+
+                                food.setServing(serving);
+                                food.setFood_size(food.getFood_size() / pre_serving * serving);
+                                food.setFood_kcal(food.getFood_kcal() / pre_serving * serving);
+                                food.setFood_carbs(food.getFood_carbs() / pre_serving * serving);
+                                food.setFood_protein(food.getFood_protein() / pre_serving * serving);
+                                food.setFood_fat(food.getFood_fat() / pre_serving * serving);
+                                food.setFood_sugars(food.getFood_sugars() / pre_serving * serving);
+                                food.setFood_sodium(food.getFood_sodium() / pre_serving * serving);
+                                food.setFood_CH(food.getFood_CH() / pre_serving * serving);
+                                food.setFood_Sat_fat(food.getFood_Sat_fat() / pre_serving * serving);
+                                food.setFood_trans_fat(food.getFood_trans_fat() / pre_serving * serving);
+                                //arrayList의 음식 정보를 수정
+
+                                EatFoodAdd(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+
+                                arrayList.set(selected_index, food);
+                                eatFoodAdapter.notifyItemChanged(selected_index);
+                            }
+                        }
+                        else if(result.getResultCode() == 2){ //먹은 음식 삭제
+                            Food food = arrayList.get(selected_index); //삭제된 음식 정보를 가져와서
+                            EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
+                            //아래의 영야분 표에서 삭제된 음식의 영양분 정보를 제거
+                            arrayList.remove(selected_index); //arrayList에서 삭제한 음식정보 제거
+                            eatFoodAdapter.notifyItemRemoved(selected_index); //RecyclerView에 삭제된 음식 정보 반영
+                        }
+                    }
+                });
 
         return view;
     }
@@ -74,6 +124,15 @@ public class MainFragment extends Fragment{
     public void onDestroyView() {
         super.onDestroyView();
         fragmentMainBinding = null;
+    }
+
+    @Override
+    public void onItemClick(View v, int position) {
+        selected_index = position;
+        Intent intent = new Intent(getContext(), PopupEatFoodEditActivity.class);
+        intent.putExtra("food_code", arrayList.get(position).getFood_code());
+        intent.putExtra("eat_date", "");
+        activityResultLauncher.launch(intent);
     }
 
     public void set_Food_list(){ //해당 부분 수정 필요 -> 먹은 음식 테이블에서 가져오도록

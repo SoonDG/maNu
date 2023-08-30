@@ -27,15 +27,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import Adapter.EatFoodAdapter;
+import Interface.ListItemClickInterface;
 import Model.Food;
 import Request.GetEatFoodRequest;
 
-public class PopupDetailShowNuActivity extends AppCompatActivity {
+public class PopupDetailShowNuActivity extends AppCompatActivity implements ListItemClickInterface {
     private ActivityPopupDetailShowNuBinding popupDetailShowNuBinding;
     private EatFoodAdapter eatFoodAdapter;
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<Food> arrayList;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
     private String eat_date;
+    private int selected_index; //선택된 RecyclerView의 itemView의 index 정보 -> 이를 통해 클릭한 itemView의 위치를 알 수 있음
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +70,55 @@ public class PopupDetailShowNuActivity extends AppCompatActivity {
             }
         });
 
+        activityResultLauncher = registerForActivityResult( //PopupActivity의 결과값을 받으면 발생하는 이벤트 작성 부분
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == 1){ //먹은 음식 수정
+                            Food food = arrayList.get(selected_index);
+                            int serving = result.getData().getIntExtra("serving", -1); //변경된 인분 정보
+                            int pre_serving = food.getServing(); //변경되기 전의 인분 정보
+
+                            if(serving == -1){ //오류 발생, 예외 처리 필요
+
+                            }
+                            else {
+                                food.setServing(serving);
+                                food.setFood_size(food.getFood_size() / pre_serving * serving);
+                                food.setFood_kcal(food.getFood_kcal() / pre_serving * serving);
+                                food.setFood_carbs(food.getFood_carbs() / pre_serving * serving);
+                                food.setFood_protein(food.getFood_protein() / pre_serving * serving);
+                                food.setFood_fat(food.getFood_fat() / pre_serving * serving);
+                                food.setFood_sugars(food.getFood_sugars() / pre_serving * serving);
+                                food.setFood_sodium(food.getFood_sodium() / pre_serving * serving);
+                                food.setFood_CH(food.getFood_CH() / pre_serving * serving);
+                                food.setFood_Sat_fat(food.getFood_Sat_fat() / pre_serving * serving);
+                                food.setFood_trans_fat(food.getFood_trans_fat() / pre_serving * serving);
+                                //arrayList의 음식 정보를 수정
+
+                                arrayList.set(selected_index, food);
+                                eatFoodAdapter.notifyItemChanged(selected_index);
+                            }
+                        }
+                        else if(result.getResultCode() == 2){ //먹은 음식 삭제
+                            Food food = arrayList.get(selected_index); //삭제된 음식 정보를 가져와서
+                            //아래의 영야분 표에서 삭제된 음식의 영양분 정보를 제거
+                            arrayList.remove(selected_index); //arrayList에서 삭제한 음식정보 제거
+                            eatFoodAdapter.notifyItemRemoved(selected_index); //RecyclerView에 삭제된 음식 정보 반영
+                        }
+                    }
+                });
+
         set_Food_list();
+    }
+
+    @Override
+    public void onItemClick(View v, int position) { //RecyclerView의 ItemView 클릭 이벤트
+        selected_index = position;
+        Intent intent = new Intent(this, PopupEatFoodEditActivity.class);
+        intent.putExtra("food_code", arrayList.get(position).getFood_code());
+        intent.putExtra("eat_date", getEat_date());
+        activityResultLauncher.launch(intent);
     }
 
     @Override

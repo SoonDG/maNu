@@ -62,7 +62,9 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             int success = jsonObject.getInt("success");
                             if(success == 0){ //데이터 베이스에서 변경이 성공했다면.
-                                setResult(1);
+                                Intent intent = new Intent();
+                                intent.putExtra("serving", serving); //클릭 이벤트를 호출한 쪽에 변경된 인분 정보를 전달
+                                setResult(1, intent);
                                 finish();
                             }
                             else if(success == 1){

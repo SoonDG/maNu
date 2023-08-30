@@ -28,17 +28,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import Activity.PopupActivity.PopupFoodEatActivity;
+import Interface.ListItemClickInterface;
 import Model.Food;
 import Request.CheckEatFoodRequest;
 import Request.EatFoodRequest;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     private ArrayList<Food> arrayList;
+    private ListItemClickInterface Listener;
     private SharedPreferences sharedPreferences;
     private String user_ID;
 
-    public FoodAdapter(ArrayList<Food> arrayList){
+    public FoodAdapter(ArrayList<Food> arrayList, ListItemClickInterface Listener){
         this.arrayList = arrayList;
+        this.Listener = Listener;
     }
 
     @NonNull
@@ -72,37 +75,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            int success = jsonObject.getInt("success");
-                            if(success == 0){ //오류X, 오늘 먹은 음식이 아니라면 이 음식을 먹은 음식에 추가하는 기능을 호출
-                                Intent intent = new Intent(view.getContext(), PopupFoodEatActivity.class);
-                                intent.putExtra("food_code", holder.food_code);
-                                intent.putExtra("food_name", holder.food_name.getText().toString());
-                                view.getContext().startActivity(intent);
-                            }
-                            else if(success == -1){ //이미 오늘 먹은 음식에 포함된 음식을 클릭 함.
-                                Toast.makeText(view.getContext(), holder.food_name.getText() + "는 이미 오늘 먹은 음식에 포함되어 있습니다.", Toast.LENGTH_SHORT).show();
-                            }
-                            else if(success == 1){
-                                Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
-                            }
-                            else if(success == 2){
-                                Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-
-                };
-
-                CheckEatFoodRequest checkEatFoodRequest = new CheckEatFoodRequest(user_ID, holder.food_code, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                queue.add(checkEatFoodRequest);
+                Listener.onItemClick(view, holder.getAdapterPosition());
             }
         });
     }

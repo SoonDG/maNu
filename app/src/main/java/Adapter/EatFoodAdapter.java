@@ -2,6 +2,7 @@ package Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.LauncherActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,27 +36,19 @@ import java.util.ArrayList;
 import Activity.PopupActivity.PopupDetailShowNuActivity;
 import Activity.PopupActivity.PopupEatFoodEditActivity;
 import Fragment.MainFragment;
+import Interface.ListItemClickInterface;
 import Model.Food;
 import Request.DeleteEatFoodRequest;
 import Request.EditEatFoodRequest;
 
 public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHolder>{
     private ArrayList<Food> arrayList;
-    private SharedPreferences sharedPreferences;
-    private String user_ID;
-    private MainFragment mainFragment;
-    private PopupDetailShowNuActivity popupDetailShowNuActivity;
-
-
-    public EatFoodAdapter(ArrayList<Food> arrayList, MainFragment mainFragment){
-        this.arrayList = arrayList;
-        this.mainFragment = mainFragment;
+    private ListItemClickInterface Listener;
+    public EatFoodAdapter(ArrayList<Food> arrayList, ListItemClickInterface Listener){
+        this.arrayList = arrayList; //RecyclerView와 연동될 ArrayList
+        this.Listener = Listener; //클릭 이벤트 리스너
     }
 
-    public EatFoodAdapter(ArrayList<Food> arrayList, PopupDetailShowNuActivity popupDetailShowNuActivity){
-        this.arrayList = arrayList;
-        this.popupDetailShowNuActivity = popupDetailShowNuActivity;
-    }
 
     @NonNull
     @Override
@@ -63,8 +56,6 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
         Context context = parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
-        sharedPreferences = context.getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        user_ID = sharedPreferences.getString("ID", null);
         return viewHolder;
     }
 
@@ -89,133 +80,7 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() { //클릭했을 때 먹은 음식 정보를 수정할 수 있는 기능 추가
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder ad = new AlertDialog.Builder(view.getContext());
-                ad.setMessage(holder.food_name.getText() + "정보를 수정하시겠습니까?");
-
-                final Spinner spinner = new Spinner(ad.getContext());
-                String [] serving_Data = ad.getContext().getResources().getStringArray(R.array.serving);
-                ArrayAdapter servingAdapter = new ArrayAdapter(ad.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
-                spinner.setAdapter(servingAdapter);
-                ad.setView(spinner);
-
-                ad.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) { //데이터 베이스에 먹은 음식에 추가
-                        Response.Listener<String> responseListener = new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    int success = jsonObject.getInt("success");
-                                    if(success == 0){ //데이터 베이스에서 제거가 되었다면
-                                        Toast.makeText(view.getContext(), holder.food_name.getText() + "을 먹은 음식에서 제거했습니다.", Toast.LENGTH_SHORT).show();
-
-                                        //현재 화면에서 변경 내용을 반영하기 위한 작업
-                                        int itemPosition = holder.getAdapterPosition();
-                                        Food food = arrayList.get(itemPosition);
-                                        //먹은 음식의 영양 성분을 MainFragment의 표에 반영하기 위한 함수 호출
-                                        if(mainFragment != null) { //메인프래그먼트에서 작동 중이라면 아래의 표에서도 변경된 내용이 반영되도록 함
-                                            mainFragment.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
-                                        }
-                                        arrayList.remove(itemPosition); //리스트에서 아이템 제거
-                                        notifyItemRemoved(itemPosition); //뷰에서 아이템 제거
-                                    }
-                                    else if(success == 1){
-                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else if(success == 2){
-                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-                        };
-
-                        DeleteEatFoodRequest deleteEatFoodRequest;
-                        if(mainFragment != null) { //메인프래그먼트에서 작동하는 경우 eat_date에 오늘 날짜가 자동으로 들어가도록 빈 문자열 전달
-                            deleteEatFoodRequest = new DeleteEatFoodRequest(user_ID, "", holder.food_code, responseListener);
-                        }
-                        else { //popupdetailshownu액티비티에서 작동하는 경우 eat_date에 해당하는 날짜를 전달
-                            deleteEatFoodRequest = new DeleteEatFoodRequest(user_ID, popupDetailShowNuActivity.getEat_date(), holder.food_code, responseListener);
-                        }
-                        RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                        queue.add(deleteEatFoodRequest);
-
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                ad.setNegativeButton("수정", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        int serving = Integer.parseInt(spinner.getSelectedItem().toString());
-                        Response.Listener<String> responseListener = new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    int success = jsonObject.getInt("success");
-                                    if(success == 0){ //데이터 베이스에서 변경이 성공했다면.
-                                        Toast.makeText(view.getContext(), holder.food_name.getText() + " 정보를 수정 했습니다.", Toast.LENGTH_SHORT).show();
-
-                                        //현재 화면에서 변경 내용을 반영하기 위한 작업
-                                        int itemPosition = holder.getAdapterPosition();
-                                        Food food = arrayList.get(itemPosition);
-                                        int pre_serving = food.getServing();
-                                        if(mainFragment != null) {
-                                            mainFragment.EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(),
-                                                    food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
-                                        }
-
-                                        food.setServing(serving); //serving정보 변경
-                                        food.setFood_size(food.getFood_size() / pre_serving * serving);
-                                        food.setFood_kcal(food.getFood_kcal() / pre_serving * serving);
-                                        food.setFood_carbs(food.getFood_carbs() / pre_serving * serving);
-                                        food.setFood_protein(food.getFood_protein() / pre_serving * serving);
-                                        food.setFood_fat(food.getFood_fat() / pre_serving * serving);
-                                        food.setFood_sugars(food.getFood_sugars() / pre_serving * serving);
-                                        food.setFood_sodium(food.getFood_sodium() / pre_serving * serving);
-                                        food.setFood_CH(food.getFood_CH() / pre_serving * serving);
-                                        food.setFood_Sat_fat(food.getFood_Sat_fat() / pre_serving * serving);
-                                        food.setFood_trans_fat(food.getFood_trans_fat() / pre_serving * serving);
-
-                                        if(mainFragment != null) {
-                                            //변경된 정보를 반영
-                                            mainFragment.EatFoodAdd(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(),
-                                                    food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
-                                        }
-                                        arrayList.set(itemPosition, food); //리스트에서 아이템 변경
-                                        notifyItemChanged(itemPosition);//뷰에서 아이템 변경 감지
-                                    }
-                                    else if(success == 1){
-                                        Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else if(success == 2){
-                                        Toast.makeText(view.getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-                        };
-
-                        EditEatFoodRequest editEatFoodRequest;
-                        if(mainFragment != null) { //메인프래그먼트에서 작동 중이면 오늘 날짜가 전달되도록 eat_date에 빈 문자열 전달
-                            editEatFoodRequest = new EditEatFoodRequest(serving, user_ID, "", holder.food_code, responseListener);
-                        }
-                        else {//popupdetailshownu에서 작동 중이면 해다아 날짜를 전달
-                            editEatFoodRequest = new EditEatFoodRequest(serving, user_ID, popupDetailShowNuActivity.getEat_date(), holder.food_code, responseListener);
-                        }
-
-                        RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                        queue.add(editEatFoodRequest);
-
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                ad.show();
+                Listener.onItemClick(view, holder.getAdapterPosition()); //RecyclerView가 부착된 쪽의 Listener의 클릭이벤트 실행, 클릭 이벤트가 호출한 쪽에 있음
             }
         });
     }

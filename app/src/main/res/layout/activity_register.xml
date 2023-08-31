@@ -76,7 +76,8 @@
         app:layout_constraintHorizontal_bias="0.656"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/age_Spinner"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintVertical_bias="0.035"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/gender_Lable"
@@ -113,7 +114,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.656"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeat_Reg_Password_Text" />
+        app:layout_constraintTop_toBottomOf="@+id/repeat_Reg_Password_Text"
+        android:textAlignment="center"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

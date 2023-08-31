@@ -2,12 +2,15 @@ package Activity.PopupActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -19,12 +22,16 @@ import com.example.my_first_project.databinding.ActivityPopupFoodEatBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.Month;
 import java.time.Year;
+import java.util.Calendar;
 
 import Request.EatFoodRequest;
 
 public class PopupFoodEatActivity extends AppCompatActivity {
     private ActivityPopupFoodEatBinding popupFoodEatBinding;
+    private Calendar calendar;
+    private int year, month, day;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,21 +47,29 @@ public class PopupFoodEatActivity extends AppCompatActivity {
         String food_code = intent.getStringExtra("food_code");
         String food_name = intent.getStringExtra("food_name");
 
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        set_Date();
+
         String [] serving_Data = this.getResources().getStringArray(R.array.serving);
-        String [] year_Data = this.getResources().getStringArray(R.array.Year);
-        String [] month_Data = this.getResources().getStringArray(R.array.Month);
-        String [] day_Data = this.getResources().getStringArray(R.array.Day);
-
         ArrayAdapter servingAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
-        ArrayAdapter yearAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, year_Data);
-        ArrayAdapter monthAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, month_Data);
-        ArrayAdapter dayAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, day_Data);
-
         popupFoodEatBinding.foodServingSpinner.setAdapter(servingAdapter);
-        popupFoodEatBinding.foodYearSpinner.setAdapter(yearAdapter);
-        popupFoodEatBinding.foodMonthSpinner.setAdapter(monthAdapter);
-        popupFoodEatBinding.foodDaySpinner.setAdapter(dayAdapter);
 
+        popupFoodEatBinding.selecteEatDateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(PopupFoodEatActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int selected_Year, int selected_Month, int selected_Day) {
+                        year = selected_Year; month = selected_Month; day = selected_Day;
+                        set_Date();
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
         popupFoodEatBinding.foodEatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +96,7 @@ public class PopupFoodEatActivity extends AppCompatActivity {
                 };
 
                 SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-                EatFoodRequest eatFoodRequest = new EatFoodRequest(sharedPreferences.getString("ID", null), Integer.parseInt(popupFoodEatBinding.foodServingSpinner.getSelectedItem().toString()), food_code, responseListener);
+                EatFoodRequest eatFoodRequest = new EatFoodRequest(sharedPreferences.getString("ID", null), year + "-" + (month + 1) + "-" + day, Integer.parseInt(popupFoodEatBinding.foodServingSpinner.getSelectedItem().toString()), food_code, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(view.getContext());
                 queue.add(eatFoodRequest);
             }
@@ -93,5 +108,11 @@ public class PopupFoodEatActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void set_Date(){
+        popupFoodEatBinding.foodYear.setText(String.valueOf(year));
+        popupFoodEatBinding.foodMonth.setText(String.valueOf(month + 1));
+        popupFoodEatBinding.foodDay.setText(String.valueOf(day));
     }
 }

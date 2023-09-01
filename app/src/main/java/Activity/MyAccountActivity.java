@@ -8,14 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -30,7 +27,6 @@ import Request.WithdrawalRequest;
 
 public class MyAccountActivity extends AppCompatActivity {
     private ActivityMyAccountBinding myAccountBinding;
-    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +35,7 @@ public class MyAccountActivity extends AppCompatActivity {
         View view = myAccountBinding.getRoot();
         setContentView(view);
 
-        context = this; //EditInformationActivity에서 MyAccountActivity의 함수에 접근할 수 있도록 Context 객체 생성.
         set_myAccount(); //회원 정보 표시
-
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {

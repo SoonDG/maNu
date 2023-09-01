@@ -1,8 +1,6 @@
 package Fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,11 +25,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import Activity.PopupActivity.PopupFoodEatActivity;
-import Adapter.EatFoodAdapter;
 import Adapter.FoodAdapter;
 import Interface.ListItemClickInterface;
 import Model.Food;
-import Request.CheckEatFoodRequest;
 import Request.GetFoodRequest;
 
 public class SearchFragment extends Fragment implements ListItemClickInterface {
@@ -88,38 +84,10 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
 
     @Override
     public void onItemClick(View v, int position) { //RecyclerView의 ItemView 클릭 이벤트
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    int success = jsonObject.getInt("success");
-                    if(success == 0){ //오류X, 오늘 먹은 음식이 아니라면 이 음식을 먹은 음식에 추가하는 기능을 호출
-                        Intent intent = new Intent(getContext(), PopupFoodEatActivity.class);
-                        intent.putExtra("food_code", arrayList.get(position).getFood_code());
-                        intent.putExtra("food_name", arrayList.get(position).getFood_name());
-                        startActivity(intent);
-                    }
-                    else if(success == -1){ //이미 오늘 먹은 음식에 포함된 음식을 클릭 함.
-                        Toast.makeText(getContext(), arrayList.get(position).getFood_name() + "는 이미 오늘 먹은 음식에 포함되어 있습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(success == 1){
-                        Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(success == 2){
-                        Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-        };
-
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        CheckEatFoodRequest checkEatFoodRequest = new CheckEatFoodRequest(sharedPreferences.getString("ID", null), arrayList.get(position).getFood_code(), responseListener);
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        queue.add(checkEatFoodRequest);
+        Intent intent = new Intent(getContext(), PopupFoodEatActivity.class);
+        intent.putExtra("food_code", arrayList.get(position).getFood_code());
+        intent.putExtra("food_name", arrayList.get(position).getFood_name());
+        startActivity(intent);
     }
 
     public void set_Food_list(String Search_String){ //음식 정보를 데이터베이스에서 가져와서 arrayList에 담고 RecyclerView에 반영시키는 함수

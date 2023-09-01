@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -36,8 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         String [] age_Data = getResources().getStringArray(R.array.age);
         String [] gen_Data = getResources().getStringArray(R.array.gender);
-        ArrayAdapter ageAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, age_Data);
-        ArrayAdapter genderAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, gen_Data);
+        ArrayAdapter ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data);
+        ArrayAdapter genderAdapter = new ArrayAdapter(this, R.layout.spinner_item, gen_Data);
 
         registerBinding.ageSpinner.setAdapter(ageAdapter);
         registerBinding.genderSpinner.setAdapter(genderAdapter);

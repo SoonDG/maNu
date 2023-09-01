@@ -1,12 +1,7 @@
 package Activity.PopupActivity;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,8 +18,6 @@ import com.example.my_first_project.databinding.ActivityPopupEatFoodEditBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import Model.Food;
 import Request.DeleteEatFoodRequest;
@@ -48,7 +41,7 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
         String eat_date = intent.getStringExtra("eat_date");
 
         String [] serving_Data = getApplicationContext().getResources().getStringArray(R.array.serving);
-        ArrayAdapter servingAdapter = new ArrayAdapter(getApplicationContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
+        ArrayAdapter servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, serving_Data);
         popupEatFoodEditBinding.eatFoodServingSpinner.setAdapter(servingAdapter);
 
         popupEatFoodEditBinding.eatFoodEditBtn.setOnClickListener(new View.OnClickListener() {

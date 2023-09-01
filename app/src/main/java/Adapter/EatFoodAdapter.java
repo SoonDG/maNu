@@ -1,45 +1,21 @@
 package Adapter;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.LauncherActivity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.RecyclerviewItemBinding;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
-import Activity.PopupActivity.PopupDetailShowNuActivity;
-import Activity.PopupActivity.PopupEatFoodEditActivity;
-import Fragment.MainFragment;
 import Interface.ListItemClickInterface;
 import Model.Food;
-import Request.DeleteEatFoodRequest;
-import Request.EditEatFoodRequest;
 
 public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHolder>{
     private ArrayList<Food> arrayList;

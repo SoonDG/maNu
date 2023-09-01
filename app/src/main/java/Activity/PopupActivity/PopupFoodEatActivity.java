@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -22,8 +21,6 @@ import com.example.my_first_project.databinding.ActivityPopupFoodEatBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.Month;
-import java.time.Year;
 import java.util.Calendar;
 
 import Request.EatFoodRequest;
@@ -54,9 +51,8 @@ public class PopupFoodEatActivity extends AppCompatActivity {
         set_Date();
 
         String [] serving_Data = this.getResources().getStringArray(R.array.serving);
-        ArrayAdapter servingAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, serving_Data);
+        ArrayAdapter servingAdapter = new ArrayAdapter(this, R.layout.spinner_item, serving_Data);
         popupFoodEatBinding.foodServingSpinner.setAdapter(servingAdapter);
-
         popupFoodEatBinding.selecteEatDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +77,9 @@ public class PopupFoodEatActivity extends AppCompatActivity {
                             int success = jsonObject.getInt("success");
                             if(success == 0){
                                 Toast.makeText(view.getContext(), food_name + " " + popupFoodEatBinding.foodServingSpinner.getSelectedItem().toString() + "인분을 먹은 음식에 담았습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                            else if(success == -1){
+                                Toast.makeText(view.getContext(), food_name + "은 이미 해당 날짜의 먹은 음식에 포함 되어 있습니다.", Toast.LENGTH_SHORT).show();
                             }
                             else if(success == 1){
                                 Toast.makeText(view.getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();

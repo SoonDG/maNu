@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="53sp"
-            android:text="음식 정보"
+            android:text="날짜 선택"
             android:textSize="15sp"
             android:gravity="center"
             android:background="@color/MyNuGreen"
@@ -24,78 +24,36 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="10">
+        android:weightSum="8">
 
-        <TextView
-            android:id="@+id/food_Year"
-            android:layout_width="wrap_content"
-            android:layout_height="53dp"
-            android:layout_weight="2"
-            android:gravity="center"></TextView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="년"
-            android:gravity="center"
-            android:textSize="20sp"></TextView>
-
-        <TextView
-            android:id="@+id/food_Month"
-            android:layout_width="wrap_content"
-            android:layout_height="53dp"
-            android:layout_weight="2"
-            android:gravity="center"></TextView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="월"
-            android:gravity="center"
-            android:textSize="20sp"></TextView>
-
-        <TextView
-            android:id="@+id/food_Day"
-            android:layout_width="wrap_content"
-            android:layout_height="53dp"
-            android:layout_weight="2"
-            android:gravity="center"></TextView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="일"
-            android:gravity="center"
-            android:textSize="20sp"></TextView>
-
-        <Button
-            android:id="@+id/selecte_Eat_Date_btn"
-            android:layout_width="33dp"
-            android:layout_height="53dp"
-            android:layout_weight="1"
-            android:background="@drawable/calendar_icon"
-            android:gravity="center"></Button>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="5">
         <Spinner
-            android:id="@+id/food_Serving_Spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="53dp"
-            android:layout_weight="3"
-            android:gravity="center">
-        </Spinner>
-
-        <TextView
+            android:id="@+id/date_Year_Spinner"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="인분"
+            android:gravity="center"></Spinner>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:layout_weight="2"
             android:gravity="center"
+            android:text="년"
+            android:textSize="20sp"></TextView>
+
+        <Spinner
+            android:id="@+id/date_Month_Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"></Spinner>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="월"
             android:textSize="20sp"></TextView>
     </LinearLayout>
 
@@ -107,19 +65,18 @@
         android:weightSum="2">
 
         <Button
-            android:id="@+id/food_Eat_btn"
+            android:id="@+id/selecte_Date_btn"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:background="@drawable/button_style4"
             android:gravity="center"
-            android:text="추가"
+            android:text="선택"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:layout_weight="1"></Button>
         <Button
-            android:id="@+id/cancle_Popup_Food_Eat"
+            android:id="@+id/cancle_Selecte_Date_btn"
             android:text="취소"
-            android:textSize="15sp"
             android:textColor="@color/MyNuGreen"
             android:gravity="center"
             android:background="@drawable/button_style3"

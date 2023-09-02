@@ -1,6 +1,7 @@
 package Fragment;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +37,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import Activity.PopupActivity.PopupDetailShowNuActivity;
+import Activity.PopupActivity.PopupFoodEatActivity;
+import Activity.PopupActivity.PopupSelecteDate;
 import Request.GetEatFoodRequest;
 
 public class MyMenuFragment extends Fragment {
@@ -98,6 +102,33 @@ public class MyMenuFragment extends Fragment {
         year = cur_year; month = cur_month;
 
         setting_Calendar(); //달력 설정, 각 날짜의 영양분 정보 가져오기.. 등 달력 제작, 달의 영양분 정보 저장 역할
+
+        ActivityResultLauncher<Intent> activityResultLauncher2 = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            clear_display();
+
+                            year = result.getData().getIntExtra("year", -1);
+                            month = result.getData().getIntExtra("month", -1);
+                            setting_Calendar();
+
+                            if(year == cur_year && month == cur_month){ //이번 달이면 오늘 정보를 표시
+                                textViews[cur_day + first_day].performClick();
+                            }
+                            else if(year < cur_year || (year == cur_year && month < cur_month)) textViews[1 + first_day].performClick(); //이전 달인 경우 1일의 정보 표시
+                        }
+                    }
+                });
+
+        fragmentMyMenuBinding.calendarDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), PopupSelecteDate.class);
+                activityResultLauncher2.launch(intent);
+            }
+        });
 
         fragmentMyMenuBinding.preMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -391,7 +422,7 @@ public class MyMenuFragment extends Fragment {
             textView.setTextColor(Color.parseColor("#0067a3")); //토요일이면 파란색으로 되돌림
         }
         else {
-            textView.setTextColor(Color.parseColor("#ffffff")); //평일이면 하얀색으로 되돌림
+            textView.setTextColor(Color.parseColor("ffffff")); //평일이면 하얀색으로 되돌림
         }
 
         textView.setClickable(true);

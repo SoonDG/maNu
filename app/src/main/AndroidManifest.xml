@@ -16,13 +16,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="Activity.PopupActivity.PopupEatFoodEditActivity"
+            android:name="Activity.PopupActivity.PopupSelecteDate"
             android:exported="false"
             android:theme="@style/NoTitleBarDialog"/>
         <activity
+            android:name="Activity.PopupActivity.PopupEatFoodEditActivity"
+            android:exported="false"
+            android:theme="@style/NoTitleBarDialog" />
+        <activity
             android:name="Activity.PopupActivity.PopupFoodEatActivity"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog"/>
+            android:theme="@style/NoTitleBarDialog" />
         <activity
             android:name="Activity.PopupActivity.PopupInformationActivity"
             android:exported="false"

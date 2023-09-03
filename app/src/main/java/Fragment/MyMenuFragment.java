@@ -108,16 +108,31 @@ public class MyMenuFragment extends Fragment {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == Activity.RESULT_OK){
+                            fragmentMyMenuBinding.calendarDate.setClickable(false);
+                            fragmentMyMenuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
+                            fragmentMyMenuBinding.nextMonthBtn.setClickable(false);
+
                             clear_display();
 
                             year = result.getData().getIntExtra("year", -1);
                             month = result.getData().getIntExtra("month", -1);
+
                             setting_Calendar();
 
                             if(year == cur_year && month == cur_month){ //이번 달이면 오늘 정보를 표시
                                 textViews[cur_day + first_day].performClick();
                             }
                             else if(year < cur_year || (year == cur_year && month < cur_month)) textViews[1 + first_day].performClick(); //이전 달인 경우 1일의 정보 표시
+
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    fragmentMyMenuBinding.calendarDate.setClickable(true);
+                                    fragmentMyMenuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
+                                    fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
+                                }
+                            }, 500); //모든 작업이 끝난 후 0.5초 뒤에 활성화 -> 연속적으로 클릭하는 경우를 방지
                         }
                     }
                 });
@@ -126,6 +141,8 @@ public class MyMenuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), PopupSelecteDate.class);
+                intent.putExtra("cur_year", cur_year);
+                intent.putExtra("cur_month", cur_month);
                 activityResultLauncher2.launch(intent);
             }
         });
@@ -133,6 +150,7 @@ public class MyMenuFragment extends Fragment {
         fragmentMyMenuBinding.preMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fragmentMyMenuBinding.calendarDate.setClickable(false);
                 fragmentMyMenuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
                 fragmentMyMenuBinding.nextMonthBtn.setClickable(false);
 
@@ -159,6 +177,7 @@ public class MyMenuFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        fragmentMyMenuBinding.calendarDate.setClickable(true);
                         fragmentMyMenuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
                         fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
                     }
@@ -169,7 +188,7 @@ public class MyMenuFragment extends Fragment {
         fragmentMyMenuBinding.nextMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                fragmentMyMenuBinding.calendarDate.setClickable(false);
                 fragmentMyMenuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
                 fragmentMyMenuBinding.nextMonthBtn.setClickable(false);
 
@@ -195,6 +214,7 @@ public class MyMenuFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        fragmentMyMenuBinding.calendarDate.setClickable(true);
                         fragmentMyMenuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
                         fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
                     }
@@ -422,7 +442,7 @@ public class MyMenuFragment extends Fragment {
             textView.setTextColor(Color.parseColor("#0067a3")); //토요일이면 파란색으로 되돌림
         }
         else {
-            textView.setTextColor(Color.parseColor("ffffff")); //평일이면 하얀색으로 되돌림
+            textView.setTextColor(Color.parseColor("#ffffff")); //평일이면 하얀색으로 되돌림
         }
 
         textView.setClickable(true);

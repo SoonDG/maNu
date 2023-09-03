@@ -39,10 +39,13 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String food_code = intent.getStringExtra("food_code");
         String eat_date = intent.getStringExtra("eat_date");
+        int serving = intent.getIntExtra("serving", -1);
 
         String [] serving_Data = getApplicationContext().getResources().getStringArray(R.array.serving);
         ArrayAdapter servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, serving_Data);
         popupEatFoodEditBinding.eatFoodServingSpinner.setAdapter(servingAdapter);
+
+        popupEatFoodEditBinding.eatFoodServingSpinner.setSelection(serving - 1); //이전 serving값이 default 값
 
         popupEatFoodEditBinding.eatFoodEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override

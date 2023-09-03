@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.frame_Layout, mainFragment).commit(); //시작 화면을 mainFragment로
 
         setSupportActionBar(mainBinding.toolbar); //툴바 설정
+
+        mainBinding.toolbar.setBackgroundColor(Color.parseColor("#464646"));
+        mainBinding.toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mainBinding.drawerLayout, mainBinding.toolbar, R.string.app_name, R.string.app_name);
         mainBinding.drawerLayout.addDrawerListener(actionBarDrawerToggle);

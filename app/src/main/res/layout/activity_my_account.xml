@@ -14,115 +14,153 @@
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="회원 정보"
+        android:text="계정 정보"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TableLayout
-        android:id="@+id/tableLayout"
+        android:id="@+id/tableLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:background="@drawable/tablelayout_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/tablelayout_style">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:weightSum="3">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:background="@drawable/textview_style2"
                 android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="아이디"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"></TextView>
+                android:textSize="20sp"></TextView>
 
             <TextView
                 android:id="@+id/my_id"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="right"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
                 android:textSize="20sp"></TextView>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:weightSum="3">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:background="@drawable/textview_style2"
                 android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="비밀번호"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"></TextView>
+                android:textSize="20sp"></TextView>
 
             <TextView
                 android:id="@+id/my_password"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="right"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
                 android:textSize="20sp"></TextView>
         </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/MyNuGreen"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="회원 정보"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/tablelayout_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:weightSum="3">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:background="@drawable/textview_style2"
                 android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="나이"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"></TextView>
+                android:textSize="20sp"></TextView>
 
             <TextView
                 android:id="@+id/my_age"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="right"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
                 android:textSize="20sp"></TextView>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:weightSum="3">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_weight="1"
                 android:background="@drawable/textview_style2"
                 android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="성별"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"></TextView>
+                android:textSize="20sp"></TextView>
 
             <TextView
                 android:id="@+id/my_gender"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="right"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
                 android:textSize="20sp"></TextView>
         </TableRow>
-
     </TableLayout>
 
     <Button
@@ -130,12 +168,13 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:background="@drawable/button_style2"
         android:text="회원 정보 수정"
         android:textColor="@color/white"
-        android:background="@drawable/button_style2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout4" />
 
     <Button
         android:id="@+id/withdrawal_btn"

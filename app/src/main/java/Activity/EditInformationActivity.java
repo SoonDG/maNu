@@ -51,6 +51,14 @@ public class EditInformationActivity extends AppCompatActivity {
         editInformationBinding.editAge.setAdapter(ageAdapter);
         editInformationBinding.editGender.setAdapter(genderAdapter);
 
+        editInformationBinding.editAge.setSelection(sharedPreferences.getInt("Age", 0) - 1);
+        if(sharedPreferences.getString("Gender", null).equals("남자")){
+            editInformationBinding.editGender.setSelection(0);
+        }
+        else {
+            editInformationBinding.editGender.setSelection(1);
+        }
+
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override

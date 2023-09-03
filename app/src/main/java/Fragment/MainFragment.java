@@ -130,6 +130,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         Intent intent = new Intent(getContext(), PopupEatFoodEditActivity.class);
         intent.putExtra("food_code", arrayList.get(position).getFood_code());
         intent.putExtra("eat_date", "");
+        intent.putExtra("serving", arrayList.get(position).getServing());
         activityResultLauncher.launch(intent);
     }
 

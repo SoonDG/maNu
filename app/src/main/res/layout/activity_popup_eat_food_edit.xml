@@ -15,7 +15,7 @@
             android:text="음식 정보 수정"
             android:textSize="15sp"
             android:gravity="center"
-            android:background="@color/MyNuGreen"
+            android:background="@drawable/textview_style2"
             android:textColor="#ffffff">
         </TextView>
     </LinearLayout>
@@ -73,7 +73,7 @@
             android:id="@+id/cancle_Popup_Eat_Food_Edit_btn"
             android:text="취소"
             android:textSize="15sp"
-            android:textColor="@color/MyNuGreen"
+            android:textColor="@color/MyNuGray"
             android:gravity="center"
             android:background="@drawable/button_style3"
             android:layout_width="match_parent"

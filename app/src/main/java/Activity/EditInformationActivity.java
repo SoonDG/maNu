@@ -59,7 +59,7 @@ public class EditInformationActivity extends AppCompatActivity {
             editInformationBinding.editGender.setSelection(1);
         }
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+        ActivityResultLauncher<Intent> editPasswordResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
@@ -81,7 +81,7 @@ public class EditInformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditInformationActivity.this, EditPasswordActivity.class);
-                activityResultLauncher.launch(intent);
+                editPasswordResultLauncher.launch(intent);
             }
         });
 

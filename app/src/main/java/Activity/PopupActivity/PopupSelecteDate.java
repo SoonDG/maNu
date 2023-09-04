@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.ActivityPopupSelecteDateBinding;
@@ -36,6 +37,11 @@ public class PopupSelecteDate extends AppCompatActivity {
         Intent intent = getIntent();
         int cur_year = intent.getIntExtra("cur_year", -1);
         int cur_month = intent.getIntExtra("cur_month", -1);
+        if(cur_year == -1 || cur_month == -1){
+            Toast.makeText(getApplicationContext(), "데이터 전송 오류 발생", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         popupSelecteDateBinding.dateYearSpinner.setSelection(cur_year - 2000); //2023년일 경우 23번 index에 있는 2023이 자동 선택
         popupSelecteDateBinding.dateMonthSpinner.setSelection(cur_month - 1); //12월일 경우 11번 index에 있는 12이 자동 선택
 

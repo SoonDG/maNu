@@ -40,7 +40,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
     private EatFoodAdapter eatFoodAdapter;
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<Food> arrayList;
-    private ActivityResultLauncher<Intent> activityResultLauncher;
+    private ActivityResultLauncher<Intent> eatFoodEditResultLauncher;;
     private int selected_index;
 
     //오늘 유저가 먹은 음식의 영양분의 합을 저장할 변수들
@@ -71,7 +71,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
 
         set_Food_list(); //오늘 먹은 음식 데이터를 데이터베이스로 부터 가져와 리사이클러 뷰에 표시
 
-        activityResultLauncher = registerForActivityResult( //RecyclerView의 아이템 클릭시 발생하는 클릭 이벤트 작성 부분
+        eatFoodEditResultLauncher = registerForActivityResult( //RecyclerView의 아이템 클릭시 발생하는 클릭 이벤트 작성 부분
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
@@ -131,7 +131,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         intent.putExtra("food_code", arrayList.get(position).getFood_code());
         intent.putExtra("eat_date", "");
         intent.putExtra("serving", arrayList.get(position).getServing());
-        activityResultLauncher.launch(intent);
+        eatFoodEditResultLauncher.launch(intent);
     }
 
     public void set_Food_list(){ //해당 부분 수정 필요 -> 먹은 음식 테이블에서 가져오도록

@@ -36,7 +36,7 @@ public class PopupDetailShowNuActivity extends AppCompatActivity implements List
     private EatFoodAdapter eatFoodAdapter;
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<Food> arrayList;
-    private ActivityResultLauncher<Intent> activityResultLauncher;
+    private ActivityResultLauncher<Intent> eatFoodEditResultLauncher;
     private String eat_date;
     private int selected_index; //선택된 RecyclerView의 itemView의 index 정보 -> 이를 통해 클릭한 itemView의 위치를 알 수 있음
     @Override
@@ -47,7 +47,7 @@ public class PopupDetailShowNuActivity extends AppCompatActivity implements List
         setContentView(view);
 
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-        int width = (int)(displayMetrics.widthPixels * 0.9);
+        int width = (int)(displayMetrics.widthPixels);
         getWindow().getAttributes().width = width;
         //크기조절
 
@@ -70,7 +70,7 @@ public class PopupDetailShowNuActivity extends AppCompatActivity implements List
             }
         });
 
-        activityResultLauncher = registerForActivityResult( //PopupActivity의 결과값을 받으면 발생하는 이벤트 작성 부분
+        eatFoodEditResultLauncher = registerForActivityResult( //PopupActivity의 결과값을 받으면 발생하는 이벤트 작성 부분
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
@@ -80,7 +80,7 @@ public class PopupDetailShowNuActivity extends AppCompatActivity implements List
                             int pre_serving = food.getServing(); //변경되기 전의 인분 정보
 
                             if(serving == -1){ //오류 발생, 예외 처리 필요
-
+                                Toast.makeText(getApplicationContext(), "데이터 전송 오류 발생", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 food.setServing(serving);
@@ -118,7 +118,7 @@ public class PopupDetailShowNuActivity extends AppCompatActivity implements List
         Intent intent = new Intent(this, PopupEatFoodEditActivity.class);
         intent.putExtra("food_code", arrayList.get(position).getFood_code());
         intent.putExtra("eat_date", getEat_date());
-        activityResultLauncher.launch(intent);
+        eatFoodEditResultLauncher.launch(intent);
     }
 
     @Override

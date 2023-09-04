@@ -1,7 +1,6 @@
 package Fragment;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +18,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +25,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.my_first_project.databinding.FragmentMyMenuBinding;
+import com.example.my_first_project.databinding.FragmentMyMonthNuBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,12 +35,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import Activity.PopupActivity.PopupDetailShowNuActivity;
-import Activity.PopupActivity.PopupFoodEatActivity;
 import Activity.PopupActivity.PopupSelecteDate;
 import Request.GetEatFoodRequest;
 
-public class MyMenuFragment extends Fragment {
-    private FragmentMyMenuBinding fragmentMyMenuBinding;
+public class MyMonthNuFragment extends Fragment {
+    private FragmentMyMonthNuBinding fragmentMyMonthNuBinding;
     private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0; //아래 영양분 표에 표시될 영양분 정보를 담는 변수
     private int year = 0, month = 0, day = 0; //현재 표시 되는 년도, 월, 일
     private int cur_year = 0, cur_month = 0, cur_day = 0; //오늘 날짜
@@ -52,7 +49,7 @@ public class MyMenuFragment extends Fragment {
     private Calendar calendar = Calendar.getInstance(); //달력 제작에 사용되는 Calendar 객체
 
     private TextView [] textViews = new TextView[43]; //달력의 1 ~ 42번 칸을 나타내는 TextView
-    public MyMenuFragment() {
+    public MyMonthNuFragment() {
         // Required empty public constructor
     }
 
@@ -64,8 +61,8 @@ public class MyMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        fragmentMyMenuBinding = FragmentMyMenuBinding.inflate(inflater, container, false);
-        View view = fragmentMyMenuBinding.getRoot();
+        fragmentMyMonthNuBinding = fragmentMyMonthNuBinding.inflate(inflater, container, false);
+        View view = fragmentMyMonthNuBinding.getRoot();
 
         for(int i = 1; i <= 42; i++) { //42개의 칸을 초기화
             textViews[i] = new TextView(getContext());
@@ -92,7 +89,7 @@ public class MyMenuFragment extends Fragment {
 
                 tableRow.addView(textView);
             }
-            fragmentMyMenuBinding.calendarView.addView(tableRow);
+            fragmentMyMonthNuBinding.calendarView.addView(tableRow);
         }
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -103,14 +100,14 @@ public class MyMenuFragment extends Fragment {
 
         setting_Calendar(); //달력 설정, 각 날짜의 영양분 정보 가져오기.. 등 달력 제작, 달의 영양분 정보 저장 역할
 
-        ActivityResultLauncher<Intent> activityResultLauncher2 = registerForActivityResult(
+        ActivityResultLauncher<Intent> dateSelecteResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == Activity.RESULT_OK){
-                            fragmentMyMenuBinding.calendarDate.setClickable(false);
-                            fragmentMyMenuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
-                            fragmentMyMenuBinding.nextMonthBtn.setClickable(false);
+                            fragmentMyMonthNuBinding.calendarDate.setClickable(false);
+                            fragmentMyMonthNuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
+                            fragmentMyMonthNuBinding.nextMonthBtn.setClickable(false);
 
                             clear_display();
 
@@ -128,31 +125,31 @@ public class MyMenuFragment extends Fragment {
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    fragmentMyMenuBinding.calendarDate.setClickable(true);
-                                    fragmentMyMenuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
-                                    fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
+                                    fragmentMyMonthNuBinding.calendarDate.setClickable(true);
+                                    fragmentMyMonthNuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
+                                    fragmentMyMonthNuBinding.nextMonthBtn.setClickable(true);
                                 }
                             }, 500); //모든 작업이 끝난 후 0.5초 뒤에 활성화 -> 연속적으로 클릭하는 경우를 방지
                         }
                     }
                 });
 
-        fragmentMyMenuBinding.calendarDate.setOnClickListener(new View.OnClickListener() {
+        fragmentMyMonthNuBinding.calendarDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), PopupSelecteDate.class);
                 intent.putExtra("cur_year", cur_year);
                 intent.putExtra("cur_month", cur_month);
-                activityResultLauncher2.launch(intent);
+                dateSelecteResultLauncher.launch(intent);
             }
         });
 
-        fragmentMyMenuBinding.preMonthBtn.setOnClickListener(new View.OnClickListener() {
+        fragmentMyMonthNuBinding.preMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentMyMenuBinding.calendarDate.setClickable(false);
-                fragmentMyMenuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
-                fragmentMyMenuBinding.nextMonthBtn.setClickable(false);
+                fragmentMyMonthNuBinding.calendarDate.setClickable(false);
+                fragmentMyMonthNuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
+                fragmentMyMonthNuBinding.nextMonthBtn.setClickable(false);
 
                 ///////////// 이전 달의 정보를 남김 없이 삭제
                 clear_display();
@@ -177,20 +174,20 @@ public class MyMenuFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        fragmentMyMenuBinding.calendarDate.setClickable(true);
-                        fragmentMyMenuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
-                        fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
+                        fragmentMyMonthNuBinding.calendarDate.setClickable(true);
+                        fragmentMyMonthNuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
+                        fragmentMyMonthNuBinding.nextMonthBtn.setClickable(true);
                     }
                 }, 500); //모든 작업이 끝난 후 0.5초 뒤에 활성화 -> 연속적으로 클릭하는 경우를 방지
             }
         });
 
-        fragmentMyMenuBinding.nextMonthBtn.setOnClickListener(new View.OnClickListener() {
+        fragmentMyMonthNuBinding.nextMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentMyMenuBinding.calendarDate.setClickable(false);
-                fragmentMyMenuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
-                fragmentMyMenuBinding.nextMonthBtn.setClickable(false);
+                fragmentMyMonthNuBinding.calendarDate.setClickable(false);
+                fragmentMyMonthNuBinding.preMonthBtn.setClickable(false); //연속적으로 달력의 달을 바꾸는 것을 막기 위해 버튼 비활성화
+                fragmentMyMonthNuBinding.nextMonthBtn.setClickable(false);
 
                 ///////////// 이전 달의 정보를 남김 없이 삭제
                 clear_display();
@@ -214,15 +211,15 @@ public class MyMenuFragment extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        fragmentMyMenuBinding.calendarDate.setClickable(true);
-                        fragmentMyMenuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
-                        fragmentMyMenuBinding.nextMonthBtn.setClickable(true);
+                        fragmentMyMonthNuBinding.calendarDate.setClickable(true);
+                        fragmentMyMonthNuBinding.preMonthBtn.setClickable(true); //달력 작업이 끝난 후 버튼 활성화
+                        fragmentMyMonthNuBinding.nextMonthBtn.setClickable(true);
                     }
                 }, 500); //모든 작업이 끝난 후 0.5초 뒤에 활성화
             }
         });
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+        ActivityResultLauncher<Intent> detailShowNuResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
@@ -233,7 +230,7 @@ public class MyMenuFragment extends Fragment {
                     }
                 });
 
-        fragmentMyMenuBinding.showDetailNuBtn.setOnClickListener(new View.OnClickListener() {
+        fragmentMyMonthNuBinding.showDetailNuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //그 날의 먹은 음식을 보여주는 팝업 창 띄우기
@@ -242,7 +239,10 @@ public class MyMenuFragment extends Fragment {
                     Intent intent = new Intent(getContext(), PopupDetailShowNuActivity.class);
                     intent.putExtra("eat_date", eat_date);
 
-                    activityResultLauncher.launch(intent);
+                    detailShowNuResultLauncher.launch(intent);
+                }
+                else {
+                    Toast.makeText(getContext(), "날짜를 선택해 주세요.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -253,7 +253,7 @@ public class MyMenuFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fragmentMyMenuBinding = null; //프래그먼트는 뷰보다 오래 지속되므로 결합 클래스 인스턴스 참조를 정리
+        fragmentMyMonthNuBinding = null; //프래그먼트는 뷰보다 오래 지속되므로 결합 클래스 인스턴스 참조를 정리
     }
 
     ////////// 영양분 정보를 표시하는 함수들
@@ -300,15 +300,15 @@ public class MyMenuFragment extends Fragment {
     }
 
     public void set_My_Nu_Val(){ //레이아웃 밑에 있는 영양분 표시를 수정하는 함수.
-        fragmentMyMenuBinding.monthMyKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
-        fragmentMyMenuBinding.monthMyCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
-        fragmentMyMenuBinding.monthMyProteinVal.setText(String.format("%.2f(g)", sum_protein));
-        fragmentMyMenuBinding.monthMyFatVal.setText(String.format("%.2f(g)", sum_fat));
-        fragmentMyMenuBinding.monthMySugarsVal.setText(String.format("%.2f(g)", sum_sugars));
-        fragmentMyMenuBinding.monthMySodiumVal.setText(String.format("%.2f(mg)", sum_sodium));
-        fragmentMyMenuBinding.monthMyCHVal.setText(String.format("%.2f(mg)", sum_CH));
-        fragmentMyMenuBinding.monthMySatFatVal.setText(String.format("%.2f(g)", sum_Sat_fat));
-        fragmentMyMenuBinding.monthMyTransFatVal.setText(String.format("%.2f(g)", sum_trans_fat));
+        fragmentMyMonthNuBinding.monthMyKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
+        fragmentMyMonthNuBinding.monthMyCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
+        fragmentMyMonthNuBinding.monthMyProteinVal.setText(String.format("%.2f(g)", sum_protein));
+        fragmentMyMonthNuBinding.monthMyFatVal.setText(String.format("%.2f(g)", sum_fat));
+        fragmentMyMonthNuBinding.monthMySugarsVal.setText(String.format("%.2f(g)", sum_sugars));
+        fragmentMyMonthNuBinding.monthMySodiumVal.setText(String.format("%.2f(mg)", sum_sodium));
+        fragmentMyMonthNuBinding.monthMyCHVal.setText(String.format("%.2f(mg)", sum_CH));
+        fragmentMyMonthNuBinding.monthMySatFatVal.setText(String.format("%.2f(g)", sum_Sat_fat));
+        fragmentMyMonthNuBinding.monthMyTransFatVal.setText(String.format("%.2f(g)", sum_trans_fat));
     }
     ////////// 영양분 정보를 표시하는 함수들
 
@@ -338,13 +338,13 @@ public class MyMenuFragment extends Fragment {
                         }
                         if(food_kcal > 3000 || food_carbs > 2000 || food_protein > 2000 || food_fat > 2000 || food_sugars > 500 || food_sodium > 500 || food_CH > 500 || food_Sat_fat > 100 || food_trans_fat > 100){
                             textView.setBackgroundColor(Color.parseColor("#808080")); //적절하지 않은 영양분 섭취 시 해당 요일의 백그라운드 색을 회색으로 변경
-                            int bad = Integer.parseInt(fragmentMyMenuBinding.badDay.getText().toString()) + 1;
-                            fragmentMyMenuBinding.badDay.setText(String.valueOf(bad));
+                            int bad = Integer.parseInt(fragmentMyMonthNuBinding.badDay.getText().toString()) + 1;
+                            fragmentMyMonthNuBinding.badDay.setText(String.valueOf(bad));
                         }
                         else {
                             textView.setBackgroundColor(Color.parseColor("#00ff0000")); //배경색이 존재(이전 달에 부적절한 영양분 섭취 날로 계산되어)된 것을 지움
-                            int good = Integer.parseInt(fragmentMyMenuBinding.goodDay.getText().toString()) + 1;
-                            fragmentMyMenuBinding.goodDay.setText(String.valueOf(good));
+                            int good = Integer.parseInt(fragmentMyMonthNuBinding.goodDay.getText().toString()) + 1;
+                            fragmentMyMonthNuBinding.goodDay.setText(String.valueOf(good));
                         }
                     }
                     else if(success == 1){
@@ -368,7 +368,7 @@ public class MyMenuFragment extends Fragment {
 
     ////////// 달력 제작하는 함수
     public void setting_Calendar(){ //설정한 년도와 달에 따라 달력을 만들고, 날짜 클릭이벤트를 설정
-        fragmentMyMenuBinding.calendarDate.setText(year + "." + month);
+        fragmentMyMonthNuBinding.calendarDate.setText(year + "." + month);
 
         int textView_day = 0; //last_day = 캘린더에 표시된 달의 마지막 날, first_day = 캘린더에 표시된 달의 첫번째 날, day = 각 칸이 나타내는 날짜
 
@@ -427,8 +427,8 @@ public class MyMenuFragment extends Fragment {
         sum_trans_fat = 0;
         set_My_Nu_Val(); //영양분 정보 모두 초기화
 
-        fragmentMyMenuBinding.goodDay.setText("0"); //달의 적합한&적합하지 않은 영양분 섭취 날 정보를 0으로 수정
-        fragmentMyMenuBinding.badDay.setText("0");
+        fragmentMyMonthNuBinding.goodDay.setText("0"); //달의 적합한&적합하지 않은 영양분 섭취 날 정보를 0으로 수정
+        fragmentMyMonthNuBinding.badDay.setText("0");
     }
 
     public void return_display_click_date_to_default(){ //이전에 선택한 날짜의 표시(초록색)을 제거하는 함수

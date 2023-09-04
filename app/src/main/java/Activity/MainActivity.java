@@ -26,7 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import Activity.PopupActivity.PopupCheckPasswordActivity;
 import Fragment.MainFragment;
-import Fragment.MyMenuFragment;
+import Fragment.MyMonthNuFragment;
 import Fragment.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private SearchFragment searchFragment = new SearchFragment();
-    private MyMenuFragment myMenuFragmet = new MyMenuFragment();
+    private MyMonthNuFragment myMenuFragmet = new MyMonthNuFragment();
     private MainFragment mainFragment = new MainFragment();
 
     @Override
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationHaederBinding navigationHaederBinding = NavigationHaederBinding.bind(mainBinding.menuNavigation.getHeaderView(0));
         navigationHaederBinding.navID.setText(sharedPreferences.getString("ID", null) +"님"); //아이디를 네비게이션 헤더에 표시
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+        ActivityResultLauncher<Intent> checkPasswordResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                int id = item.getItemId();
                if(id == R.id.account){ //계정 정보 창으로 전환
                    Intent intent = new Intent(MainActivity.this, PopupCheckPasswordActivity.class);
-                   activityResultLauncher.launch(intent);
+                   checkPasswordResultLauncher.launch(intent);
                }
                else if(id == R.id.logout){ //로그아웃 후, 다시 로그인 화면으로 전환
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);

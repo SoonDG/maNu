@@ -40,6 +40,10 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
         String food_code = intent.getStringExtra("food_code");
         String eat_date = intent.getStringExtra("eat_date");
         int serving = intent.getIntExtra("serving", -1);
+        if(serving == -1){
+            Toast.makeText(getApplicationContext(), "데이터 전송 오류 발생", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         String [] serving_Data = getApplicationContext().getResources().getStringArray(R.array.serving);
         ArrayAdapter servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, serving_Data);

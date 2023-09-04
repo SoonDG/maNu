@@ -10,7 +10,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/MyNuGreen"
+        android:background="@color/MyNuGray"
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -88,7 +88,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/MyNuGreen"
+        android:background="@color/MyNuGray"
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"

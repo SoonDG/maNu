@@ -17,7 +17,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="450dp"
         android:gravity="center"
-        android:background="@color/MyNuGreen"
+        android:background="@drawable/textview_style2"
         android:textColor="@color/white"
         android:text="섭취 영양분"
         android:textSize="20sp"/>

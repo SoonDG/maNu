@@ -37,7 +37,7 @@ public class MyAccountActivity extends AppCompatActivity {
 
         set_myAccount(); //회원 정보 표시
 
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+        ActivityResultLauncher<Intent> editInformationResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
@@ -51,7 +51,7 @@ public class MyAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyAccountActivity.this, EditInformationActivity.class);
-                activityResultLauncher.launch(intent); //회원 정보 수정 창 띄우기
+                editInformationResultLauncher.launch(intent); //회원 정보 수정 창 띄우기
             }
         });
 

@@ -5,6 +5,9 @@
 
     <color name="dialogColor">#A6333333</color>
 
+    <color name="MyNuBlack">#212121</color>
+    <color name="MyNuGray">#464646</color>
+    <color name="MyNuMediumGray">#A6A6A6</color>
     <color name="MyNuGreen">#006400</color>
     <color name="MyNuMediumGreen">#3CB371</color>
 </resources>

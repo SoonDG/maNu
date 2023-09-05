@@ -40,11 +40,11 @@
         android:id="@+id/tableLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/tablelayout_style"
         android:stretchColumns="*"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/tablelayout_style">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
@@ -175,7 +175,7 @@
                 android:id="@+id/edit_Gender"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
         </TableRow>
     </TableLayout>
 

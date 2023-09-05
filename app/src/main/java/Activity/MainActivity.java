@@ -25,9 +25,11 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 import Activity.PopupActivity.PopupCheckPasswordActivity;
+import Activity.PopupActivity.PopupExitActivity;
 import Fragment.MainFragment;
 import Fragment.MyMonthNuFragment;
 import Fragment.SearchFragment;
+import Model.Food;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private SearchFragment searchFragment = new SearchFragment();
     private MyMonthNuFragment myMenuFragmet = new MyMonthNuFragment();
     private MainFragment mainFragment = new MainFragment();
+    private ActivityResultLauncher<Intent> exitResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        exitResultLauncher = registerForActivityResult( //RecyclerView의 아이템 클릭시 발생하는 클릭 이벤트 작성 부분
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == RESULT_OK){
+                            finish();
+                        }
+                    }
+                });
     }
 
+    @Override
+    public void onBackPressed() {
+       Intent intent = new Intent(this, PopupExitActivity.class);
+       exitResultLauncher.launch(intent);
+    }
 }

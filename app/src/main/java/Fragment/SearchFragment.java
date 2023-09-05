@@ -114,8 +114,10 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
                             double food_Sat_fat = jsonObject.getDouble("food_Sat_fat");
                             double food_trans_fat = jsonObject.getDouble("food_trans_fat");
                             arrayList.add(new Food(food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat));
+                            //arrayList에 검색된 음식 데이터를 저장
                         }
-                        foodAdapter.notifyDataSetChanged();
+                        foodAdapter.notifyDataSetChanged(); //arrayList의 변경 내용을 RecyclerView에 반영
+                        fragmentSearchBinding.searchRecyclerView.scrollToPosition(0); //검색을 새로 하면 스크롤을 제일 위로 올려서 확인할 수 있도록 함
                     }
                     else if(success == 2){
                         Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();

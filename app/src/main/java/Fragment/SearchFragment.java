@@ -37,6 +37,9 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
     private FoodAdapter foodAdapter;
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<Food> arrayList;
+    private int index = 0;
+    private String Search_String = "";
+    private boolean recyclerview_update = true;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -64,14 +67,31 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
         fragmentSearchBinding.searchFoodText.setOnEditorActionListener(new TextView.OnEditorActionListener() { //검색 버튼을 누를경우 해당 검색어로 검색된 식품만 출력
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                String Search_String = textView.getText().toString();
-                if(!Search_String.isEmpty()) set_Food_list(Search_String);
-                else set_Food_list("");
+                recyclerview_update = true;
+                index = 0;
+                Search_String = textView.getText().toString();
+
+                if(!Search_String.isEmpty()) set_Food_list(Search_String, 0);
+                else set_Food_list("", 0);
+
+                fragmentSearchBinding.searchRecyclerView.scrollToPosition(0); //검색을 새로 하면 스크롤을 제일 위로 올려서 확인할 수 있도록 함
                 return true;
             }
         });
 
-        set_Food_list("");
+        fragmentSearchBinding.searchRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                if(!fragmentSearchBinding.searchRecyclerView.canScrollVertically(1)){ //RecyclerView의 스크롤을 끝까지 내렸다면
+                    index += 20;
+                    set_Food_list(Search_String, 1); //목록을 유지한 상태에서 새로 업데이트된 index부터 50개를 받아와 채워넣기
+                }
+            }
+        });
+
+        index = 0;
+        Search_String = "";
+        set_Food_list("", 0);
 
         return view;
     }
@@ -90,11 +110,11 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
         startActivity(intent);
     }
 
-    public void set_Food_list(String Search_String){ //음식 정보를 데이터베이스에서 가져와서 arrayList에 담고 RecyclerView에 반영시키는 함수
+    public void set_Food_list(String Search_String, int code){ //음식 정보를 데이터베이스에서 가져와서 arrayList에 담고 RecyclerView에 반영시키는 함수
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                arrayList.clear();
+                if(code == 0) arrayList.clear(); //code == 0이면 목록 초기화후 새로 목록을 제작하는 코드, code == 1이면 목록 유지하고 목록에 새로운 음식 추가
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     int success = jsonArray.getJSONObject(0).getInt("success");
@@ -117,7 +137,6 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
                             //arrayList에 검색된 음식 데이터를 저장
                         }
                         foodAdapter.notifyDataSetChanged(); //arrayList의 변경 내용을 RecyclerView에 반영
-                        fragmentSearchBinding.searchRecyclerView.scrollToPosition(0); //검색을 새로 하면 스크롤을 제일 위로 올려서 확인할 수 있도록 함
                     }
                     else if(success == 2){
                         Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
@@ -128,7 +147,7 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
             }
         };
 
-        GetFoodRequest getFoodRequest = new GetFoodRequest(Search_String, responseListener); //검색어가 있다면 해당 검색어에 해당하는 목록만 가져오기
+        GetFoodRequest getFoodRequest = new GetFoodRequest(Search_String, index, responseListener); //검색어가 있다면 해당 검색어에 해당하는 목록만 가져오기
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(getFoodRequest);
     }

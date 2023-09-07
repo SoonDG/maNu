@@ -39,7 +39,7 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
     private ArrayList<Food> arrayList;
     private int index = 0;
     private String Search_String = "";
-    private boolean recyclerview_update = true;
+    private boolean update_RecyclerView = true;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -67,12 +67,11 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
         fragmentSearchBinding.searchFoodText.setOnEditorActionListener(new TextView.OnEditorActionListener() { //검색 버튼을 누를경우 해당 검색어로 검색된 식품만 출력
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                recyclerview_update = true;
-                index = 0;
-                Search_String = textView.getText().toString();
+                index = 0; //새로 검색 되므로 index는 0부터 다시 시작
+                Search_String = textView.getText().toString(); //검색어를 가져옴
+                update_RecyclerView = true;
 
-                if(!Search_String.isEmpty()) set_Food_list(Search_String, 0);
-                else set_Food_list("", 0);
+                set_Food_list(Search_String, 0); //검색어를 통해 데이터베이스에서 데이터를 다시 받아와서 리스트를 채움
 
                 fragmentSearchBinding.searchRecyclerView.scrollToPosition(0); //검색을 새로 하면 스크롤을 제일 위로 올려서 확인할 수 있도록 함
                 return true;
@@ -83,15 +82,14 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
                 if(!fragmentSearchBinding.searchRecyclerView.canScrollVertically(1)){ //RecyclerView의 스크롤을 끝까지 내렸다면
-                    index += 20;
-                    set_Food_list(Search_String, 1); //목록을 유지한 상태에서 새로 업데이트된 index부터 50개를 받아와 채워넣기
+                    if(update_RecyclerView) { //업데이트 할 것이 남아 있다면
+                        set_Food_list(Search_String, 1); //목록을 유지한 상태에서 새로 업데이트된 index부터 20개를 받아와 채워넣기
+                    }
                 }
             }
         });
 
-        index = 0;
-        Search_String = "";
-        set_Food_list("", 0);
+        set_Food_list(Search_String, 0);
 
         return view;
     }
@@ -114,7 +112,12 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                fragmentSearchBinding.progressBar.setVisibility(View.VISIBLE); //progressBar를 띄워 아이템을 추가 중임을 알림
+
+                int size = 0;
                 if(code == 0) arrayList.clear(); //code == 0이면 목록 초기화후 새로 목록을 제작하는 코드, code == 1이면 목록 유지하고 목록에 새로운 음식 추가
+                else if(code == 1) size = arrayList.size(); //code == 1이면 목록 유지하면서 추가, 음식이 추가 됐는지 확인하기 위한 변수
+
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     int success = jsonArray.getJSONObject(0).getInt("success");
@@ -136,7 +139,16 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
                             arrayList.add(new Food(food_code, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat));
                             //arrayList에 검색된 음식 데이터를 저장
                         }
+
+                        index += jsonArray.length() - 1; //맨 앞의 에러 코드를 제외한 추가된 아이템의 갯수만큼 index 증가
                         foodAdapter.notifyDataSetChanged(); //arrayList의 변경 내용을 RecyclerView에 반영
+                        if(code == 1){
+                            if(size == arrayList.size()){
+                                update_RecyclerView = false; //추가된 음식이 없으므로 앞으로 추가하는 함수 호출하지 않도록 설정
+                            }
+                        }
+
+                        fragmentSearchBinding.progressBar.setVisibility(View.INVISIBLE); //추가가 완료되었으므로, progressBar 숨김
                     }
                     else if(success == 2){
                         Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();

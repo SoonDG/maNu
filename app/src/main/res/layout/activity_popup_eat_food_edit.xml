@@ -73,7 +73,7 @@
             android:id="@+id/cancle_Popup_Eat_Food_Edit_btn"
             android:text="취소"
             android:textSize="15sp"
-            android:textColor="@color/MyNuGray"
+            android:textColor="@color/white"
             android:gravity="center"
             android:background="@drawable/button_style3"
             android:layout_width="match_parent"

@@ -56,7 +56,7 @@ public class PopupFoodEatActivity extends AppCompatActivity {
         popupFoodEatBinding.selecteEatDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(PopupFoodEatActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(PopupFoodEatActivity.this, R.style.DatePickerTheme, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int selected_Year, int selected_Month, int selected_Day) {
                         year = selected_Year; month = selected_Month; day = selected_Day;

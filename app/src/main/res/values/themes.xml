@@ -10,6 +10,7 @@
         <item name="colorPrimaryDark">@color/MyNuBlack</item>
         <item name="android:windowBackground">@color/MyNuBlack </item>
         <item name="android:textColor">@color/white</item>
+        <item name="hintTextColor">@color/white</item>
         <item name="android:navigationBarColor">@color/MyNuGray</item>
         <item name="android:titleTextColor">@color/white</item>
     </style>
@@ -31,4 +32,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!--상단 바 색-->
+        <item name="colorAccent">@color/MyNuGray</item>
+
+        <!-- 선택한 날짜 표시 색-->
+        <item name="colorControlActivated">@color/MyNuGray</item>
+        <item name="colorControlHighlight">@color/MyNuGray</item>
+
+        <!-- 취소/확인 버튼 색 -->
+        <item name="android:textColor">@color/MyNuBlack</item>
+    </style>
 </resources>

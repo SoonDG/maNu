@@ -63,6 +63,8 @@ public class PopupFoodEatActivity extends AppCompatActivity {
                         set_Date();
                     }
                 }, year, month, day);
+
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000); //최대 날짜를 현재 시각으로
                 datePickerDialog.show();
             }
         });

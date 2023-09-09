@@ -24,6 +24,8 @@ import com.example.my_first_project.databinding.NavigationHaederBinding;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Calendar;
+
 import Activity.PopupActivity.PopupCheckPasswordActivity;
 import Activity.PopupActivity.PopupExitActivity;
 import Fragment.MainFragment;
@@ -108,11 +110,11 @@ public class MainActivity extends AppCompatActivity {
                 if(id == R.id.menu_home){
                     if(mainFragment == null) {
                         mainFragment = new MainFragment();
-                        transaction.add(R.id.frame_Layout, mainFragment).commit(); //mainfragment가 null이면 객체 생성 후 add() 함
+                        transaction.add(R.id.frame_Layout, mainFragment); //mainfragment가 null이면 객체 생성 후 add() 함
                     }
                     else {
                         mainFragment.set_Food_list(); //mainFragment의 아래표 갱신
-                        transaction.show(mainFragment).commit();
+                        transaction.show(mainFragment);
                     }
                     if(searchFragment != null) transaction.hide(searchFragment); //searchFragment가 null이 아니면 hide()
                     if(myMonthNuFragment != null) transaction.hide(myMonthNuFragment); //myMonthNuFragment가 null이 아니면 hide()
@@ -121,12 +123,11 @@ public class MainActivity extends AppCompatActivity {
                 else if(id == R.id.menu_my){
                     if(myMonthNuFragment == null) {
                         myMonthNuFragment = new MyMonthNuFragment();
-                        transaction.add(R.id.frame_Layout, myMonthNuFragment).commit(); //myMonthNufragment가 null이면 객체 생성 후 add() 함
+                        transaction.add(R.id.frame_Layout, myMonthNuFragment); //myMonthNufragment가 null이면 객체 생성 후 add() 함
                     }
                     else {
-                        myMonthNuFragment.setting_Calendar(); //myMonthNuFragment의 화면의 정보 갱신
-                        myMonthNuFragment.clear_display(); //클릭한 날짜 정보를 표시하던 것을 없앰 -> 수정할 필요
-                        transaction.show(myMonthNuFragment).commit();
+                        myMonthNuFragment.renewal_Display_Nu();
+                        transaction.show(myMonthNuFragment);
                     }
                     if(mainFragment != null) transaction.hide(mainFragment); //mainFragment가 null이 아니면 hide()
                     if(searchFragment != null) transaction.hide(searchFragment); //searchFragment가 null이 아니면 hide()
@@ -134,12 +135,14 @@ public class MainActivity extends AppCompatActivity {
                 else if(id == R.id.menu_search){
                     if(searchFragment == null) {
                         searchFragment = new SearchFragment();
-                        transaction.add(R.id.frame_Layout, searchFragment).commit(); //searchfragment가 null이면 객체 생성 후 add() 함
+                        transaction.add(R.id.frame_Layout, searchFragment); //searchfragment가 null이면 객체 생성 후 add() 함
                     }
-                    else transaction.show(searchFragment).commit();
+                    else transaction.show(searchFragment);
                     if(mainFragment != null) transaction.hide(mainFragment); //mainFragment가 null이 아니면 hide()
                     if(myMonthNuFragment != null) transaction.hide(myMonthNuFragment); //myMonthNuFragment가 null이 아니면 hide()
                 }
+
+                transaction.commit(); //변경된 내용을 commit
                 return true;
             }
         });

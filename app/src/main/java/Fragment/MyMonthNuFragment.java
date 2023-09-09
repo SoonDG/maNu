@@ -101,7 +101,7 @@ public class MyMonthNuFragment extends Fragment {
         setting_Calendar(); //달력 설정, 각 날짜의 영양분 정보 가져오기.. 등 달력 제작, 달의 영양분 정보 저장 역할
 
         ActivityResultLauncher<Intent> dateSelecteResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() { //날짜 선택 popup창에서 선택한 날짜 정보를 받아 해당 날짜로 변경해주는 callback함수
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == Activity.RESULT_OK){
@@ -134,7 +134,7 @@ public class MyMonthNuFragment extends Fragment {
                     }
                 });
 
-        fragmentMyMonthNuBinding.calendarDate.setOnClickListener(new View.OnClickListener() {
+        fragmentMyMonthNuBinding.calendarDate.setOnClickListener(new View.OnClickListener() { //날짜를 클릭할 시 날짜를 spinner로 선택가능한 popup창을 띄움
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), PopupSelecteDate.class);
@@ -220,12 +220,12 @@ public class MyMonthNuFragment extends Fragment {
         });
 
         ActivityResultLauncher<Intent> detailShowNuResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {  //선택한 날짜의 먹은 음식 정보를 보여주는 popupActivity에서 음식 정보를 변경한 것을 반영하기 위한 callback함수
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == Activity.RESULT_OK){
                             set_display_Nu(day); //자세히 보기 화면에서 변경된 음식 정보와 관련하여 바뀐 영양분 정보를 다시 표시
-                            check_Nu(year + "-" + month + "-" + day, textViews[first_day + day]); //변경된 영양분정보가 적합한지 확인
+                            check_Nu(day); //변경된 영양분정보가 적합한지 확인
                         }
                     }
                 });
@@ -234,12 +234,13 @@ public class MyMonthNuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //그 날의 먹은 음식을 보여주는 팝업 창 띄우기
-                if(day != 0) {
-                    String eat_date = year + "-" + month + "-" + day;
+                if(day != 0) { //선택한 날짜가 있다면 해당 날짜의 먹은 음식 정보를 보여주는 Popup 창을 띄움
+                    String eat_date = year + "-" + month + "-" + day; //클릭한 날짜 정보를 가져옴
                     Intent intent = new Intent(getContext(), PopupDetailShowNuActivity.class);
-                    intent.putExtra("eat_date", eat_date);
+                    intent.putExtra("eat_date", eat_date); //클릭한 날짜 정보를 popupActivity에 전달하여 popupActivity에서 해당 날짜의
+                                                                //음식 정보를 가져오도록 함
 
-                    detailShowNuResultLauncher.launch(intent);
+                    detailShowNuResultLauncher.launch(intent); //popup창 띄움
                 }
                 else {
                     Toast.makeText(getContext(), "날짜를 선택해 주세요.", Toast.LENGTH_SHORT).show();
@@ -257,6 +258,13 @@ public class MyMonthNuFragment extends Fragment {
     }
 
     ////////// 영양분 정보를 표시하는 함수들
+    public void renewal_Display_Nu(){ //다른 화면(Fragment)으로 전환 하기 전에 클릭해뒀던 날짜의 변경된 내용을 갱신하는 함수
+        if(day != 0) { //화면 전환하기 전에 클릭해둔 날짜가 있었다면
+            set_display_Nu(day); //이전에 클릭해뒀던 날짜의 갱신된 내용을 다시 가져와서 아래 레이아웃에 표시
+            check_Nu(day); //해당 날짜의 영양분 정보를 다시 확인
+        }
+    }
+
     public void set_display_Nu(int display_day){ //선택한 날의 영양분 정보를 데이터베이스로부터 가져와 아래 레이아웃에 표시.
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -313,7 +321,7 @@ public class MyMonthNuFragment extends Fragment {
     ////////// 영양분 정보를 표시하는 함수들
 
     ////////// 각 날짜의 영양분 정보를 가져오는 함수
-    public void check_Nu(String eat_date, TextView textView){ //표시되는 달의 각 날짜의 영양분 정보를 데이터 베이스에서 가져와서, 적합한 영양분 섭취했는지 확인
+    public void check_Nu(int check_day){ //표시되는 달의 각 날짜의 영양분 정보를 데이터 베이스에서 가져와서, 적합한 영양분 섭취했는지 확인
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -321,6 +329,7 @@ public class MyMonthNuFragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(response);
                     int success = jsonArray.getJSONObject(0).getInt("success");
                     if(success == 0) {
+                        TextView textView = textViews[check_day + first_day];
                         int serving;
                         double food_kcal = 0, food_carbs = 0, food_protein = 0, food_fat = 0, food_sugars = 0, food_sodium = 0, food_CH = 0, food_Sat_fat = 0, food_trans_fat = 0;
                         for (int i = 1; i < jsonArray.length(); i++) {
@@ -360,9 +369,8 @@ public class MyMonthNuFragment extends Fragment {
         };
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        GetEatFoodRequest getEatfoodRequest = new GetEatFoodRequest(sharedPreferences.getString("ID", null), eat_date, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(getEatfoodRequest);
+        GetEatFoodRequest getEatfoodRequest = new GetEatFoodRequest(sharedPreferences.getString("ID", null), year + "-" + month + "-" + check_day, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());queue.add(getEatfoodRequest);
     }
     ////////// 각 날짜의 영양분 정보를 가져오는 함수
 
@@ -391,9 +399,8 @@ public class MyMonthNuFragment extends Fragment {
                         textView.setTextColor(Color.parseColor("#0067a3")); //토요일은 파란색
                     }
 
-                    String eat_date = year + "-" + month + "-" + (textView_day - first_day);
                     if(year < cur_year || (year == cur_year && month < cur_month) || (year == cur_year && month == cur_month && (textView_day - first_day) <= cur_day)) {
-                        check_Nu(eat_date, textView); //해당 날의 영양분 정보를 확인하고 적합한지의 여부에 따라 배경 변경 및 레이아웃 아래의 정보 수정
+                        check_Nu(textView_day - first_day); //해당 날의 영양분 정보를 확인하고 적합한지의 여부에 따라 배경 변경 및 레이아웃 아래의 정보 수정
                         textView.setClickable(true);
                     } //클릭할 수 있는 경우는 달력에 표시되는 날이자, 오늘을 포함해 이전 날인 경우
                     else {

@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import Activity.PopupActivity.PopupDetailShowNuActivity;
@@ -41,6 +42,7 @@ import Request.GetEatFoodRequest;
 public class MyMonthNuFragment extends Fragment {
     private FragmentMyMonthNuBinding fragmentMyMonthNuBinding;
     private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0; //아래 영양분 표에 표시될 영양분 정보를 담는 변수
+    private ArrayList<Integer> goodDay = new ArrayList<>(), badDay = new ArrayList<>(); //표시되는 날의 적정 영양분을 섭취한 날짜, 적정 영양분을 섭취하지 못한 날짜를 담는 리스트
     private int year = 0, month = 0, day = 0; //현재 표시 되는 년도, 월, 일
     private int cur_year = 0, cur_month = 0, cur_day = 0; //오늘 날짜
 
@@ -322,6 +324,9 @@ public class MyMonthNuFragment extends Fragment {
 
     ////////// 각 날짜의 영양분 정보를 가져오는 함수
     public void check_Nu(int check_day){ //표시되는 달의 각 날짜의 영양분 정보를 데이터 베이스에서 가져와서, 적합한 영양분 섭취했는지 확인
+        goodDay.remove(Integer.valueOf(check_day));
+        badDay.remove(Integer.valueOf(check_day));
+
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -346,15 +351,15 @@ public class MyMonthNuFragment extends Fragment {
                             food_trans_fat += jsonObject.getDouble("food_trans_fat") * serving;
                         }
                         if(food_kcal > 3000 || food_carbs > 2000 || food_protein > 2000 || food_fat > 2000 || food_sugars > 500 || food_sodium > 500 || food_CH > 500 || food_Sat_fat > 100 || food_trans_fat > 100){
-                            textView.setBackgroundColor(Color.parseColor("#808080")); //적절하지 않은 영양분 섭취 시 해당 요일의 백그라운드 색을 회색으로 변경
-                            int bad = Integer.parseInt(fragmentMyMonthNuBinding.badDay.getText().toString()) + 1;
-                            fragmentMyMonthNuBinding.badDay.setText(String.valueOf(bad));
+                            textView.setBackgroundColor(Color.parseColor("#464646"));
+                            badDay.add(check_day);
                         }
                         else {
-                            textView.setBackgroundColor(Color.parseColor("#00ff0000")); //배경색이 존재(이전 달에 부적절한 영양분 섭취 날로 계산되어)된 것을 지움
-                            int good = Integer.parseInt(fragmentMyMonthNuBinding.goodDay.getText().toString()) + 1;
-                            fragmentMyMonthNuBinding.goodDay.setText(String.valueOf(good));
+                            textView.setBackgroundColor(Color.parseColor("#212121"));
+                            goodDay.add(check_day);
                         }
+                        fragmentMyMonthNuBinding.goodDay.setText(String.valueOf(goodDay.size())); //아래 표에 적정 섭취 날짜 정보 표시
+                        fragmentMyMonthNuBinding.badDay.setText(String.valueOf(badDay.size()));
                     }
                     else if(success == 1){
                         Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
@@ -370,7 +375,8 @@ public class MyMonthNuFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
         GetEatFoodRequest getEatfoodRequest = new GetEatFoodRequest(sharedPreferences.getString("ID", null), year + "-" + month + "-" + check_day, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(getActivity());queue.add(getEatfoodRequest);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(getEatfoodRequest);
     }
     ////////// 각 날짜의 영양분 정보를 가져오는 함수
 
@@ -416,6 +422,7 @@ public class MyMonthNuFragment extends Fragment {
     }
     ////////// 달력 제작하는 함수
 
+
     ////////// 표시되는 정보 제거하는 함수들
     public void clear_display(){ //현재 표시되는 정보 제거
         if(day != 0) {
@@ -434,7 +441,9 @@ public class MyMonthNuFragment extends Fragment {
         sum_trans_fat = 0;
         set_My_Nu_Val(); //영양분 정보 모두 초기화
 
-        fragmentMyMonthNuBinding.goodDay.setText("0"); //달의 적합한&적합하지 않은 영양분 섭취 날 정보를 0으로 수정
+        goodDay.clear(); //달의 적합한&적합하지 않은 영양분 섭취 날 정보를 초기화
+        badDay.clear();;
+        fragmentMyMonthNuBinding.goodDay.setText("0");
         fragmentMyMonthNuBinding.badDay.setText("0");
     }
 

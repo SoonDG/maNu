@@ -261,9 +261,11 @@ public class MyMonthNuFragment extends Fragment {
 
     ////////// 영양분 정보를 표시하는 함수들
     public void renewal_Display_Nu(){ //다른 화면(Fragment)으로 전환 하기 전에 클릭해뒀던 날짜의 변경된 내용을 갱신하는 함수
-        if(day != 0) { //화면 전환하기 전에 클릭해둔 날짜가 있었다면
-            set_display_Nu(day); //이전에 클릭해뒀던 날짜의 갱신된 내용을 다시 가져와서 아래 레이아웃에 표시
-            check_Nu(day); //해당 날짜의 영양분 정보를 다시 확인
+        if(year == cur_year && month == cur_month) { //이번 달 정보를 표시 중이라면 오늘 음식 정보가 변경되었을 수 도 있으니
+            if(day == cur_day) { //선택한 날짜가 오늘 날짜라면
+                set_display_Nu(cur_day); //오늘 날짜의 갱신된 내용을 다시 가져와서 아래 레이아웃에 표시
+            }
+            check_Nu(cur_day); //오늘 날짜의 영양분 정보를 다시 확인
         }
     }
 

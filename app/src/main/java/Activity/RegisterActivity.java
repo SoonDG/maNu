@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.android.volley.Header;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -47,7 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String Repeat_Password = registerBinding.repeatRegPasswordText.getText().toString();
                 int Age = Integer.parseInt(registerBinding.ageSpinner.getSelectedItem().toString());
                 String Gender = registerBinding.genderSpinner.getSelectedItem().toString();
-
+                double Height = Double.parseDouble(registerBinding.heightText.getText().toString());
+                double Weight = Double.parseDouble(registerBinding.weightText.getText().toString());
                 Intent intent = new Intent(RegisterActivity.this, PopupInformationActivity.class);
                 if(ID.isEmpty() || Password.isEmpty()){
                     intent.putExtra("Title", "비어있는 칸을 모두 채워주세요.");
@@ -89,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     };
 
-                    RegisterRequest registerRequest = new RegisterRequest(ID, Password, Age, Gender, responseListener);
+                    RegisterRequest registerRequest = new RegisterRequest(ID, Password, Age, Gender, Height, Weight, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                     queue.add(registerRequest);
                 }

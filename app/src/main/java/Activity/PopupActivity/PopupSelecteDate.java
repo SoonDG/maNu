@@ -35,8 +35,8 @@ public class PopupSelecteDate extends AppCompatActivity {
         popupSelecteDateBinding.dateMonthSpinner.setAdapter(monthAdapter);
 
         Intent intent = getIntent();
-        int cur_year = intent.getIntExtra("cur_year", -1);
-        int cur_month = intent.getIntExtra("cur_month", -1);
+        int cur_year = intent.getIntExtra("year", -1);
+        int cur_month = intent.getIntExtra("month", -1);
         if(cur_year == -1 || cur_month == -1){
             Toast.makeText(getApplicationContext(), "데이터 전송 오류 발생", Toast.LENGTH_SHORT).show();
             finish();

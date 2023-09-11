@@ -140,9 +140,9 @@ public class MyMonthNuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), PopupSelecteDate.class);
-                intent.putExtra("cur_year", cur_year);
-                intent.putExtra("cur_month", cur_month);
-                dateSelecteResultLauncher.launch(intent);
+                intent.putExtra("year", year); //현재 표시되는 년도
+                intent.putExtra("month", month); //현재 표시되는 달 정보를 전달 -> 현재 표시되는 날짜가 날짜선택 spinner의 기본(default)값
+                dateSelecteResultLauncher.launch(intent); //popup창 띄움
             }
         });
 
@@ -352,13 +352,15 @@ public class MyMonthNuFragment extends Fragment {
                             food_Sat_fat += jsonObject.getDouble("food_Sat_fat") * serving;
                             food_trans_fat += jsonObject.getDouble("food_trans_fat") * serving;
                         }
-                        if(food_kcal > 3000 || food_carbs > 2000 || food_protein > 2000 || food_fat > 2000 || food_sugars > 500 || food_sodium > 500 || food_CH > 500 || food_Sat_fat > 100 || food_trans_fat > 100){
-                            textView.setBackgroundColor(Color.parseColor("#464646"));
-                            badDay.add(check_day);
+
+                        //적정 영양분 섭취 검사
+                        if(check_Appropriate_Nu(food_kcal, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat)){
+                            textView.setBackgroundColor(Color.parseColor("#212121")); //적정 영양분 섭취 표시
+                            goodDay.add(check_day); //표 내용 갱신
                         }
                         else {
-                            textView.setBackgroundColor(Color.parseColor("#212121"));
-                            goodDay.add(check_day);
+                            textView.setBackgroundColor(Color.parseColor("#464646")); //부적정 영양분 섭취 표시
+                            badDay.add(check_day); //표 내용 갱신
                         }
                         fragmentMyMonthNuBinding.goodDay.setText(String.valueOf(goodDay.size())); //아래 표에 적정 섭취 날짜 정보 표시
                         fragmentMyMonthNuBinding.badDay.setText(String.valueOf(badDay.size()));
@@ -379,6 +381,65 @@ public class MyMonthNuFragment extends Fragment {
         GetEatFoodRequest getEatfoodRequest = new GetEatFoodRequest(sharedPreferences.getString("ID", null), year + "-" + month + "-" + check_day, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(getEatfoodRequest);
+    }
+
+    //나이 & 성별 정보를 기반으로 적정 영양분 섭취를 했는지 확인하는 함수
+    public boolean check_Appropriate_Nu(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat){ //적정 영양분 섭취인지 검사하는 함수
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        int age = sharedPreferences.getInt("Age", -1);
+        int gender = (sharedPreferences.getString("Gender", null).equals("남자")) ? 0 : 1;
+        if(6 <= age && age <= 8){
+            if(gender == 0){
+                if(food_kcal < 1700) return false;
+                if(food_carbs < 130) return false;
+                if(food_protein < 35) return false;
+                if(food_sodium > 1200) return false;
+
+            }
+            else {
+                if(food_kcal < 1500) return false;
+                if(food_carbs < 130) return false;
+                if(food_protein < 35) return false;
+                if(food_sodium > 1200) return false;
+            }
+        }
+        else if(9 <= age && age <= 11){
+
+        }
+        else if(12 <= age && age <= 14){
+
+        }
+        else if(15 <= age && age <= 18){
+
+        }
+        else if(19 <= age && age <= 29){
+            if(gender == 0){
+                if(food_kcal < 2600) return false;
+                if(food_carbs < 130) return false;
+                if(food_protein < 65) return false;
+                if(food_sodium > 1500) return false;
+
+            }
+            else {
+                if(food_kcal < 2000) return false;
+                if(food_carbs < 130) return false;
+                if(food_protein < 55) return false;
+                if(food_sodium > 1500) return false;
+            }
+        }
+        else if(30 <= age && age <= 49){
+
+        }
+        else if(50 <= age && age <= 64){
+
+        }
+        else if(65 <= age && age <= 74){
+
+        }
+        else {
+
+        }
+        return true;
     }
     ////////// 각 날짜의 영양분 정보를 가져오는 함수
 
@@ -407,13 +468,8 @@ public class MyMonthNuFragment extends Fragment {
                         textView.setTextColor(Color.parseColor("#0067a3")); //토요일은 파란색
                     }
 
-                    if(year < cur_year || (year == cur_year && month < cur_month) || (year == cur_year && month == cur_month && (textView_day - first_day) <= cur_day)) {
-                        check_Nu(textView_day - first_day); //해당 날의 영양분 정보를 확인하고 적합한지의 여부에 따라 배경 변경 및 레이아웃 아래의 정보 수정
-                        textView.setClickable(true);
-                    } //클릭할 수 있는 경우는 달력에 표시되는 날이자, 오늘을 포함해 이전 날인 경우
-                    else {
-                        textView.setClickable(false); //미래의 날짜는 클릭X
-                    }
+                    textView.setClickable(true);
+                    check_Nu(textView_day - first_day); //해당 날의 영양분 정보를 확인하고 적합한지의 여부에 따라 배경 변경 및 레이아웃 아래의 정보 수정
                 }
                 else { //달력에 표시 안되는 칸일 경우
                     textView.setText(""); //날짜 지우기

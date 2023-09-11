@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="age">
+    <string-array name="weight">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -82,5 +82,4 @@
         <item>79</item>
         <item>80</item>
     </string-array>
-
 </resources>

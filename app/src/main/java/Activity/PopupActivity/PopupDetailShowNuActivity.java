@@ -118,6 +118,7 @@ public class PopupDetailShowNuActivity extends AppCompatActivity implements List
         Intent intent = new Intent(this, PopupEatFoodEditActivity.class);
         intent.putExtra("food_code", arrayList.get(position).getFood_code());
         intent.putExtra("eat_date", getEat_date());
+        intent.putExtra("food_name", arrayList.get(position).getFood_name());
         intent.putExtra("serving", arrayList.get(position).getServing());
         eatFoodEditResultLauncher.launch(intent);
     }

@@ -43,6 +43,11 @@ public class EditInformationActivity extends AppCompatActivity {
         editInformationBinding.curAge.setText(String.valueOf(sharedPreferences.getInt("Age", 0)));
         editInformationBinding.curGender.setText(sharedPreferences.getString("Gender", null));
 
+        double Height = Double.longBitsToDouble(sharedPreferences.getLong("Height", 0));
+        double Weight = Double.longBitsToDouble(sharedPreferences.getLong("Weight", 0));
+        editInformationBinding.curHeight.setText(String.valueOf(Height));
+        editInformationBinding.curWeight.setText(String.valueOf(Weight));
+
         String [] age_Data = getResources().getStringArray(R.array.age);
         String [] gen_Data = getResources().getStringArray(R.array.gender);
         ArrayAdapter ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data);
@@ -58,6 +63,8 @@ public class EditInformationActivity extends AppCompatActivity {
         else {
             editInformationBinding.editGender.setSelection(1);
         }
+        editInformationBinding.editHeight.setText(String.valueOf(Height));
+        editInformationBinding.editWeight.setText(String.valueOf(Weight));
 
         ActivityResultLauncher<Intent> editPasswordResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -91,6 +98,8 @@ public class EditInformationActivity extends AppCompatActivity {
                 String ID = sharedPreferences.getString("ID", null);
                 int Age = Integer.parseInt(editInformationBinding.editAge.getSelectedItem().toString());
                 String Gender = editInformationBinding.editGender.getSelectedItem().toString();
+                double Height = Double.parseDouble(editInformationBinding.editHeight.getText().toString());
+                double Weight = Double.parseDouble(editInformationBinding.editWeight.getText().toString());
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -108,6 +117,8 @@ public class EditInformationActivity extends AppCompatActivity {
                                 SharedPreferences.Editor autoLogin = sharedPreferences.edit();
                                 autoLogin.putInt("Age", Age);
                                 autoLogin.putString("Gender", Gender); //Password, Age, Gender 정보를 입력한 값으로 갱신
+                                autoLogin.putLong("Height", Double.doubleToRawLongBits(Height));
+                                autoLogin.putLong("Weight", Double.doubleToRawLongBits(Weight));
                                 autoLogin.commit(); //커밋
 
                                 setResult(RESULT_OK);
@@ -126,7 +137,7 @@ public class EditInformationActivity extends AppCompatActivity {
                     }
                 };
 
-                EditUserRequest editUserRequest = new EditUserRequest(ID, Age, Gender, responseListener);
+                EditUserRequest editUserRequest = new EditUserRequest(ID, Age, Gender, Height, Weight, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(EditInformationActivity.this);
                 queue.add(editUserRequest);
             }

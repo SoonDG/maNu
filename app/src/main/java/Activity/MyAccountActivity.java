@@ -123,5 +123,9 @@ public class MyAccountActivity extends AppCompatActivity {
         myAccountBinding.myPassword.setText(sharedPreferences.getString("Password", null));
         myAccountBinding.myAge.setText(String.valueOf(sharedPreferences.getInt("Age", 0)));
         myAccountBinding.myGender.setText(sharedPreferences.getString("Gender", null));
+        double Height = Double.longBitsToDouble(sharedPreferences.getLong("Height", 0));
+        double Weight = Double.longBitsToDouble(sharedPreferences.getLong("Weight", 0));
+        myAccountBinding.myHeight.setText(String.valueOf(Height));
+        myAccountBinding.myWeight.setText(String.valueOf(Weight));
     }
 }

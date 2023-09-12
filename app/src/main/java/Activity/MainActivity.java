@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        exitResultLauncher = registerForActivityResult( //RecyclerView의 아이템 클릭시 발생하는 클릭 이벤트 작성 부분
+        exitResultLauncher = registerForActivityResult( //뒤로 가기 버튼 누를 시 나타나는 팝업 창에서 종료 버튼 눌렀을 때 프로그램 종료 시키는 함수
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {

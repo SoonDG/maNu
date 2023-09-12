@@ -39,7 +39,11 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String food_code = intent.getStringExtra("food_code");
         String eat_date = intent.getStringExtra("eat_date");
+        String food_name = intent.getStringExtra("food_name");
         int serving = intent.getIntExtra("serving", -1);
+
+        popupEatFoodEditBinding.editFoodName.setText(food_name);
+
         if(serving == -1){
             Toast.makeText(getApplicationContext(), "데이터 전송 오류 발생", Toast.LENGTH_SHORT).show();
             finish();

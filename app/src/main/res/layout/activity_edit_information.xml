@@ -115,7 +115,7 @@
             <TextView
                 android:id="@+id/cur_Age_Label"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="나이: "
                 android:textSize="20sp" />
@@ -123,7 +123,7 @@
             <TextView
                 android:id="@+id/cur_Age"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp" />
@@ -131,7 +131,7 @@
             <TextView
                 android:id="@+id/edit_Age_Label"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="변경 나이: "
                 android:textSize="20sp" />
@@ -139,7 +139,9 @@
             <Spinner
                 android:id="@+id/edit_Age"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown"
                 android:textAlignment="center" />
         </TableRow>
 
@@ -150,7 +152,7 @@
             <TextView
                 android:id="@+id/cur_Gender_Label"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="성별: "
                 android:textSize="20sp" />
@@ -158,7 +160,7 @@
             <TextView
                 android:id="@+id/cur_Gender"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp" />
@@ -166,7 +168,7 @@
             <TextView
                 android:id="@+id/edit_Gender_Label"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="변경 성별: "
                 android:textSize="20sp" />
@@ -174,8 +176,10 @@
             <Spinner
                 android:id="@+id/edit_Gender"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:textAlignment="center" />
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:spinnerMode="dropdown"
+                android:overlapAnchor="false"/>
         </TableRow>
 
         <TableRow
@@ -185,7 +189,7 @@
             <TextView
                 android:id="@+id/cur_Height_Lable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="키: "
                 android:textSize="20sp"></TextView>
@@ -193,7 +197,7 @@
             <TextView
                 android:id="@+id/cur_Height"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp"></TextView>
@@ -201,7 +205,7 @@
             <TextView
                 android:id="@+id/edit_Height_Lable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="변경 키: "
                 android:textSize="20sp"></TextView>
@@ -209,8 +213,7 @@
             <EditText
                 android:id="@+id/edit_Height"
                 android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:ems="10"
+                android:layout_height="match_parent"
                 android:inputType="numberDecimal"></EditText>
         </TableRow>
 
@@ -221,7 +224,7 @@
             <TextView
                 android:id="@+id/cur_Weight_Lable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="몸무게: "
                 android:textSize="20sp"></TextView>
@@ -229,7 +232,7 @@
             <TextView
                 android:id="@+id/cur_Weight"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp"></TextView>
@@ -237,7 +240,7 @@
             <TextView
                 android:id="@+id/edit_Weight_Lable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="변경 몸무게: "
                 android:textSize="20sp"></TextView>
@@ -245,8 +248,7 @@
             <EditText
                 android:id="@+id/edit_Weight"
                 android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:ems="10"
+                android:layout_height="match_parent"
                 android:inputType="numberDecimal"></EditText>
         </TableRow>
     </TableLayout>

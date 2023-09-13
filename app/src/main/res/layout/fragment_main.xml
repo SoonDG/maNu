@@ -37,6 +37,7 @@
             android:layout_height="30dp">
 
             <TextView
+                android:id="@+id/my_Kcal_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center"
@@ -44,6 +45,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
+                android:id="@+id/my_Carbs_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -51,6 +53,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
+                android:id="@+id/my_Protein_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -92,6 +95,7 @@
             android:layout_height="30dp">
 
             <TextView
+                android:id="@+id/my_Fat_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center"
@@ -99,6 +103,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
+                android:id="@+id/my_Sugars_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -106,6 +111,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
+                android:id="@+id/my_Sodium_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -147,6 +153,7 @@
             android:layout_height="30dp">
 
             <TextView
+                android:id="@+id/my_CH_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center"
@@ -154,6 +161,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
+                android:id="@+id/my_Sat_Fat_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -161,6 +169,7 @@
                 android:textSize="20sp"></TextView>
 
             <TextView
+                android:id="@+id/my_Trans_Fat_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

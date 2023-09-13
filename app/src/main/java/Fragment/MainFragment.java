@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.my_first_project.databinding.FragmentMainBinding;
+import com.tomergoldst.tooltips.ToolTipsManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,12 +42,13 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
     private EatFoodAdapter eatFoodAdapter;
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<Food> arrayList;
-    private ActivityResultLauncher<Intent> eatFoodEditResultLauncher;;
+    private ActivityResultLauncher<Intent> eatFoodEditResultLauncher;
+    ;
     private int selected_index;
 
     //오늘 유저가 먹은 음식의 영양분의 합을 저장할 변수들
-    private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0;
-
+    private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0; //오늘 먹은 영양분 총합
+    private double rec_kcal = 0, rec_carbs = 0, rec_protein = 0, rec_fat = 0, rec_sugars = 0, rec_sodium = 0, rec_CH = 0, rec_Sat_fat = 0, rec_trans_fat = 0; //권장되는 영양분
     public MainFragment() {
         // Required empty public constructor
     }
@@ -75,15 +78,14 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        if(result.getResultCode() == 1){ //먹은 음식 수정
+                        if (result.getResultCode() == 1) { //먹은 음식 수정
                             Food food = arrayList.get(selected_index);
                             int serving = result.getData().getIntExtra("serving", -1); //변경된 인분 정보
                             int pre_serving = food.getServing(); //변경되기 전의 인분 정보
 
-                            if(serving == -1){ //오류 발생, 예외 처리 필요
+                            if (serving == -1) { //오류 발생, 예외 처리 필요
 
-                            }
-                            else {
+                            } else {
                                 EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
 
                                 food.setServing(serving);
@@ -104,8 +106,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
                                 arrayList.set(selected_index, food);
                                 eatFoodAdapter.notifyItemChanged(selected_index);
                             }
-                        }
-                        else if(result.getResultCode() == 2){ //먹은 음식 삭제
+                        } else if (result.getResultCode() == 2) { //먹은 음식 삭제
                             Food food = arrayList.get(selected_index); //삭제된 음식 정보를 가져와서
                             EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
                             //아래의 영야분 표에서 삭제된 음식의 영양분 정보를 제거
@@ -114,6 +115,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
                         }
                     }
                 });
+
 
         return view;
     }
@@ -135,8 +137,16 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         eatFoodEditResultLauncher.launch(intent);
     }
 
-    public void set_Food_list(){ //해당 부분 수정 필요 -> 먹은 음식 테이블에서 가져오도록
-        sum_kcal = 0; sum_carbs = 0; sum_protein = 0; sum_fat = 0; sum_sugars = 0; sum_sodium = 0; sum_CH = 0; sum_Sat_fat = 0; sum_trans_fat = 0;
+    public void set_Food_list() { //해당 부분 수정 필요 -> 먹은 음식 테이블에서 가져오도록
+        sum_kcal = 0;
+        sum_carbs = 0;
+        sum_protein = 0;
+        sum_fat = 0;
+        sum_sugars = 0;
+        sum_sodium = 0;
+        sum_CH = 0;
+        sum_Sat_fat = 0;
+        sum_trans_fat = 0;
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -144,7 +154,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     int success = jsonArray.getJSONObject(0).getInt("success");
-                    if(success == 0) {
+                    if (success == 0) {
                         for (int i = 1; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             int serving = jsonObject.getInt("serving");
@@ -173,11 +183,9 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
                         }
                         set_My_Nu_Val(); //영양분 합을 아래 표에 반영
                         eatFoodAdapter.notifyDataSetChanged(); //리스트의 변경 내용을 리스트 뷰에 반영
-                    }
-                    else if(success == 1){
+                    } else if (success == 1) {
                         Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(success == 2){
+                    } else if (success == 2) {
                         Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
@@ -202,19 +210,19 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         sum_CH -= food_CH;
         sum_Sat_fat -= food_Sat_fat;
         sum_trans_fat -= food_trans_fat;
-        if(sum_kcal < 0) sum_kcal = 0;
-        if(sum_carbs < 0) sum_carbs = 0;
-        if(sum_protein < 0) sum_protein = 0;
-        if(sum_fat < 0) sum_fat = 0;
-        if(sum_sugars < 0) sum_sugars = 0;
-        if(sum_sodium < 0) sum_sodium = 0;
-        if(sum_CH < 0) sum_CH = 0;
-        if(sum_Sat_fat < 0) sum_Sat_fat = 0;
-        if(sum_trans_fat < 0) sum_trans_fat = 0;
+        if (sum_kcal < 0) sum_kcal = 0;
+        if (sum_carbs < 0) sum_carbs = 0;
+        if (sum_protein < 0) sum_protein = 0;
+        if (sum_fat < 0) sum_fat = 0;
+        if (sum_sugars < 0) sum_sugars = 0;
+        if (sum_sodium < 0) sum_sodium = 0;
+        if (sum_CH < 0) sum_CH = 0;
+        if (sum_Sat_fat < 0) sum_Sat_fat = 0;
+        if (sum_trans_fat < 0) sum_trans_fat = 0;
         set_My_Nu_Val(); //삭제된 음식의 영양분 정보를 표에 반영
     } //먹은 음식을 클릭하여 삭제했을 때 실행되는 메소드.
 
-    public void EatFoodAdd(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat){
+    public void EatFoodAdd(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
         sum_kcal += food_kcal;
         sum_carbs += food_carbs;
         sum_protein += food_protein;
@@ -227,7 +235,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         set_My_Nu_Val(); //삭제된 음식의 영양분 정보를 표에 반영
     } //병경된 인분 값과 이전 인분 값을 통해 변경된 값 만큼 반영
 
-    public void set_My_Nu_Val(){ //영양분 정보를 표에 표시
+    public void set_My_Nu_Val() { //영양분 정보를 표에 표시
         fragmentMainBinding.myKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
         fragmentMainBinding.myCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
         fragmentMainBinding.myProteinVal.setText(String.format("%.2f(g)", sum_protein));
@@ -240,68 +248,128 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         check_Nu();
     }
 
-    public void check_Nu(){ //영양분을 적절히 섭취 했는지 확인
-        if(sum_kcal > 3000){
-            fragmentMainBinding.myKcalVal.setTextColor(Color.parseColor("#808080"));
+    public void check_Nu() { //영양분을 적절히 섭취 했는지 확인
+        cal_Recommend_Nu();
+
+        if(sum_kcal < rec_kcal || sum_kcal > rec_kcal * 2){
+            fragmentMainBinding.myKcalVal.setTextColor(Color.parseColor("#464646"));
         }
         else {
             fragmentMainBinding.myKcalVal.setTextColor(Color.parseColor("#ffffff"));
         }
 
-        if(sum_carbs > 2000){
-            fragmentMainBinding.myCarbsVal.setTextColor(Color.parseColor("#808080"));
+        if(sum_carbs < rec_carbs || sum_carbs > rec_carbs * 2){
+            fragmentMainBinding.myCarbsVal.setTextColor(Color.parseColor("#464646"));
         }
         else {
             fragmentMainBinding.myCarbsVal.setTextColor(Color.parseColor("#ffffff"));
         }
 
-        if(sum_protein > 2000){
-            fragmentMainBinding.myProteinVal.setTextColor(Color.parseColor("#808080"));
+        if(sum_protein < rec_protein || sum_protein > rec_protein * 2){
+            fragmentMainBinding.myProteinVal.setTextColor(Color.parseColor("#464646"));
         }
         else {
             fragmentMainBinding.myProteinVal.setTextColor(Color.parseColor("#ffffff"));
         }
 
-        if(sum_fat > 2000){
-            fragmentMainBinding.myFatVal.setTextColor(Color.parseColor("#808080"));
-        }
-        else {
-            fragmentMainBinding.myFatVal.setTextColor(Color.parseColor("#ffffff"));
-        }
-
-        if(sum_sugars > 500){
-            fragmentMainBinding.mySugarsVal.setTextColor(Color.parseColor("#808080"));
-        }
-        else {
-            fragmentMainBinding.mySugarsVal.setTextColor(Color.parseColor("#ffffff"));
-        }
-
-        if(sum_sodium > 500){
-            fragmentMainBinding.mySodiumVal.setTextColor(Color.parseColor("#808080"));
+        if(sum_sodium > rec_sodium){
+            fragmentMainBinding.mySodiumVal.setTextColor(Color.parseColor("#464646"));
         }
         else {
             fragmentMainBinding.mySodiumVal.setTextColor(Color.parseColor("#ffffff"));
         }
+    }
 
-        if(sum_CH > 500){
-            fragmentMainBinding.myCHVal.setTextColor(Color.parseColor("#808080"));
+    public void cal_Recommend_Nu(){ //권장 영양분 섭취량 계산
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        int Age = sharedPreferences.getInt("Age", 0);
+        int Gender = (sharedPreferences.getString("Gender", null).equals("남자")) ? 0 : 1;
+        if(6 <= Age && Age <= 8){
+            if(Gender == 0){
+
+            }
+            else {
+
+            }
+        }
+        else if(9 <= Age && Age <= 11){
+            if(Gender == 0){
+
+            }
+            else {
+
+            }
+        }
+        else if(12 <= Age && Age <= 14){
+            if(Gender == 0){
+
+            }
+            else {
+
+            }
+        }
+        else if(15 <= Age && Age <= 18){
+            if(Gender == 0){
+
+            }
+            else {
+
+            }
+        }
+        else if(19 <= Age && Age <= 29){
+            if(Gender == 0){
+                rec_kcal = 2600;
+                rec_carbs = 130;
+                rec_protein = 65;
+                rec_sodium = 1500;
+            }
+            else {
+                rec_kcal = 2000;
+                rec_carbs = 130;
+                rec_protein = 55;
+                rec_sodium = 1500;
+            }
+        }
+        else if(30 <= Age && Age <= 49){
+            if(Gender == 0){
+
+            }
+            else {
+
+            }
+        }
+        else if(50 <= Age && Age <= 64){
+            if(Gender == 0){
+
+            }
+            else {
+
+            }
+        }
+        else if(65 <= Age && Age <= 74){
+            if(Gender == 0){
+
+            }
+            else {
+
+            }
         }
         else {
-            fragmentMainBinding.myCHVal.setTextColor(Color.parseColor("#ffffff"));
-        }
+            if(Gender == 0){
 
-        if(sum_Sat_fat > 100){
-            fragmentMainBinding.mySatFatVal.setTextColor(Color.parseColor("#808080"));
-        }
-        else {
-            fragmentMainBinding.mySatFatVal.setTextColor(Color.parseColor("#ffffff"));
-        }
+            }
+            else {
 
-        if(sum_trans_fat > 100){
-            fragmentMainBinding.myTransFatVal.setTextColor(Color.parseColor("#808080"));
+            }
         }
-        else {
-            fragmentMainBinding.myTransFatVal.setTextColor(Color.parseColor("#ffffff"));
+        set_Tooltips();
+    }
+    public void set_Tooltips() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            fragmentMainBinding.myKcalLable.setTooltipText("칼로리의 필요 추정량은 " + rec_kcal + "(kcal) 입니다.");
+            fragmentMainBinding.myCarbsLable.setTooltipText("탄수화물의 권장 섭취량은 " + rec_carbs + "(g) 입니다.");
+            fragmentMainBinding.myProteinLable.setTooltipText("단백질의 권장 섭취량은 " + rec_protein + "(g) 입니다.");
+            fragmentMainBinding.mySodiumLable.setTooltipText("나트륨의 충분 섭취량은 " + rec_sodium + "(mg) 입니다.");
         }
     }
 }

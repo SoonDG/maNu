@@ -137,7 +137,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         eatFoodEditResultLauncher.launch(intent);
     }
 
-    public void set_Food_list() { //해당 부분 수정 필요 -> 먹은 음식 테이블에서 가져오도록
+    public void set_Food_list() {
         sum_kcal = 0;
         sum_carbs = 0;
         sum_protein = 0;

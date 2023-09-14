@@ -8,4 +8,8 @@
         android:id="@+id/logout"
         android:icon="@drawable/logout_icon"
         android:title="로그아웃"/>
+    <item
+        android:id="@+id/food_Reset"
+        android:icon="@drawable/food_reset_icon"
+        android:title="음식 정보 초기화"/>
 </menu>

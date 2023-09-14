@@ -17,21 +17,30 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.ActivityMainBinding;
 import com.example.my_first_project.databinding.NavigationHaederBinding;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 
 import Activity.PopupActivity.PopupCheckPasswordActivity;
+import Activity.PopupActivity.PopupCheckResetEatFoodActivity;
 import Activity.PopupActivity.PopupExitActivity;
 import Fragment.MainFragment;
 import Fragment.MyMonthNuFragment;
 import Fragment.SearchFragment;
 import Model.Food;
+import Request.ResetEatFoodRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,6 +88,45 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        ActivityResultLauncher<Intent> checkRestEatFoodResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(response);
+                                        int success = jsonObject.getInt("success");
+                                        if(success == 0){ //음식 정보 초기화 성공
+                                            Toast.makeText(getApplicationContext(), "먹은 음식 정보가 초기화 되었습니다.", Toast.LENGTH_SHORT).show();
+                                            if(mainFragment != null){
+                                                mainFragment.set_Food_list();
+                                            }
+                                            if(myMonthNuFragment != null){
+                                                myMonthNuFragment.renewal_Display_Nu();
+                                            }
+                                        }
+                                        else if(success == 1){
+                                            Toast.makeText(getApplicationContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else if(success == 2){
+                                            Toast.makeText(getApplicationContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                            };
+
+                            ResetEatFoodRequest resetEatFoodRequest = new ResetEatFoodRequest(sharedPreferences.getString("ID", null), responseListener);
+                            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                            queue.add(resetEatFoodRequest);
+                        }
+                    }
+                });
+
         mainBinding.menuNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {//사이드 바 메뉴 클릭 이벤트
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -97,6 +145,11 @@ public class MainActivity extends AppCompatActivity {
                     autoLogin.commit();
                     finish();
                }
+               else if(id == R.id.food_Reset) {
+                   Intent intent = new Intent(MainActivity.this, PopupCheckResetEatFoodActivity.class);
+                   checkRestEatFoodResultLauncher.launch(intent);
+               }
+
                return true;
             }
         });

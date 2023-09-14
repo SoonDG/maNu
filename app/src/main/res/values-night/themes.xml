@@ -6,10 +6,11 @@
     </style>
 
     <style name="Theme.My_First_Project" parent="@style/Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">#464646</item>
+        <item name="colorPrimary">@color/MyNuGray</item>
         <item name="colorPrimaryDark">@color/MyNuBlack</item>
         <item name="android:windowBackground">@color/MyNuBlack </item>
         <item name="android:textColor">@color/white</item>
+        <item name="hintTextColor">@color/white</item>
         <item name="android:navigationBarColor">@color/MyNuGray</item>
         <item name="android:titleTextColor">@color/white</item>
     </style>

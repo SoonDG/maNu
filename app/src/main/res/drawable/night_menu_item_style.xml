@@ -10,12 +10,12 @@
             </item>
         </layer-list>
     </item>
-    <item android:state_checked="false" android:color="@color/MyNuGray">
+    <item android:state_checked="false" android:color="@color/MyNuMediumGray">
         <layer-list>
             <item android:gravity="center_horizontal">
                 <shape android:shape="rectangle">
                     <size android:width="50dp" android:height="5dp"></size>
-                    <solid android:color="@color/MyNuGray"></solid>
+                    <solid android:color="@color/MyNuMediumGray"></solid>
                 </shape>
             </item>
         </layer-list>

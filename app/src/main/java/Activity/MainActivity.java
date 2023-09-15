@@ -10,9 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -31,15 +33,12 @@ import com.google.android.material.navigation.NavigationView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
-
 import Activity.PopupActivity.PopupCheckPasswordActivity;
 import Activity.PopupActivity.PopupCheckResetEatFoodActivity;
 import Activity.PopupActivity.PopupExitActivity;
 import Fragment.MainFragment;
 import Fragment.MyMonthNuFragment;
 import Fragment.SearchFragment;
-import Model.Food;
 import Request.ResetEatFoodRequest;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private MainFragment mainFragment = null;
     private ActivityResultLauncher<Intent> exitResultLauncher;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +65,24 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(mainBinding.toolbar); //툴바 설정
 
-        mainBinding.toolbar.setBackgroundColor(Color.parseColor("#464646"));
-        mainBinding.toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                mainBinding.toolbar.setBackgroundColor(Color.parseColor("#464646")); //배경 색은 짙은 회색
+
+                mainBinding.bottomMenuNavigation.setBackgroundColor(Color.parseColor("#464646"));
+                mainBinding.bottomMenuNavigation.setItemIconTintList(getColorStateList(R.drawable.night_menu_item_style));
+                mainBinding.bottomMenuNavigation.setItemTextColor(getColorStateList(R.drawable.night_menu_item_style));
+                mainBinding.bottomMenuNavigation.setItemActiveIndicatorColor(getColorStateList(R.drawable.night_menu_item_style));
+                break;
+            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
+                mainBinding.toolbar.setBackgroundColor(Color.parseColor("#A6A6A6")); //배경 색은 얕은 회색
+
+                mainBinding.bottomMenuNavigation.setBackgroundColor(Color.parseColor("#A6A6A6"));
+                mainBinding.bottomMenuNavigation.setItemIconTintList(getColorStateList(R.drawable.menu_item_style));
+                mainBinding.bottomMenuNavigation.setItemTextColor(getColorStateList(R.drawable.menu_item_style));
+                mainBinding.bottomMenuNavigation.setItemActiveIndicatorColor(getColorStateList(R.drawable.menu_item_style));
+                break;
+        }
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mainBinding.drawerLayout, mainBinding.toolbar, R.string.app_name, R.string.app_name);
         mainBinding.drawerLayout.addDrawerListener(actionBarDrawerToggle);

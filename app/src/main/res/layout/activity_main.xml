@@ -30,13 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
-            app:itemIconTint="@drawable/menu_item_style"
-            app:itemTextColor="@drawable/menu_item_style"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/menu_bottom_navigation"
-            android:background="@color/MyNuGray"
-            app:itemActiveIndicatorStyle="@drawable/menu_item_style"/>
+            app:menu="@menu/menu_bottom_navigation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,12 +1,16 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.my_first_project.R;
@@ -37,6 +41,18 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull EatFoodAdapter.ViewHolder holder, int position) {
+        Context context = holder.itemView.getContext();
+        switch (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.night_textview_style));
+                Toast.makeText(context, "나이트모드", Toast.LENGTH_SHORT).show();
+                break;
+            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
+                holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.textview_style));
+                Toast.makeText(context, "나이트모드X", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
         holder.serving.setText(arrayList.get(position).getServing() + " 인분");
         holder.food_code = arrayList.get(position).getFood_code();
         holder.food_name.setText(arrayList.get(position).getFood_name());
@@ -69,9 +85,10 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
         protected TextView serving, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
         protected String food_code;
+        protected RecyclerviewItemBinding itemBinding;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            RecyclerviewItemBinding itemBinding = RecyclerviewItemBinding.bind(itemView);
+            itemBinding = RecyclerviewItemBinding.bind(itemView);
             this.serving = itemBinding.serving;
             this.food_name = itemBinding.foodName;
             this.food_kcal = itemBinding.foodKcal;

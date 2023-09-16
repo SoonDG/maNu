@@ -2,12 +2,15 @@ package Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.my_first_project.R;
@@ -42,6 +45,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
+        Context context = holder.itemView.getContext();
+        switch (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.night_textview_style));
+                Toast.makeText(context, "나이트모드", Toast.LENGTH_SHORT).show();
+                break;
+            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
+                holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.textview_style));
+                Toast.makeText(context, "나이트모드X", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
         holder.serving.setText(arrayList.get(position).getServing() + " 인분");
         holder.food_code = arrayList.get(position).getFood_code();
         holder.food_name.setText(arrayList.get(position).getFood_name());

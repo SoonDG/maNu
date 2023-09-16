@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.FragmentMyMonthNuBinding;
 
 import org.json.JSONArray;
@@ -66,6 +70,17 @@ public class MyMonthNuFragment extends Fragment {
         fragmentMyMonthNuBinding = fragmentMyMonthNuBinding.inflate(inflater, container, false);
         View view = fragmentMyMonthNuBinding.getRoot();
 
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_textview_style));
+                fragmentMyMonthNuBinding.showDetailNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
+                break;
+            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
+                fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.textview_style));
+                fragmentMyMonthNuBinding.showDetailNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_style4));
+                break;
+        }
+
         for(int i = 1; i <= 42; i++) { //42개의 칸을 초기화
             textViews[i] = new TextView(getContext());
         }
@@ -83,7 +98,7 @@ public class MyMonthNuFragment extends Fragment {
                             return_display_click_date_to_default();
                         } //해당 날짜의 표시를 없애기
 
-                        textView.setTextColor(Color.parseColor("#008000")); //선택한 날을 가시적으로 표현하기 위해 초록색으로 설정
+                        textView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.selected_textview_style)); //텍스트 뷰의 외각선에 초록색 표시
                         textView.setClickable(false);
                         day = Integer.parseInt(textView.getText().toString()); //선택한 날을 저장
                     }
@@ -503,18 +518,7 @@ public class MyMonthNuFragment extends Fragment {
 
     public void return_display_click_date_to_default(){ //이전에 선택한 날짜의 표시(초록색)을 제거하는 함수
         TextView textView = textViews[day + first_day];
-
-        calendar.set(year, month - 1, day);
-        if(calendar.get(Calendar.DAY_OF_WEEK) == 1){
-            textView.setTextColor(Color.parseColor("#ff0000")); //일요일이면 빨간색으로 되돌림
-        }
-        else if(calendar.get(Calendar.DAY_OF_WEEK) == 7){
-            textView.setTextColor(Color.parseColor("#0067a3")); //토요일이면 파란색으로 되돌림
-        }
-        else {
-            textView.setTextColor(Color.parseColor("#ffffff")); //평일이면 하얀색으로 되돌림
-        }
-
+        textView.setBackground(null);
         textView.setClickable(true);
     }
     ////////// 표시되는 정보 제거하는 함수들

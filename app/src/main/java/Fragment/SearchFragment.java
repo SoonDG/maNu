@@ -1,8 +1,11 @@
 package Fragment;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.FragmentSearchBinding;
 
 import org.json.JSONArray;
@@ -63,6 +67,17 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
         arrayList = new ArrayList<>();
         foodAdapter = new FoodAdapter(arrayList, this);
         fragmentSearchBinding.searchRecyclerView.setAdapter(foodAdapter);
+
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                fragmentSearchBinding.searchFoodText.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_textview_style));
+                fragmentSearchBinding.searchFoodText.setHintTextColor(Color.parseColor("#464646"));
+                break;
+            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
+                fragmentSearchBinding.searchFoodText.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.textview_style));
+                fragmentSearchBinding.searchFoodText.setHintTextColor(Color.parseColor("#464646"));
+                break;
+        }
 
         fragmentSearchBinding.searchFoodText.setOnEditorActionListener(new TextView.OnEditorActionListener() { //검색 버튼을 누를경우 해당 검색어로 검색된 식품만 출력
             @Override

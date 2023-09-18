@@ -72,11 +72,11 @@ public class MyMonthNuFragment extends Fragment {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_textview_style));
+                fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_tablelayout_style));
                 fragmentMyMonthNuBinding.showDetailNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.textview_style));
+                fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.tablelayout_style));
                 fragmentMyMonthNuBinding.showDetailNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_style4));
                 break;
         }

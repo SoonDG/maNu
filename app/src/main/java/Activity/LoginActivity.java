@@ -2,15 +2,19 @@ package Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.ActivityLoginBinding;
 
 import org.json.JSONException;
@@ -34,6 +38,27 @@ public class LoginActivity extends AppCompatActivity {
         loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = loginBinding.getRoot();
         setContentView(view);
+
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                loginBinding.LoginLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                loginBinding.loginIDText.setHintTextColor(Color.parseColor("#464646"));
+                loginBinding.loginPasswordText.setHintTextColor(Color.parseColor("#464646"));
+                loginBinding.loginBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
+                loginBinding.toRegBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
+                loginBinding.toRegBtn.setTextColor(Color.parseColor("#464646"));
+
+                break;
+            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
+                loginBinding.LoginLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                loginBinding.loginIDText.setHintTextColor(Color.parseColor("#A6A6A6"));
+                loginBinding.loginPasswordText.setHintTextColor(Color.parseColor("#A6A6A6"));
+                loginBinding.loginBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
+                loginBinding.toRegBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style));
+                loginBinding.toRegBtn.setTextColor(Color.parseColor("#A6A6A6"));
+
+                break;
+        }
 
         //자동 로그인
         sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);

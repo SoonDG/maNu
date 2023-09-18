@@ -10,14 +10,14 @@
         android:id="@+id/Account_Information_Lable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/MyNuGray"
+        android:background="@drawable/textview_style2"
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="계정 정보"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/Account_Information_Table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -25,19 +25,19 @@
         android:id="@+id/User_Information_Lable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/MyNuGray"
+        android:background="@drawable/textview_style2"
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="회원 정보"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
+        app:layout_constraintBottom_toTopOf="@+id/User_Information_Table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TableLayout
-        android:id="@+id/tableLayout2"
+        android:id="@+id/Account_Information_Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -99,7 +99,7 @@
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/tableLayout3"
+        android:id="@+id/User_Information_Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
@@ -265,7 +265,7 @@
         app:layout_constraintBottom_toTopOf="@+id/cancle_Edit_Information_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/User_Information_Table"
         app:layout_constraintVertical_bias="0.51" />
 
     <Button
@@ -275,7 +275,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_style"
         android:text="취소"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuMediumGray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -5,12 +5,15 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.my_first_project.R;
 import com.example.my_first_project.databinding.ActivityMyAccountBinding;
 
 import org.json.JSONException;
@@ -34,6 +38,39 @@ public class MyAccountActivity extends AppCompatActivity {
         myAccountBinding = ActivityMyAccountBinding.inflate(getLayoutInflater());
         View view = myAccountBinding.getRoot();
         setContentView(view);
+
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                myAccountBinding.MyAccountAccountInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.myAccountAccountTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
+                myAccountBinding.myIdLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.myPasswordLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.MyAccountUserInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.myAccountUserTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
+                myAccountBinding.myAgeLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.myGenderLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.myHeightLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.myWeightLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.toEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
+                myAccountBinding.withdrawalBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
+
+                break;
+            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
+                myAccountBinding.MyAccountAccountInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                myAccountBinding.myAccountAccountTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
+                myAccountBinding.myIdLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                myAccountBinding.myPasswordLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                myAccountBinding.MyAccountUserInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                myAccountBinding.myAccountUserTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
+                myAccountBinding.myAgeLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                myAccountBinding.myGenderLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                myAccountBinding.myHeightLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                myAccountBinding.myWeightLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                myAccountBinding.toEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
+                myAccountBinding.withdrawalBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
+
+                break;
+        }
 
         set_myAccount(); //회원 정보 표시
 

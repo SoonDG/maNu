@@ -5,10 +5,13 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,6 +39,27 @@ public class EditInformationActivity extends AppCompatActivity {
         editInformationBinding = ActivityEditInformationBinding.inflate(getLayoutInflater());
         View view = editInformationBinding.getRoot();
         setContentView(view);
+
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                editInformationBinding.AccountInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                editInformationBinding.UserInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                editInformationBinding.AccountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
+                editInformationBinding.UserInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
+                editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
+                editInformationBinding.cancleEditInformationBtn.setTextColor(Color.parseColor("#464646"));
+
+                break;
+            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
+                editInformationBinding.AccountInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                editInformationBinding.UserInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                editInformationBinding.AccountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
+                editInformationBinding.UserInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
+                editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style));
+                editInformationBinding.cancleEditInformationBtn.setTextColor(Color.parseColor("#A6A6A6"));
+
+                break;
+        }
 
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         editInformationBinding.curID.setText(sharedPreferences.getString("ID", null));

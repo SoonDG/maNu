@@ -6,7 +6,7 @@
     android:right="2dp"
     android:top="2dp">
     <shape>
-        <stroke android:width="2dp" android:color="@color/MyNuGray"></stroke>
+        <stroke android:width="2dp" android:color="@color/MyNuMediumGray"></stroke>
     </shape>
 </item>
 </selector>

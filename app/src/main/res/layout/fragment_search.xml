@@ -21,6 +21,7 @@
         android:inputType="text"
         android:text=""
         android:hint="식품 검색"
+        android:textColorHint="@color/MyNuMediumGray"
         android:background="@drawable/textview_style"
         android:imeOptions="actionSearch"/>
 

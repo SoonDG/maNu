@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context="Activity.RegisterActivity">
 
+    <TextView
+        android:id="@+id/Register_Lable"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/textview_style2"
+        android:gravity="center"
+        android:text="Register"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/reg_ID_Text"
         android:layout_width="wrap_content"
@@ -14,6 +27,7 @@
         android:background="@drawable/textview_style"
         android:ems="10"
         android:hint="아이디"
+        android:textColorHint="@color/MyNuMediumGray"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
@@ -27,6 +41,7 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="비밀번호 확인"
+        android:textColorHint="@color/MyNuMediumGray"
         android:inputType="textPassword"
         android:background="@drawable/textview_style"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +57,7 @@
         android:layout_marginBottom="290dp"
         android:ems="10"
         android:hint="비밀번호"
+        android:textColorHint="@color/MyNuMediumGray"
         android:inputType="textPassword"
         android:background="@drawable/textview_style"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,8 +1,11 @@
 package Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,6 +34,25 @@ public class RegisterActivity extends AppCompatActivity {
         registerBinding = ActivityRegisterBinding.inflate(getLayoutInflater());
         View view = registerBinding.getRoot();
         setContentView(view);
+
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                registerBinding.RegisterLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                registerBinding.regIDText.setHintTextColor(Color.parseColor("#464646"));
+                registerBinding.regPasswordText.setHintTextColor(Color.parseColor("#464646"));
+                registerBinding.repeatRegPasswordText.setHintTextColor(Color.parseColor("#464646"));
+                registerBinding.regBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
+
+                break;
+            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
+                registerBinding.RegisterLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                registerBinding.regIDText.setHintTextColor(Color.parseColor("#A6A6A6"));
+                registerBinding.regPasswordText.setHintTextColor(Color.parseColor("#A6A6A6"));
+                registerBinding.repeatRegPasswordText.setHintTextColor(Color.parseColor("#A6A6A6"));
+                registerBinding.regBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
+
+                break;
+        }
 
         String [] age_Data = getResources().getStringArray(R.array.age);
         String [] gen_Data = getResources().getStringArray(R.array.gender);

@@ -75,7 +75,7 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
                 fragmentSearchBinding.searchFoodText.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.textview_style));
-                fragmentSearchBinding.searchFoodText.setHintTextColor(Color.parseColor("#464646"));
+                fragmentSearchBinding.searchFoodText.setHintTextColor(Color.parseColor("#A6A6A6"));
                 break;
         }
 

@@ -7,23 +7,23 @@
     tools:context="Activity.MyAccountActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/My_Account_Account_Information_Lable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/MyNuGray"
+        android:background="@drawable/textview_style2"
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="계정 정보"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout5"
+        app:layout_constraintBottom_toTopOf="@+id/my_Account_Account_Table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TableLayout
-        android:id="@+id/tableLayout5"
+        android:id="@+id/my_Account_Account_Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -38,6 +38,7 @@
             android:weightSum="3">
 
             <TextView
+                android:id="@+id/my_id_lable"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -64,6 +65,7 @@
             android:weightSum="3">
 
             <TextView
+                android:id="@+id/my_password_lable"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -86,22 +88,23 @@
     </TableLayout>
 
     <TextView
+        android:id="@+id/My_Account_User_Information_Lable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/MyNuGray"
+        android:background="@drawable/textview_style2"
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="회원 정보"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout4"
+        app:layout_constraintBottom_toTopOf="@+id/my_Account_User_Table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TableLayout
-        android:id="@+id/tableLayout4"
+        android:id="@+id/my_Account_User_Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
@@ -116,6 +119,7 @@
             android:weightSum="3">
 
             <TextView
+                android:id="@+id/my_age_lable"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -142,6 +146,7 @@
             android:weightSum="3">
 
             <TextView
+                android:id="@+id/my_gender_lable"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -168,6 +173,7 @@
             android:weightSum="3">
 
             <TextView
+                android:id="@+id/my_height_lable"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -194,6 +200,7 @@
             android:weightSum="3">
 
             <TextView
+                android:id="@+id/my_Weight_Lable"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -226,7 +233,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout4" />
+        app:layout_constraintTop_toBottomOf="@+id/my_Account_User_Table" />
 
     <Button
         android:id="@+id/withdrawal_btn"

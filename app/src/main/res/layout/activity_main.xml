@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="top"
+            android:background="@color/MyNuMediumGray"
             app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
@@ -30,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
+            android:background="@color/MyNuMediumGray"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/menu_bottom_navigation" />

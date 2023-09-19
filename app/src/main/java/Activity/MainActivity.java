@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -73,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
                 mainBinding.bottomMenuNavigation.setItemIconTintList(getColorStateList(R.drawable.night_menu_item_style));
                 mainBinding.bottomMenuNavigation.setItemTextColor(getColorStateList(R.drawable.night_menu_item_style));
                 mainBinding.bottomMenuNavigation.setItemActiveIndicatorColor(getColorStateList(R.drawable.night_menu_item_style));
+
+                mainBinding.menuNavigation.getHeaderView(0).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
+                mainBinding.menuNavigation.setItemIconTintList(getColorStateList(R.drawable.night_menu_item_style));
+                mainBinding.menuNavigation.setItemTextColor(getColorStateList(R.drawable.night_menu_item_style));
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
                 mainBinding.toolbar.setBackgroundColor(Color.parseColor("#A6A6A6")); //배경 색은 얕은 회색
@@ -81,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
                 mainBinding.bottomMenuNavigation.setItemIconTintList(getColorStateList(R.drawable.menu_item_style));
                 mainBinding.bottomMenuNavigation.setItemTextColor(getColorStateList(R.drawable.menu_item_style));
                 mainBinding.bottomMenuNavigation.setItemActiveIndicatorColor(getColorStateList(R.drawable.menu_item_style));
+
+                mainBinding.menuNavigation.getHeaderView(0).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style));
+                mainBinding.menuNavigation.setItemIconTintList(getColorStateList(R.drawable.menu_item_style));
+                mainBinding.menuNavigation.setItemTextColor(getColorStateList(R.drawable.menu_item_style));
                 break;
         }
 

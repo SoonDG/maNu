@@ -10,15 +10,16 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
+            android:id="@+id/detail_Show_Nu_Lable"
             android:layout_width="match_parent"
             android:layout_height="53dp"
-            android:text="정보"
-            android:textSize="15sp"
-            android:gravity="center"
             android:background="@drawable/textview_style2"
-            android:textColor="#ffffff">
-        </TextView>
+            android:gravity="center"
+            android:text="정보"
+            android:textColor="#ffffff"
+            android:textSize="15sp"></TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -45,7 +46,7 @@
             android:background="@drawable/button_style3"
             android:gravity="center"
             android:text="닫기"
-            android:textColor="@color/white"
+            android:textColor="@color/MyNuMediumGray"
             android:textSize="15sp"></Button>
     </LinearLayout>
 </LinearLayout>

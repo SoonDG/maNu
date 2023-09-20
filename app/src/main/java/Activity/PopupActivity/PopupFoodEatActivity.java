@@ -39,6 +39,9 @@ public class PopupFoodEatActivity extends AppCompatActivity {
         View view = popupFoodEatBinding.getRoot();
         setContentView(view);
 
+        String [] serving_Data = this.getResources().getStringArray(R.array.serving);
+        ArrayAdapter servingAdapter = null;
+
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
                 popupFoodEatBinding.foodEatLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
@@ -46,6 +49,7 @@ public class PopupFoodEatActivity extends AppCompatActivity {
                 popupFoodEatBinding.canclePopupFoodEat.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
                 popupFoodEatBinding.canclePopupFoodEat.setTextColor(Color.parseColor("#ffffff"));
 
+                servingAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, serving_Data);
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
                 popupFoodEatBinding.foodEatLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
@@ -53,6 +57,7 @@ public class PopupFoodEatActivity extends AppCompatActivity {
                 popupFoodEatBinding.canclePopupFoodEat.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
                 popupFoodEatBinding.canclePopupFoodEat.setTextColor(Color.parseColor("#A6A6A6"));
 
+                servingAdapter = new ArrayAdapter(this, R.layout.spinner_item, serving_Data);
                 break;
         }
 
@@ -70,8 +75,6 @@ public class PopupFoodEatActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         set_Date();
 
-        String [] serving_Data = this.getResources().getStringArray(R.array.serving);
-        ArrayAdapter servingAdapter = new ArrayAdapter(this, R.layout.spinner_item, serving_Data);
         popupFoodEatBinding.foodServingSpinner.setAdapter(servingAdapter);
         popupFoodEatBinding.selecteEatDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -35,6 +35,9 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
         View view = popupEatFoodEditBinding.getRoot();
         setContentView(view);
 
+        String [] serving_Data = getApplicationContext().getResources().getStringArray(R.array.serving);
+        ArrayAdapter servingAdapter = null;
+
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
                 popupEatFoodEditBinding.eatFoodEditLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
@@ -43,6 +46,7 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
                 popupEatFoodEditBinding.canclePopupEatFoodEditBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
                 popupEatFoodEditBinding.canclePopupEatFoodEditBtn.setTextColor(Color.parseColor("#ffffff"));
 
+                servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.night_spinner_item, serving_Data);
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
                 popupEatFoodEditBinding.eatFoodEditLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
@@ -51,6 +55,7 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
                 popupEatFoodEditBinding.canclePopupEatFoodEditBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
                 popupEatFoodEditBinding.canclePopupEatFoodEditBtn.setTextColor(Color.parseColor("#A6A6A6"));
 
+                servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, serving_Data);
                 break;
         }
 
@@ -71,8 +76,6 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
             finish();
         }
 
-        String [] serving_Data = getApplicationContext().getResources().getStringArray(R.array.serving);
-        ArrayAdapter servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, serving_Data);
         popupEatFoodEditBinding.eatFoodServingSpinner.setAdapter(servingAdapter);
 
         popupEatFoodEditBinding.eatFoodServingSpinner.setSelection(serving - 1); //이전 serving값이 default 값

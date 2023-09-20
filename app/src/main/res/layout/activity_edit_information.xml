@@ -7,7 +7,7 @@
     tools:context="Activity.EditInformationActivity">
 
     <TextView
-        android:id="@+id/Account_Information_Lable"
+        android:id="@+id/account_Information_Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/textview_style2"
@@ -21,23 +21,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/User_Information_Lable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/textview_style2"
-        android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="회원 정보"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/User_Information_Table"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TableLayout
-        android:id="@+id/Account_Information_Table"
+        android:id="@+id/account_Information_Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -98,8 +83,23 @@
 
     </TableLayout>
 
+    <TextView
+        android:id="@+id/user_Information_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/textview_style2"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="회원 정보"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/User_Information_Table"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TableLayout
-        android:id="@+id/User_Information_Table"
+        android:id="@+id/user_Information_Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
@@ -265,7 +265,7 @@
         app:layout_constraintBottom_toTopOf="@+id/cancle_Edit_Information_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/User_Information_Table"
+        app:layout_constraintTop_toBottomOf="@+id/user_Information_Table"
         app:layout_constraintVertical_bias="0.51" />
 
     <Button

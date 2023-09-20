@@ -41,18 +41,18 @@ public class LoginActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                loginBinding.LoginLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                loginBinding.loginTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 loginBinding.loginIDText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
                 loginBinding.loginIDText.setHintTextColor(Color.parseColor("#464646"));
                 loginBinding.loginPasswordText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
                 loginBinding.loginPasswordText.setHintTextColor(Color.parseColor("#464646"));
                 loginBinding.loginBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
                 loginBinding.toRegBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
-                loginBinding.toRegBtn.setTextColor(Color.parseColor("#464646"));
+                loginBinding.toRegBtn.setTextColor(Color.parseColor("#ffffff"));
 
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                loginBinding.LoginLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                loginBinding.loginTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
                 loginBinding.loginIDText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style));
                 loginBinding.loginIDText.setHintTextColor(Color.parseColor("#A6A6A6"));
                 loginBinding.loginPasswordText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style));

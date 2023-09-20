@@ -40,7 +40,7 @@ public class EditPasswordActivity extends AppCompatActivity {
                 editPasswordBinding.newPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
                 editPasswordBinding.editPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
                 editPasswordBinding.cancleEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
-                editPasswordBinding.cancleEditPasswordBtn.setTextColor(Color.parseColor("#464646"));
+                editPasswordBinding.cancleEditPasswordBtn.setTextColor(Color.parseColor("#ffffff"));
 
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면

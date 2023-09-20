@@ -6,76 +6,81 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/Login_Lable"
+        android:id="@+id/login_Title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/textview_style2"
         android:gravity="center"
-        android:text="Login"
+        android:text="로그인"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/login_ID_Text"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="290dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="ID"
-        android:textColorHint="@color/MyNuMediumGray"
-        android:text=""
-        android:background="@drawable/textview_style"
+    <LinearLayout
+        android:id="@+id/login_Id_And_Password_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/login_Title">
 
-    <EditText
-        android:id="@+id/login_Password_Text"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginBottom="290dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="Password"
-        android:textColorHint="@color/MyNuMediumGray"
-        android:text=""
-        android:background="@drawable/textview_style"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/login_ID_Text"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/textview_style"
+            android:ems="10"
+            android:hint="ID"
+            android:inputType="text"
+            android:text=""
+            android:textColorHint="@color/MyNuMediumGray" />
 
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="150dp"
+        <EditText
+            android:id="@+id/login_Password_Text"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/textview_style"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:text=""
+            android:textColorHint="@color/MyNuMediumGray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login_Button_LinearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="200dp"
-        android:text="LogIn"
-        android:textColor="@color/white"
-        android:background="@drawable/button_style2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_Password_Text"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/to_Reg_btn"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/button_style"
-        android:text="Sign Up"
-        android:textColor="@color/MyNuMediumGray"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_btn"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/login_Id_And_Password_LinearLayout">
 
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_style2"
+            android:text="LogIn"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/to_Reg_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_style"
+            android:text="Sign Up"
+            android:textColor="@color/MyNuMediumGray" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,24 +40,37 @@ public class EditInformationActivity extends AppCompatActivity {
         View view = editInformationBinding.getRoot();
         setContentView(view);
 
+        String [] age_Data = getResources().getStringArray(R.array.age);
+        String [] gen_Data = getResources().getStringArray(R.array.gender);
+        ArrayAdapter ageAdapter = null;
+        ArrayAdapter genderAdapter = null;
+
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                editInformationBinding.AccountInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                editInformationBinding.UserInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                editInformationBinding.AccountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
-                editInformationBinding.UserInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
+                editInformationBinding.accountInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                editInformationBinding.accountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
+                editInformationBinding.userInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                editInformationBinding.userInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
+                editInformationBinding.editInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
+                editInformationBinding.toEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
                 editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
-                editInformationBinding.cancleEditInformationBtn.setTextColor(Color.parseColor("#464646"));
+                editInformationBinding.cancleEditInformationBtn.setTextColor(Color.parseColor("#ffffff"));
 
+                ageAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, age_Data);
+                genderAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, gen_Data);
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                editInformationBinding.AccountInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                editInformationBinding.UserInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                editInformationBinding.AccountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
-                editInformationBinding.UserInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
+                editInformationBinding.accountInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                editInformationBinding.accountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
+                editInformationBinding.userInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                editInformationBinding.userInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
+                editInformationBinding.editInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
+                editInformationBinding.toEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
                 editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style));
                 editInformationBinding.cancleEditInformationBtn.setTextColor(Color.parseColor("#A6A6A6"));
 
+                ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data);
+                genderAdapter = new ArrayAdapter(this, R.layout.spinner_item, gen_Data);
                 break;
         }
 
@@ -71,11 +84,6 @@ public class EditInformationActivity extends AppCompatActivity {
         double Weight = Double.longBitsToDouble(sharedPreferences.getLong("Weight", 0));
         editInformationBinding.curHeight.setText(String.valueOf(Height));
         editInformationBinding.curWeight.setText(String.valueOf(Weight));
-
-        String [] age_Data = getResources().getStringArray(R.array.age);
-        String [] gen_Data = getResources().getStringArray(R.array.gender);
-        ArrayAdapter ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data);
-        ArrayAdapter genderAdapter = new ArrayAdapter(this, R.layout.spinner_item, gen_Data);
 
         editInformationBinding.editAge.setAdapter(ageAdapter);
         editInformationBinding.editGender.setAdapter(genderAdapter);

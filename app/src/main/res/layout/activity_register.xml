@@ -7,176 +7,204 @@
     tools:context="Activity.RegisterActivity">
 
     <TextView
-        android:id="@+id/Register_Lable"
+        android:id="@+id/register_Title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/textview_style2"
         android:gravity="center"
-        android:text="Register"
+        android:text="회원가입"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/reg_ID_Text"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/textview_style"
-        android:ems="10"
-        android:hint="아이디"
-        android:textColorHint="@color/MyNuMediumGray"
-        android:inputType="text"
+    <LinearLayout
+        android:id="@+id/register_Id_And_Password_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/register_Title">
 
-    <EditText
-        android:id="@+id/repeat_Reg_Password_Text"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="비밀번호 확인"
-        android:textColorHint="@color/MyNuMediumGray"
-        android:inputType="textPassword"
-        android:background="@drawable/textview_style"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_Password_Text" />
+        <EditText
+            android:id="@+id/reg_ID_Text"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/textview_style"
+            android:ems="10"
+            android:hint="아이디"
+            android:inputType="text"
+            android:textColorHint="@color/MyNuMediumGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/reg_Password_Text"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/textview_style"
-        android:ems="10"
-        android:hint="비밀번호"
-        android:inputType="textPassword"
-        android:textColorHint="@color/MyNuMediumGray"
+        <EditText
+            android:id="@+id/reg_Password_Text"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/textview_style"
+            android:ems="10"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:textColorHint="@color/MyNuMediumGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reg_ID_Text" />
+
+        <EditText
+            android:id="@+id/repeat_Reg_Password_Text"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/textview_style"
+            android:ems="10"
+            android:hint="비밀번호 확인"
+            android:inputType="textPassword"
+            android:textColorHint="@color/MyNuMediumGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reg_Password_Text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/age_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_ID_Text" />
+        app:layout_constraintTop_toBottomOf="@+id/register_Id_And_Password_LinearLayout">
+
+        <TextView
+            android:id="@+id/age_Lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:text="나이"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/age_Spinner"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gender_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/age_LinearLayout">
+
+        <TextView
+            android:id="@+id/gender_Lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:text="성별"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/gender_Spinner"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/height_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gender_LinearLayout">
+
+        <TextView
+            android:id="@+id/height_Lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:text="키"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/height_Text"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="70dp"
+            android:background="@drawable/textview_style"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/weight_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/height_LinearLayout">
+
+        <TextView
+            android:id="@+id/weight_Lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:text="몸무게"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/weight_Text"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/textview_style"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:text="" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/reg_btn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button_style2"
         android:text="Sign Up"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Spinner
-        android:id="@+id/gender_Spinner"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="18dp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age_Spinner" />
-
-    <TextView
-        android:id="@+id/gender_Lable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:text="성별"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/gender_Spinner"
-        app:layout_constraintHorizontal_bias="0.639"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age_Lable"
-        app:layout_constraintVertical_bias="0.035" />
-
-    <TextView
-        android:id="@+id/age_Lable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="나이"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/age_Spinner"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeat_Reg_Password_Text"
-        app:layout_constraintVertical_bias="0.114" />
-
-    <Spinner
-        android:id="@+id/age_Spinner"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeat_Reg_Password_Text" />
-
-    <TextView
-        android:id="@+id/height_Lable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="40dp"
-        android:text="키"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/height_Text"
-        app:layout_constraintHorizontal_bias="0.025"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_Lable" />
-
-    <TextView
-        android:id="@+id/weight_Lable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="36dp"
-        android:text="몸무게"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/weight_Text"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/height_Lable" />
-
-    <EditText
-        android:id="@+id/height_Text"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_Spinner" />
-
-    <EditText
-        android:id="@+id/weight_Text"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/height_Text" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/weight_LinearLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

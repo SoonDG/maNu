@@ -44,18 +44,18 @@ public class PopupFoodEatActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupFoodEatBinding.foodEatLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                popupFoodEatBinding.popupFoodEatTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 popupFoodEatBinding.foodEatBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
-                popupFoodEatBinding.canclePopupFoodEat.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
-                popupFoodEatBinding.canclePopupFoodEat.setTextColor(Color.parseColor("#ffffff"));
+                popupFoodEatBinding.cancleFoodEatBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
+                popupFoodEatBinding.cancleFoodEatBtn.setTextColor(Color.parseColor("#ffffff"));
 
                 servingAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, serving_Data);
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                popupFoodEatBinding.foodEatLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                popupFoodEatBinding.popupFoodEatTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
                 popupFoodEatBinding.foodEatBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style4));
-                popupFoodEatBinding.canclePopupFoodEat.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
-                popupFoodEatBinding.canclePopupFoodEat.setTextColor(Color.parseColor("#A6A6A6"));
+                popupFoodEatBinding.cancleFoodEatBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
+                popupFoodEatBinding.cancleFoodEatBtn.setTextColor(Color.parseColor("#A6A6A6"));
 
                 servingAdapter = new ArrayAdapter(this, R.layout.spinner_item, serving_Data);
                 break;
@@ -125,7 +125,7 @@ public class PopupFoodEatActivity extends AppCompatActivity {
             }
         });
 
-        popupFoodEatBinding.canclePopupFoodEat.setOnClickListener(new View.OnClickListener() {
+        popupFoodEatBinding.cancleFoodEatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

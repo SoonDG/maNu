@@ -51,6 +51,8 @@ public class EditInformationActivity extends AppCompatActivity {
                 editInformationBinding.accountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
                 editInformationBinding.userInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 editInformationBinding.userInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
+                editInformationBinding.editHeight.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
+                editInformationBinding.editWeight.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
                 editInformationBinding.editInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
                 editInformationBinding.toEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
                 editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
@@ -64,6 +66,8 @@ public class EditInformationActivity extends AppCompatActivity {
                 editInformationBinding.accountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
                 editInformationBinding.userInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
                 editInformationBinding.userInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
+                editInformationBinding.editHeight.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
+                editInformationBinding.editWeight.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
                 editInformationBinding.editInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
                 editInformationBinding.toEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
                 editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style));

@@ -214,6 +214,7 @@
                 android:id="@+id/edit_Height"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
+                android:background="@drawable/edit_text_style"
                 android:inputType="numberDecimal"></EditText>
         </TableRow>
 
@@ -249,6 +250,7 @@
                 android:id="@+id/edit_Weight"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
+                android:background="@drawable/edit_text_style"
                 android:inputType="numberDecimal"></EditText>
         </TableRow>
     </TableLayout>

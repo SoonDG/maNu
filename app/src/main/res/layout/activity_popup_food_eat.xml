@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/food_Eat_Lable"
+            android:id="@+id/popup_Food_Eat_Title"
             android:layout_width="match_parent"
             android:layout_height="53sp"
             android:background="@drawable/textview_style2"
@@ -122,7 +122,7 @@
             android:layout_weight="1"></Button>
 
         <Button
-            android:id="@+id/cancle_Popup_Food_Eat"
+            android:id="@+id/cancle_Food_Eat_btn"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_weight="1"

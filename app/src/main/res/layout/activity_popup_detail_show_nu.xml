@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/detail_Show_Nu_Lable"
+            android:id="@+id/popup_Detail_Show_Nu_Title"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:background="@drawable/textview_style2"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popup_detail_show_nu_recycler_view"
+            android:id="@+id/popup_Detail_Show_Nu_Recycler_View"
             android:layout_width="match_parent"
             android:layout_height="450dp"></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/cancle_Popup_Detail_Show_Nu"
+            android:id="@+id/close_Detail_Show_Nu"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:background="@drawable/button_style3"

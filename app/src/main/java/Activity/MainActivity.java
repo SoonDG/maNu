@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(mainBinding.toolbar); //툴바 설정
 
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        NavigationHaederBinding navigationHaederBinding = NavigationHaederBinding.bind(mainBinding.menuNavigation.getHeaderView(0));
+        navigationHaederBinding.navID.setText(sharedPreferences.getString("ID", null) +"님"); //아이디를 네비게이션 헤더에 표시
+
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
                 mainBinding.toolbar.setBackgroundColor(Color.parseColor("#464646")); //배경 색은 짙은 회색
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 mainBinding.bottomMenuNavigation.setItemActiveIndicatorColor(getColorStateList(R.drawable.night_menu_item_style));
 
                 mainBinding.menuNavigation.getHeaderView(0).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
+                navigationHaederBinding.profileImage.setImageResource(R.drawable.night_profile_icon); //이후에 프로필 이미지 추가 기능을 넣을 때 유저가 정한 프로필 이미지가 있는지 확인하는 과정이 필요함.
                 mainBinding.menuNavigation.setItemIconTintList(getColorStateList(R.drawable.night_menu_item_style));
                 mainBinding.menuNavigation.setItemTextColor(getColorStateList(R.drawable.night_menu_item_style));
                 break;
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 mainBinding.bottomMenuNavigation.setItemActiveIndicatorColor(getColorStateList(R.drawable.menu_item_style));
 
                 mainBinding.menuNavigation.getHeaderView(0).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style));
+                navigationHaederBinding.profileImage.setImageResource(R.drawable.profile_icon); //이후에 프로필 이미지 추가 기능을 넣을 때 유저가 정한 프로필 이미지가 있는지 확인하는 과정이 필요함.
                 mainBinding.menuNavigation.setItemIconTintList(getColorStateList(R.drawable.menu_item_style));
                 mainBinding.menuNavigation.setItemTextColor(getColorStateList(R.drawable.menu_item_style));
                 break;
@@ -96,11 +102,6 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mainBinding.drawerLayout, mainBinding.toolbar, R.string.app_name, R.string.app_name);
         mainBinding.drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-
-        SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-
-        NavigationHaederBinding navigationHaederBinding = NavigationHaederBinding.bind(mainBinding.menuNavigation.getHeaderView(0));
-        navigationHaederBinding.navID.setText(sharedPreferences.getString("ID", null) +"님"); //아이디를 네비게이션 헤더에 표시
 
         ActivityResultLauncher<Intent> checkPasswordResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {

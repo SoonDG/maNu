@@ -25,19 +25,19 @@ public class PopupCheckPasswordActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupCheckPasswordBinding.checkPasswordLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                popupCheckPasswordBinding.popupCheckPasswordTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 popupCheckPasswordBinding.checkPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
                 popupCheckPasswordBinding.checkPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
-                popupCheckPasswordBinding.canclePopupCheckPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
-                popupCheckPasswordBinding.canclePopupCheckPasswordBtn.setTextColor(Color.parseColor("#ffffff"));
+                popupCheckPasswordBinding.cancleCheckPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
+                popupCheckPasswordBinding.cancleCheckPasswordBtn.setTextColor(Color.parseColor("#ffffff"));
 
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                popupCheckPasswordBinding.checkPasswordLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                popupCheckPasswordBinding.popupCheckPasswordTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
                 popupCheckPasswordBinding.checkPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style));
                 popupCheckPasswordBinding.checkPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style4));
-                popupCheckPasswordBinding.canclePopupCheckPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
-                popupCheckPasswordBinding.canclePopupCheckPasswordBtn.setTextColor(Color.parseColor("#A6A6A6"));
+                popupCheckPasswordBinding.cancleCheckPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
+                popupCheckPasswordBinding.cancleCheckPasswordBtn.setTextColor(Color.parseColor("#A6A6A6"));
 
                 break;
         }
@@ -57,7 +57,7 @@ public class PopupCheckPasswordActivity extends AppCompatActivity {
             }
         });
 
-        popupCheckPasswordBinding.canclePopupCheckPasswordBtn.setOnClickListener(new View.OnClickListener() {
+        popupCheckPasswordBinding.cancleCheckPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

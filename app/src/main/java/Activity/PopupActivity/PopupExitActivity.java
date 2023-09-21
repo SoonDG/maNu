@@ -23,14 +23,14 @@ public class PopupExitActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupExitBinding.exitLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                popupExitBinding.popupExitTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 popupExitBinding.exitBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
                 popupExitBinding.cancleExitBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
                 popupExitBinding.cancleExitBtn.setTextColor(Color.parseColor("#ffffff"));
 
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                popupExitBinding.exitLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
+                popupExitBinding.popupExitTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
                 popupExitBinding.exitBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style4));
                 popupExitBinding.cancleExitBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
                 popupExitBinding.cancleExitBtn.setTextColor(Color.parseColor("#A6A6A6"));

@@ -36,8 +36,8 @@ public class EditPasswordActivity extends AppCompatActivity {
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
                 editPasswordBinding.EditPasswordLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                editPasswordBinding.newPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
-                editPasswordBinding.newPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
+                editPasswordBinding.newPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
+                editPasswordBinding.newPasswordRepeat.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
                 editPasswordBinding.editPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
                 editPasswordBinding.cancleEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
                 editPasswordBinding.cancleEditPasswordBtn.setTextColor(Color.parseColor("#ffffff"));
@@ -45,8 +45,8 @@ public class EditPasswordActivity extends AppCompatActivity {
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
                 editPasswordBinding.EditPasswordLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                editPasswordBinding.newPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style));
-                editPasswordBinding.newPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style));
+                editPasswordBinding.newPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
+                editPasswordBinding.newPasswordRepeat.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
                 editPasswordBinding.editPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
                 editPasswordBinding.cancleEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style));
                 editPasswordBinding.cancleEditPasswordBtn.setTextColor(Color.parseColor("#A6A6A6"));

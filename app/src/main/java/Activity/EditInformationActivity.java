@@ -146,7 +146,7 @@ public class EditInformationActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(EditInformationActivity.this, PopupInformationActivity.class);
                             if (success == 0) {
-                                intent.putExtra("Title", "회원정보 수정 성공");
+                                intent.putExtra("Contents", "회원정보 수정 성공");
                                 startActivity(intent);
 
                                 SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE); //자동 로그인 정보를 초기화
@@ -160,10 +160,10 @@ public class EditInformationActivity extends AppCompatActivity {
                                 setResult(RESULT_OK);
                                 finish(); //창 닫고 회원 정보 창으로 이동
                             } else if (success == 1) {
-                                intent.putExtra("Title", "데이터 전송 실패");
+                                intent.putExtra("Contents", "데이터 전송 실패");
                                 startActivity(intent);
                             } else if (success == 2) {
-                                intent.putExtra("Title", "sql문 실행 실패");
+                                intent.putExtra("Contents", "sql문 실행 실패");
                                 startActivity(intent);
                             }
                         } catch (JSONException e) {

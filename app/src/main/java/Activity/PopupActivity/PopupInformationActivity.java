@@ -43,8 +43,8 @@ public class PopupInformationActivity extends AppCompatActivity {
         getWindow().getAttributes().width = width;
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("Title");
-        popupInformationBinding.popupInformationTitle.setText(title);
+        String contents = intent.getStringExtra("Contents");
+        popupInformationBinding.popupInformationContents.setText(contents);
 
         popupInformationBinding.closeInformationBtn.setOnClickListener(new View.OnClickListener() {
             @Override

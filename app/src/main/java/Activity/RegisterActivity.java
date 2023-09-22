@@ -59,13 +59,18 @@ public class RegisterActivity extends AppCompatActivity {
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
                 registerBinding.registerTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
                 registerBinding.regIDText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
+                registerBinding.regIDText.setTextColor(Color.parseColor("#212121"));
                 registerBinding.regIDText.setHintTextColor(Color.parseColor("#A6A6A6"));
                 registerBinding.regPasswordText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
+                registerBinding.regPasswordText.setTextColor(Color.parseColor("#212121"));
                 registerBinding.regPasswordText.setHintTextColor(Color.parseColor("#A6A6A6"));
                 registerBinding.repeatRegPasswordText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
+                registerBinding.repeatRegPasswordText.setTextColor(Color.parseColor("#212121"));
                 registerBinding.repeatRegPasswordText.setHintTextColor(Color.parseColor("#A6A6A6"));
                 registerBinding.heightText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
+                registerBinding.heightText.setTextColor(Color.parseColor("#212121"));
                 registerBinding.weightText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
+                registerBinding.weightText.setTextColor(Color.parseColor("#212121"));
                 registerBinding.regBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
 
                 ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data);
@@ -88,16 +93,16 @@ public class RegisterActivity extends AppCompatActivity {
                 double Weight = Double.parseDouble(registerBinding.weightText.getText().toString());
                 Intent intent = new Intent(RegisterActivity.this, PopupInformationActivity.class);
                 if(ID.isEmpty() || Password.isEmpty()){
-                    intent.putExtra("Title", "비어있는 칸을 모두 채워주세요.");
+                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
                     startActivity(intent);
                     Toast.makeText(RegisterActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT).show();
                 }
                 else if(ID.length() > 20 || Password.length() > 20){
-                    intent.putExtra("Title", "아이디 또는 비밀번호의 길이를 20자 내로 해주세요.");
+                    intent.putExtra("Contents", "아이디 또는 비밀번호의 길이를 20자 내로 해주세요.");
                     startActivity(intent);
                 }
                 else if(!Password.equals(Repeat_Password)){
-                    intent.putExtra("Title", "비밀번호가 다릅니다. 비밀번호를 똑같이 2번 입력해 주세요.");
+                    intent.putExtra("Contents", "비밀번호가 다릅니다. 비밀번호를 똑같이 2번 입력해 주세요.");
                     startActivity(intent);
                 }
                 else {
@@ -110,14 +115,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(RegisterActivity.this, PopupInformationActivity.class);
                                 if (success == 0) {
-                                    intent.putExtra("Title", "회원가입 성공");
+                                    intent.putExtra("Contents", "회원가입 성공");
                                     startActivity(intent);
                                     finish(); //회원가입 창 닫고 로그인 창으로 이동
                                 } else if (success == 1) {
-                                    intent.putExtra("Title", "데이터 전송 실패");
+                                    intent.putExtra("Contents", "데이터 전송 실패");
                                     startActivity(intent);
                                 } else if (success == 2) {
-                                    intent.putExtra("Title", "sql문 실행 실패");
+                                    intent.putExtra("Contents", "sql문 실행 실패");
                                     startActivity(intent);
                                 }
                             } catch (JSONException e) {

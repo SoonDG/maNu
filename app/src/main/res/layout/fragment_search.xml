@@ -17,13 +17,13 @@
         android:id="@+id/search_Food_Text"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@drawable/edit_text_style"
         android:ems="10"
+        android:hint="식품 검색"
+        android:imeOptions="actionSearch"
         android:inputType="text"
         android:text=""
-        android:hint="식품 검색"
-        android:textColorHint="@color/MyNuMediumGray"
-        android:background="@drawable/textview_style"
-        android:imeOptions="actionSearch"/>
+        android:textColorHint="@color/MyNuMediumGray" />
 
     <ProgressBar
         android:id="@+id/progressBar"

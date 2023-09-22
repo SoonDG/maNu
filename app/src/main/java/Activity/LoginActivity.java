@@ -54,8 +54,10 @@ public class LoginActivity extends AppCompatActivity {
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
                 loginBinding.loginTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
                 loginBinding.loginIDText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
+                loginBinding.loginIDText.setTextColor(Color.parseColor("#212121"));
                 loginBinding.loginIDText.setHintTextColor(Color.parseColor("#A6A6A6"));
                 loginBinding.loginPasswordText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
+                loginBinding.loginPasswordText.setTextColor(Color.parseColor("#212121"));
                 loginBinding.loginPasswordText.setHintTextColor(Color.parseColor("#A6A6A6"));
                 loginBinding.loginBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
                 loginBinding.toRegBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style));
@@ -89,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 String Password = loginBinding.loginPasswordText.getText().toString();
                 if(ID.isEmpty() || Password.isEmpty()){
                     Intent intent = new Intent(LoginActivity.this, PopupInformationActivity.class);
-                    intent.putExtra("Title", "비어있는 칸을 모두 채워주세요.");
+                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
                     startActivity(intent);
                 }
                 else check_login(ID, Password); //입력한 정보로 로그인
@@ -129,17 +131,17 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else if(success == 1){
                         Intent intent = new Intent(LoginActivity.this, PopupInformationActivity.class);
-                        intent.putExtra("Title", "로그인 데이터 전송 실패");
+                        intent.putExtra("Contents", "로그인 데이터 전송 실패");
                         startActivity(intent);
                     }
                     else if(success == 2){
                         Intent intent = new Intent(LoginActivity.this, PopupInformationActivity.class);
-                        intent.putExtra("Title", "sql뮨 실행 실패");
+                        intent.putExtra("Contents", "sql뮨 실행 실패");
                         startActivity(intent);
                     }
                     else if(success == 3){
                         Intent intent = new Intent(LoginActivity.this, PopupInformationActivity.class);
-                        intent.putExtra("Title", "일치하는 계정이 존재하지 않습니다.");
+                        intent.putExtra("Contents", "일치하는 계정이 존재하지 않습니다.");
                         startActivity(intent);
                     }
 

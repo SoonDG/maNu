@@ -62,11 +62,11 @@ public class EditPasswordActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(EditPasswordActivity.this, PopupInformationActivity.class);
                 if(!new_Password.equals(new_Password_Repeat)){
-                    intent.putExtra("Title", "동일한 비밀번호를 두 번 입력해 주세요.");
+                    intent.putExtra("Contents", "동일한 비밀번호를 두 번 입력해 주세요.");
                     startActivity(intent);
                 }
                 else if(new_Password.length() > 20){
-                    intent.putExtra("Title", "변경할 비밀번호의 길이를 20자 내로 해주세요.");
+                    intent.putExtra("Contents", "변경할 비밀번호의 길이를 20자 내로 해주세요.");
                     startActivity(intent);
                 }
                 else{
@@ -78,7 +78,7 @@ public class EditPasswordActivity extends AppCompatActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 int success = jsonObject.getInt("success");
                                 if (success == 0) {
-                                    intent.putExtra("Title", "비밀번호 변경 성공");
+                                    intent.putExtra("Contents", "비밀번호 변경 성공");
                                     startActivity(intent);
 
                                     SharedPreferences.Editor autoLogin = sharedPreferences.edit();
@@ -88,10 +88,10 @@ public class EditPasswordActivity extends AppCompatActivity {
                                     setResult(RESULT_OK);
                                     finish(); //창 닫고 회원 정보 창으로 이동
                                 } else if (success == 1) {
-                                    intent.putExtra("Title", "데이터 전송 실패");
+                                    intent.putExtra("Contents", "데이터 전송 실패");
                                     startActivity(intent);
                                 } else if (success == 2) {
-                                    intent.putExtra("Title", "sql문 실행 실패");
+                                    intent.putExtra("Contents", "sql문 실행 실패");
                                     startActivity(intent);
                                 }
                             } catch (JSONException e) {

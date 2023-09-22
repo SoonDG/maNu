@@ -51,7 +51,8 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:text=""
-            android:textColorHint="@color/MyNuMediumGray" />
+            android:textColorHint="@color/MyNuMediumGray"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -83,4 +84,5 @@
             android:text="Sign Up"
             android:textColor="@color/MyNuMediumGray" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,17 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.My_First_Project" parent="Theme.AppCompat.Light">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
-
-    <style name="Theme.My_First_Project" parent="@style/Theme.AppCompat.NoActionBar">
+    <style name="Theme.My_First_Project" parent="@style/Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/MyNuMediumGray</item>
-        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorPrimaryDark">@color/MyNuMediumGray</item>
         <item name="android:windowBackground">@color/white </item>
         <item name="android:textColor">@color/MyNuBlack</item>
+        <item name="android:textColorPrimary">@color/MyNuBlack</item>
         <item name="hintTextColor">@color/MyNuGray</item>
-        <item name="android:textCursorDrawable">@color/MyNuBlack</item>
         <item name="android:navigationBarColor">@color/MyNuMediumGray</item>
         <item name="android:titleTextColor">@color/MyNuBlack</item>
     </style>

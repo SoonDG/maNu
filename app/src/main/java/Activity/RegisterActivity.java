@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -43,14 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
                 registerBinding.registerTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                registerBinding.regIDText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
-                registerBinding.regIDText.setHintTextColor(Color.parseColor("#464646"));
-                registerBinding.regPasswordText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
-                registerBinding.regPasswordText.setHintTextColor(Color.parseColor("#464646"));
-                registerBinding.repeatRegPasswordText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
-                registerBinding.repeatRegPasswordText.setHintTextColor(Color.parseColor("#464646"));
-                registerBinding.heightText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
-                registerBinding.weightText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
+                registerBinding.registerPasswordTextLayout.setEndIconTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.white)));
+                registerBinding.registerRepeatPasswordTextLayout.setEndIconTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.white)));
                 registerBinding.regBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
 
                 ageAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, age_Data);
@@ -58,19 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
             case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
                 registerBinding.registerTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                registerBinding.regIDText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
-                registerBinding.regIDText.setTextColor(Color.parseColor("#212121"));
-                registerBinding.regIDText.setHintTextColor(Color.parseColor("#A6A6A6"));
-                registerBinding.regPasswordText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
-                registerBinding.regPasswordText.setTextColor(Color.parseColor("#212121"));
-                registerBinding.regPasswordText.setHintTextColor(Color.parseColor("#A6A6A6"));
-                registerBinding.repeatRegPasswordText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
-                registerBinding.repeatRegPasswordText.setTextColor(Color.parseColor("#212121"));
-                registerBinding.repeatRegPasswordText.setHintTextColor(Color.parseColor("#A6A6A6"));
-                registerBinding.heightText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
-                registerBinding.heightText.setTextColor(Color.parseColor("#212121"));
-                registerBinding.weightText.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
-                registerBinding.weightText.setTextColor(Color.parseColor("#212121"));
+                registerBinding.registerPasswordTextLayout.setEndIconTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.MyNuBlack)));
+                registerBinding.registerRepeatPasswordTextLayout.setEndIconTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.MyNuBlack)));
                 registerBinding.regBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
 
                 ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data);
@@ -84,13 +68,13 @@ public class RegisterActivity extends AppCompatActivity {
         registerBinding.regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String ID = registerBinding.regIDText.getText().toString();
-                String Password = registerBinding.regPasswordText.getText().toString();
-                String Repeat_Password = registerBinding.repeatRegPasswordText.getText().toString();
+                String ID = registerBinding.registerIDText.getText().toString();
+                String Password = registerBinding.registerPasswordText.getText().toString();
+                String Repeat_Password = registerBinding.registerRepeatPasswordText.getText().toString();
                 int Age = Integer.parseInt(registerBinding.ageSpinner.getSelectedItem().toString());
                 String Gender = registerBinding.genderSpinner.getSelectedItem().toString();
-                double Height = Double.parseDouble(registerBinding.heightText.getText().toString());
-                double Weight = Double.parseDouble(registerBinding.weightText.getText().toString());
+                double Height = Double.parseDouble(registerBinding.registerHeightText.getText().toString());
+                double Weight = Double.parseDouble(registerBinding.registerWeightText.getText().toString());
                 Intent intent = new Intent(RegisterActivity.this, PopupInformationActivity.class);
                 if(ID.isEmpty() || Password.isEmpty()){
                     intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");

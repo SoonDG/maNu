@@ -28,30 +28,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_Title">
 
-        <EditText
-            android:id="@+id/login_ID_Text"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_ID_TextLayout"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/edit_text_style"
-            android:ems="10"
-            android:hint="ID"
-            android:inputType="text"
-            android:text=""
-            android:textColorHint="@color/MyNuMediumGray" />
+            android:hint="아이디"
+            android:textColorHint="@color/MyNuMediumGray"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+            app:boxCollapsedPaddingTop="10dp"
+            app:boxStrokeColor="@color/MyNuGray"
+            app:boxStrokeWidth="1dp"
+            app:hintTextColor="@color/MyNuBlack">
 
-        <EditText
-            android:id="@+id/login_Password_Text"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_ID_Text"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_Password_TextLayout"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:background="@drawable/edit_text_style"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:text=""
-            android:textColorHint="@color/MyNuMediumGray"/>
+            android:hint="비밀번호"
+            android:textColorHint="@color/MyNuMediumGray"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:counterTextColor="@color/MyNuMediumGray"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/MyNuGray"
+            app:boxStrokeWidth="1dp"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/MyNuBlack"
+            app:hintTextColor="@color/MyNuBlack">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_Password_Text"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -65,23 +86,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_Id_And_Password_LinearLayout">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/login_btn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/button_style2"
-            android:text="LogIn"
+            android:text="로그인"
             android:textColor="@color/white" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/to_Reg_btn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
             android:background="@drawable/button_style"
-            android:text="Sign Up"
+            android:text="회원가입"
             android:textColor="@color/MyNuMediumGray" />
     </LinearLayout>
 

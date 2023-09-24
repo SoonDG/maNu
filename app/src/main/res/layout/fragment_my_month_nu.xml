@@ -243,7 +243,7 @@
                 android:layout_span="3"
                 android:background="@drawable/button_style4"
                 android:text="자세히 보기"
-                android:textColor="@color/white"
+                android:textColor="@color/MyNuWhite"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -323,7 +323,7 @@
         android:layout_gravity="top|left"
         android:background="#00ff0000"
         android:text="◀"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuWhite"
         android:textSize="20sp" />
 
     <Button
@@ -333,7 +333,7 @@
         android:layout_gravity="top|right"
         android:background="#00ff0000"
         android:text="▶"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuWhite"
         android:textSize="20sp" />
 
     <TextView

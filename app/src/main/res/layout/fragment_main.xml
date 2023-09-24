@@ -22,7 +22,7 @@
         android:background="@drawable/textview_style2"
         android:gravity="center"
         android:text="섭취 영양분"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuWhite"
         android:textSize="20sp" />
 
     <TableLayout

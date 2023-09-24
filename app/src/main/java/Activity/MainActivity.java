@@ -72,30 +72,17 @@ public class MainActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                mainBinding.toolbar.setBackgroundColor(Color.parseColor("#464646")); //배경 색은 짙은 회색
+                mainBinding.toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.MyNuGray)); //배경 색은 짙은 회색
 
-                mainBinding.bottomMenuNavigation.setBackgroundColor(Color.parseColor("#464646"));
-                mainBinding.bottomMenuNavigation.setItemIconTintList(getColorStateList(R.drawable.night_menu_item_style));
-                mainBinding.bottomMenuNavigation.setItemTextColor(getColorStateList(R.drawable.night_menu_item_style));
-                mainBinding.bottomMenuNavigation.setItemActiveIndicatorColor(getColorStateList(R.drawable.night_menu_item_style));
+                mainBinding.bottomMenuNavigation.setBackgroundColor(ContextCompat.getColor(this, R.color.MyNuGray));
+                mainBinding.bottomMenuNavigation.setItemIconTintList(ContextCompat.getColorStateList(this, R.color.night_menu_item_color));
+                mainBinding.bottomMenuNavigation.setItemTextColor(ContextCompat.getColorStateList(this, R.color.night_menu_item_color));
 
+                mainBinding.menuNavigation.setBackground(ContextCompat.getDrawable(this, R.color.MyNuBlack));
                 mainBinding.menuNavigation.getHeaderView(0).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
                 navigationHaederBinding.profileImage.setImageResource(R.drawable.night_profile_icon); //이후에 프로필 이미지 추가 기능을 넣을 때 유저가 정한 프로필 이미지가 있는지 확인하는 과정이 필요함.
-                mainBinding.menuNavigation.setItemIconTintList(getColorStateList(R.drawable.night_menu_item_style));
-                mainBinding.menuNavigation.setItemTextColor(getColorStateList(R.drawable.night_menu_item_style));
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                mainBinding.toolbar.setBackgroundColor(Color.parseColor("#A6A6A6")); //배경 색은 얕은 회색
-
-                mainBinding.bottomMenuNavigation.setBackgroundColor(Color.parseColor("#A6A6A6"));
-                mainBinding.bottomMenuNavigation.setItemIconTintList(getColorStateList(R.drawable.menu_item_style));
-                mainBinding.bottomMenuNavigation.setItemTextColor(getColorStateList(R.drawable.menu_item_style));
-                mainBinding.bottomMenuNavigation.setItemActiveIndicatorColor(getColorStateList(R.drawable.menu_item_style));
-
-                mainBinding.menuNavigation.getHeaderView(0).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style));
-                navigationHaederBinding.profileImage.setImageResource(R.drawable.profile_icon); //이후에 프로필 이미지 추가 기능을 넣을 때 유저가 정한 프로필 이미지가 있는지 확인하는 과정이 필요함.
-                mainBinding.menuNavigation.setItemIconTintList(getColorStateList(R.drawable.menu_item_style));
-                mainBinding.menuNavigation.setItemTextColor(getColorStateList(R.drawable.menu_item_style));
+                mainBinding.menuNavigation.setItemIconTintList(ContextCompat.getColorStateList(this, R.color.night_menu_item_color));
+                mainBinding.menuNavigation.setItemTextColor(ContextCompat.getColorStateList(this, R.color.night_menu_item_color));
                 break;
         }
 

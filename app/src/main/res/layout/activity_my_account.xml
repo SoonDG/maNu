@@ -15,7 +15,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="계정 정보"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuWhite"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/my_Account_Account_Table"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="아이디"
-                android:textColor="@color/white"
+                android:textColor="@color/MyNuWhite"
                 android:textSize="20sp"></TextView>
 
             <TextView
@@ -74,7 +74,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="비밀번호"
-                android:textColor="@color/white"
+                android:textColor="@color/MyNuWhite"
                 android:textSize="20sp"></TextView>
 
             <TextView
@@ -96,7 +96,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="회원 정보"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuWhite"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/my_Account_User_Table"
         app:layout_constraintEnd_toEndOf="parent"
@@ -128,7 +128,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="나이"
-                android:textColor="@color/white"
+                android:textColor="@color/MyNuWhite"
                 android:textSize="20sp"></TextView>
 
             <TextView
@@ -155,7 +155,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="성별"
-                android:textColor="@color/white"
+                android:textColor="@color/MyNuWhite"
                 android:textSize="20sp"></TextView>
 
             <TextView
@@ -182,7 +182,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="키"
-                android:textColor="@color/white"
+                android:textColor="@color/MyNuWhite"
                 android:textSize="20sp"></TextView>
 
             <TextView
@@ -209,7 +209,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="몸무게"
-                android:textColor="@color/white"
+                android:textColor="@color/MyNuWhite"
                 android:textSize="20sp"></TextView>
 
             <TextView
@@ -229,7 +229,7 @@
         android:layout_marginTop="60dp"
         android:background="@drawable/button_style2"
         android:text="회원 정보 수정"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -242,7 +242,7 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/button_style2"
         android:text="회원 탈퇴"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/to_Edit_Information_btn" />

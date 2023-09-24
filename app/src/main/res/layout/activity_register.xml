@@ -13,7 +13,7 @@
         android:background="@drawable/textview_style2"
         android:gravity="center"
         android:text="회원가입"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuWhite"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         android:id="@+id/register_Id_And_Password_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,18 +35,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="아이디"
-            android:textColorHint="@color/MyNuMediumGray"
-            app:boxBackgroundColor="@color/white"
+            android:textColorHint="@color/textinputlayout_color"
             app:boxBackgroundMode="outline"
-            app:boxCollapsedPaddingTop="10dp"
-            app:boxStrokeColor="@color/MyNuGray"
+            app:boxStrokeColor="@color/textinputlayout_color"
             app:boxStrokeWidth="1dp"
-            app:hintTextColor="@color/MyNuBlack">
+            app:hintTextColor="@color/textinputlayout_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_ID_Text"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,18 +54,16 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:hint="비밀번호"
-            android:textColorHint="@color/MyNuMediumGray"
+            android:textColorHint="@color/textinputlayout_color"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/textinputlayout_color"
+            app:boxStrokeWidth="1dp"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:counterTextColor="@color/MyNuMediumGray"
-            app:boxBackgroundColor="@color/white"
-            app:boxBackgroundMode="outline"
-            app:boxCollapsedPaddingTop="10dp"
-            app:boxStrokeColor="@color/MyNuGray"
-            app:boxStrokeWidth="1dp"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/MyNuBlack"
-            app:hintTextColor="@color/MyNuBlack">
+            app:hintTextColor="@color/textinputlayout_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_Password_Text"
@@ -83,18 +79,16 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:hint="비밀번호 확인"
-            android:textColorHint="@color/MyNuMediumGray"
+            android:textColorHint="@color/textinputlayout_color"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/textinputlayout_color"
+            app:boxStrokeWidth="1dp"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:counterTextColor="@color/MyNuMediumGray"
-            app:boxBackgroundColor="@color/white"
-            app:boxBackgroundMode="outline"
-            app:boxCollapsedPaddingTop="10dp"
-            app:boxStrokeColor="@color/MyNuGray"
-            app:boxStrokeWidth="1dp"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/MyNuBlack"
-            app:hintTextColor="@color/MyNuBlack">
+            app:hintTextColor="@color/textinputlayout_color">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_Repeat_Password_Text"
@@ -176,16 +170,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="키"
-            android:textColorHint="@color/MyNuMediumGray"
-            app:suffixText="(cm)"
-            app:suffixTextColor="@color/MyNuMediumGray"
-            app:boxBackgroundColor="@color/white"
             app:boxBackgroundMode="outline"
-            app:boxCollapsedPaddingTop="10dp"
-            app:boxStrokeColor="@color/MyNuGray"
+            android:hint="키"
+            android:textColorHint="@color/textinputlayout_color"
+            app:hintTextColor="@color/textinputlayout_color"
+            app:boxStrokeColor="@color/textinputlayout_color"
             app:boxStrokeWidth="1dp"
-            app:hintTextColor="@color/MyNuBlack">
+            app:suffixText="(cm)"
+            app:suffixTextColor="@color/MyNuMediumGray">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_Height_Text"
@@ -200,16 +192,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:hint="몸무게"
-            android:textColorHint="@color/MyNuMediumGray"
-            app:suffixText="(kg)"
-            app:suffixTextColor="@color/MyNuMediumGray"
-            app:boxBackgroundColor="@color/white"
             app:boxBackgroundMode="outline"
-            app:boxCollapsedPaddingTop="10dp"
-            app:boxStrokeColor="@color/MyNuGray"
+            android:hint="몸무게"
+            android:textColorHint="@color/textinputlayout_color"
+            app:hintTextColor="@color/textinputlayout_color"
+            app:boxStrokeColor="@color/textinputlayout_color"
             app:boxStrokeWidth="1dp"
-            app:hintTextColor="@color/MyNuBlack">
+            app:suffixText="(kg)"
+            app:suffixTextColor="@color/MyNuMediumGray">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_Weight_Text"
@@ -226,7 +216,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/button_style2"
         android:text="회원가입"
-        android:textColor="@color/white"
+        android:textColor="@color/MyNuWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/height_And_Weight_LinearLayout" />

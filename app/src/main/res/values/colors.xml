@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    <color name="dialogColor">#A6333333</color>
-
+    <color name="MyNuWhite">#FFFFFFFF</color>
     <color name="MyNuBlack">#212121</color>
     <color name="MyNuGray">#464646</color>
     <color name="MyNuMediumGray">#A6A6A6</color>

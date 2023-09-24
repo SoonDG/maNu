@@ -42,20 +42,19 @@ public class LoginActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                loginBinding.loginTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                loginBinding.loginPasswordTextLayout.setEndIconTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.white)));
-                loginBinding.loginBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
-                loginBinding.toRegBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
-                loginBinding.toRegBtn.setTextColor(Color.parseColor("#ffffff"));
+                loginBinding.loginTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
 
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                loginBinding.loginTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                loginBinding.loginPasswordTextLayout.setEndIconTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.MyNuBlack)));
-                loginBinding.loginBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
-                loginBinding.toRegBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style));
-                loginBinding.toRegBtn.setTextColor(Color.parseColor("#A6A6A6"));
+                loginBinding.loginIDTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+                loginBinding.loginIDTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
 
+                loginBinding.loginPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+                loginBinding.loginPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+                loginBinding.loginPasswordTextLayout.setEndIconTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
+
+                loginBinding.loginBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+
+                loginBinding.toRegBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style));
+                loginBinding.toRegBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
                 break;
         }
 

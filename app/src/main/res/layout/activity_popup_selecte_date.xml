@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:weightSum="2">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/selecte_Date_btn"
             android:layout_width="match_parent"
             android:layout_height="53dp"
@@ -74,9 +74,9 @@
             android:text="선택"
             android:textColor="@color/MyNuWhite"
             android:textSize="15sp"
-            android:layout_weight="1"></Button>
+            android:layout_weight="1"></androidx.appcompat.widget.AppCompatButton>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancle_Selecte_Date_btn"
             android:layout_width="match_parent"
             android:layout_height="53dp"
@@ -84,7 +84,7 @@
             android:background="@drawable/button_style3"
             android:gravity="center"
             android:text="취소"
-            android:textColor="@color/MyNuMediumGray"></Button>
+            android:textColor="@color/MyNuMediumGray"></androidx.appcompat.widget.AppCompatButton>
     </LinearLayout>
 
 </LinearLayout>

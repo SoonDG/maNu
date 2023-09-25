@@ -236,7 +236,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/show_Detail_Nu_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -316,24 +316,22 @@
         </TableRow>
     </TableLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/pre_Month_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|left"
         android:background="#00ff0000"
         android:text="◀"
-        android:textColor="@color/MyNuWhite"
         android:textSize="20sp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/next_Month_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
         android:background="#00ff0000"
         android:text="▶"
-        android:textColor="@color/MyNuWhite"
         android:textSize="20sp" />
 
     <TextView

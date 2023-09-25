@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:weightSum="2">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/reset_Eat_Food_btn"
             android:layout_width="match_parent"
             android:layout_height="53dp"
@@ -52,9 +52,9 @@
             android:gravity="center"
             android:text="확인"
             android:textColor="@color/MyNuWhite"
-            android:textSize="20sp"></Button>
+            android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancle_Reset_Eat_Food_btn"
             android:layout_width="match_parent"
             android:layout_height="53dp"
@@ -63,6 +63,6 @@
             android:gravity="center"
             android:text="취소"
             android:textColor="@color/MyNuMediumGray"
-            android:textSize="20sp"></Button>
+            android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
     </LinearLayout>
 </LinearLayout>

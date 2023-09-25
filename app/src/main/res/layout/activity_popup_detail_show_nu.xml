@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/close_Detail_Show_Nu"
             android:layout_width="match_parent"
             android:layout_height="53dp"
@@ -47,6 +47,6 @@
             android:gravity="center"
             android:text="닫기"
             android:textColor="@color/MyNuMediumGray"
-            android:textSize="15sp"></Button>
+            android:textSize="15sp"></androidx.appcompat.widget.AppCompatButton>
     </LinearLayout>
 </LinearLayout>

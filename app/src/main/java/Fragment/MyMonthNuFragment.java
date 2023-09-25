@@ -75,10 +75,6 @@ public class MyMonthNuFragment extends Fragment {
                 fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_tablelayout_style));
                 fragmentMyMonthNuBinding.showDetailNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
                 break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.tablelayout_style));
-                fragmentMyMonthNuBinding.showDetailNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_style4));
-                break;
         }
 
         for(int i = 1; i <= 42; i++) { //42개의 칸을 초기화

@@ -41,11 +41,11 @@ public class MyAccountActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                myAccountBinding.MyAccountAccountInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.MyAccountAccountInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 myAccountBinding.myAccountAccountTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
                 myAccountBinding.myIdLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 myAccountBinding.myPasswordLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                myAccountBinding.MyAccountUserInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                myAccountBinding.MyAccountUserInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 myAccountBinding.myAccountUserTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
                 myAccountBinding.myAgeLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 myAccountBinding.myGenderLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
@@ -53,21 +53,6 @@ public class MyAccountActivity extends AppCompatActivity {
                 myAccountBinding.myWeightLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 myAccountBinding.toEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
                 myAccountBinding.withdrawalBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
-
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                myAccountBinding.MyAccountAccountInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                myAccountBinding.myAccountAccountTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
-                myAccountBinding.myIdLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                myAccountBinding.myPasswordLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                myAccountBinding.MyAccountUserInformationLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                myAccountBinding.myAccountUserTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
-                myAccountBinding.myAgeLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                myAccountBinding.myGenderLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                myAccountBinding.myHeightLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                myAccountBinding.myWeightLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                myAccountBinding.toEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
-                myAccountBinding.withdrawalBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
 
                 break;
         }

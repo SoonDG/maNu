@@ -103,7 +103,7 @@
         android:id="@+id/user_Information_Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="250dp"
         android:background="@drawable/tablelayout_style"
         android:stretchColumns="*"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,7 +116,7 @@
             <TextView
                 android:id="@+id/cur_Age_Label"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:gravity="center"
                 android:text="나이: "
                 android:textSize="20sp" />
@@ -124,7 +124,7 @@
             <TextView
                 android:id="@+id/cur_Age"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp" />
@@ -132,7 +132,7 @@
             <TextView
                 android:id="@+id/edit_Age_Label"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="변경 나이: "
                 android:textSize="20sp" />
@@ -153,7 +153,7 @@
             <TextView
                 android:id="@+id/cur_Gender_Label"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:gravity="center"
                 android:text="성별: "
                 android:textSize="20sp" />
@@ -161,7 +161,7 @@
             <TextView
                 android:id="@+id/cur_Gender"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp" />
@@ -169,7 +169,7 @@
             <TextView
                 android:id="@+id/edit_Gender_Label"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="변경 성별: "
                 android:textSize="20sp" />
@@ -178,9 +178,9 @@
                 android:id="@+id/edit_Gender"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textAlignment="center"
+                android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
-                android:overlapAnchor="false"/>
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow
@@ -190,7 +190,7 @@
             <TextView
                 android:id="@+id/cur_Height_Lable"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="키: "
                 android:textSize="20sp"></TextView>
@@ -198,25 +198,31 @@
             <TextView
                 android:id="@+id/cur_Height"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp"></TextView>
 
-            <TextView
-                android:id="@+id/edit_Height_Lable"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="변경 키: "
-                android:textSize="20sp"></TextView>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_Height_TextLayout"
+                android:layout_width="229dp"
+                android:layout_height="60dp"
+                android:layout_span="2"
+                android:hint="변경 키"
+                android:textColorHint="@color/textinputlayout_color"
+                app:boxBackgroundColor="@color/MyNuWhite"
+                app:boxStrokeColor="@color/textinputlayout_color"
+                app:boxStrokeWidth="2dp"
+                app:hintTextColor="@color/textinputlayout_color"
+                app:suffixText="(cm)"
+                app:suffixTextColor="@color/MyNuMediumGray">
 
-            <EditText
-                android:id="@+id/edit_Height"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/edit_text_style"
-                android:inputType="numberDecimal"></EditText>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_Height_Text"
+                    android:layout_width="228dp"
+                    android:layout_height="match_parent"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
         </TableRow>
 
         <TableRow
@@ -226,7 +232,7 @@
             <TextView
                 android:id="@+id/cur_Weight_Lable"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="몸무게: "
                 android:textSize="20sp"></TextView>
@@ -234,29 +240,35 @@
             <TextView
                 android:id="@+id/cur_Weight"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp"></TextView>
 
-            <TextView
-                android:id="@+id/edit_Weight_Lable"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_Weight_TextLayout"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="변경 몸무게: "
-                android:textSize="20sp"></TextView>
+                android:layout_height="60dp"
+                android:layout_span="2"
+                android:hint="변경 몸무게"
+                android:textColorHint="@color/textinputlayout_color"
+                app:boxBackgroundColor="@color/MyNuWhite"
+                app:boxStrokeColor="@color/textinputlayout_color"
+                app:boxStrokeWidth="2dp"
+                app:hintTextColor="@color/textinputlayout_color"
+                app:suffixText="(kg)"
+                app:suffixTextColor="@color/MyNuMediumGray">
 
-            <EditText
-                android:id="@+id/edit_Weight"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/edit_text_style"
-                android:inputType="numberDecimal"></EditText>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_Weight_Text"
+                    android:layout_width="228dp"
+                    android:layout_height="match_parent"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
         </TableRow>
     </TableLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/edit_Information_btn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -271,7 +283,7 @@
         app:layout_constraintTop_toBottomOf="@+id/user_Information_Table"
         app:layout_constraintVertical_bias="0.51" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancle_Edit_Information_btn"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -284,7 +296,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/to_Edit_Password_btn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"

@@ -86,7 +86,6 @@ public class PopupFoodEatActivity extends AppCompatActivity {
                         set_Date();
                     }
                 }, year, month, day);
-
                 datePickerDialog.show();
             }
         });

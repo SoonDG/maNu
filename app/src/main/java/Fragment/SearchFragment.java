@@ -70,17 +70,15 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                fragmentSearchBinding.searchFoodText.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_edit_text_style));
-                fragmentSearchBinding.searchFoodText.setHintTextColor(Color.parseColor("#ffffff"));
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                fragmentSearchBinding.searchFoodText.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.edit_text_style));
-                fragmentSearchBinding.searchFoodText.setTextColor(Color.parseColor("#212121"));
-                fragmentSearchBinding.searchFoodText.setHintTextColor(Color.parseColor("#A6A6A6"));
+                fragmentSearchBinding.searchFoodTextLayout.setHintTextColor(ContextCompat.getColorStateList(getContext(), R.color.night_textinputlayout_color));
+                fragmentSearchBinding.searchFoodTextLayout.setBoxBackgroundColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+                fragmentSearchBinding.searchFoodTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(getContext(), R.color.night_textinputlayout_color));
+                fragmentSearchBinding.searchFoodTextLayout.setEndIconTintList(ContextCompat.getColorStateList(getContext(), R.color.MyNuWhite));
+
                 break;
         }
 
-        fragmentSearchBinding.searchFoodText.setOnEditorActionListener(new TextView.OnEditorActionListener() { //검색 버튼을 누를경우 해당 검색어로 검색된 식품만 출력
+        fragmentSearchBinding.searchFoodText.setOnEditorActionListener(new TextView.OnEditorActionListener() { //키패드의 검색 버튼을 누를경우 해당 검색어로 검색된 식품을 출력
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 index = 0; //새로 검색 되므로 index는 0부터 다시 시작
@@ -91,6 +89,19 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
 
                 fragmentSearchBinding.searchRecyclerView.scrollToPosition(0); //검색을 새로 하면 스크롤을 제일 위로 올려서 확인할 수 있도록 함
                 return true;
+            }
+        });
+
+        fragmentSearchBinding.searchFoodTextLayout.setEndIconOnClickListener(new View.OnClickListener() { //검색 창의 돋보기(검색) 아이콘을 클릭시 해당 검색어로 검색된 식품을 출력
+            @Override
+            public void onClick(View view) {
+                index = 0; //새로 검색 되므로 index는 0부터 다시 시작
+                Search_String = fragmentSearchBinding.searchFoodText.getText().toString(); //검색어를 가져옴
+                update_RecyclerView = true;
+
+                set_Food_list(Search_String, 0); //검색어를 통해 데이터베이스에서 데이터를 다시 받아와서 리스트를 채움
+
+                fragmentSearchBinding.searchRecyclerView.scrollToPosition(0); //검색을 새로 하면 스크롤을 제일 위로 올려서 확인할 수 있도록 함
             }
         });
 

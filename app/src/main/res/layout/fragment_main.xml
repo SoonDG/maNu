@@ -14,7 +14,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/my_Nu_Lable"
+        android:id="@+id/my_Nu_Title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"

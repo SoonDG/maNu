@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,27 +27,24 @@ public class PopupCheckPasswordActivity extends AppCompatActivity {
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
                 popupCheckPasswordBinding.popupCheckPasswordTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                popupCheckPasswordBinding.checkPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
+                popupCheckPasswordBinding.checkPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+                popupCheckPasswordBinding.checkPasswordTextLayout.setBoxBackgroundColor(ContextCompat.getColor(this, R.color.MyNuBlack));
+                popupCheckPasswordBinding.checkPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 popupCheckPasswordBinding.checkPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
                 popupCheckPasswordBinding.cancleCheckPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
-                popupCheckPasswordBinding.cancleCheckPasswordBtn.setTextColor(Color.parseColor("#ffffff"));
-
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                popupCheckPasswordBinding.popupCheckPasswordTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                popupCheckPasswordBinding.checkPassword.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
-                popupCheckPasswordBinding.checkPassword.setTextColor(Color.parseColor("#212121"));
-                popupCheckPasswordBinding.checkPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style4));
-                popupCheckPasswordBinding.cancleCheckPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
-                popupCheckPasswordBinding.cancleCheckPasswordBtn.setTextColor(Color.parseColor("#A6A6A6"));
+                popupCheckPasswordBinding.cancleCheckPasswordBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
                 break;
         }
 
+        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
+        int width = (int)(displayMetrics.widthPixels * 0.9);
+        getWindow().getAttributes().width = width;
+
         popupCheckPasswordBinding.checkPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Password = popupCheckPasswordBinding.checkPassword.getText().toString();
+                String Password = popupCheckPasswordBinding.checkPasswordText.getText().toString();
                 SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
                 if(Password.equals(sharedPreferences.getString("Password", null))){ //입력한 비밀번호가 맞다면,
                     setResult(RESULT_OK); //MainActivity에 MyAccount Activity로 가도록 결과 전달

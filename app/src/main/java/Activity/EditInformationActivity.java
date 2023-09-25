@@ -42,8 +42,8 @@ public class EditInformationActivity extends AppCompatActivity {
 
         String [] age_Data = getResources().getStringArray(R.array.age);
         String [] gen_Data = getResources().getStringArray(R.array.gender);
-        ArrayAdapter ageAdapter = null;
-        ArrayAdapter genderAdapter = null;
+        ArrayAdapter ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data);
+        ArrayAdapter genderAdapter = new ArrayAdapter(this, R.layout.spinner_item, gen_Data);
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
@@ -51,30 +51,19 @@ public class EditInformationActivity extends AppCompatActivity {
                 editInformationBinding.accountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
                 editInformationBinding.userInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
                 editInformationBinding.userInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
-                editInformationBinding.editHeight.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
-                editInformationBinding.editWeight.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_edit_text_style));
+                editInformationBinding.editHeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+                editInformationBinding.editHeightTextLayout.setBoxBackgroundColor(ContextCompat.getColor(this, R.color.MyNuBlack));
+                editInformationBinding.editHeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+                editInformationBinding.editWeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+                editInformationBinding.editWeightTextLayout.setBoxBackgroundColor(ContextCompat.getColor(this, R.color.MyNuBlack));
+                editInformationBinding.editWeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 editInformationBinding.editInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
                 editInformationBinding.toEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
                 editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
-                editInformationBinding.cancleEditInformationBtn.setTextColor(Color.parseColor("#ffffff"));
+                editInformationBinding.cancleEditInformationBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
                 ageAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, age_Data);
                 genderAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, gen_Data);
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                editInformationBinding.accountInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                editInformationBinding.accountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
-                editInformationBinding.userInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                editInformationBinding.userInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tablelayout_style));
-                editInformationBinding.editHeight.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
-                editInformationBinding.editWeight.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.edit_text_style));
-                editInformationBinding.editInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
-                editInformationBinding.toEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style2));
-                editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style));
-                editInformationBinding.cancleEditInformationBtn.setTextColor(Color.parseColor("#A6A6A6"));
-
-                ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data);
-                genderAdapter = new ArrayAdapter(this, R.layout.spinner_item, gen_Data);
                 break;
         }
 
@@ -99,8 +88,8 @@ public class EditInformationActivity extends AppCompatActivity {
         else {
             editInformationBinding.editGender.setSelection(1);
         }
-        editInformationBinding.editHeight.setText(String.valueOf(Height));
-        editInformationBinding.editWeight.setText(String.valueOf(Weight));
+        editInformationBinding.editHeightText.setText(String.valueOf(Height));
+        editInformationBinding.editWeightText.setText(String.valueOf(Weight));
 
         ActivityResultLauncher<Intent> editPasswordResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -134,8 +123,8 @@ public class EditInformationActivity extends AppCompatActivity {
                 String ID = sharedPreferences.getString("ID", null);
                 int Age = Integer.parseInt(editInformationBinding.editAge.getSelectedItem().toString());
                 String Gender = editInformationBinding.editGender.getSelectedItem().toString();
-                double Height = Double.parseDouble(editInformationBinding.editHeight.getText().toString());
-                double Weight = Double.parseDouble(editInformationBinding.editWeight.getText().toString());
+                double Height = Double.parseDouble(editInformationBinding.editHeightText.getText().toString());
+                double Weight = Double.parseDouble(editInformationBinding.editWeightText.getText().toString());
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override

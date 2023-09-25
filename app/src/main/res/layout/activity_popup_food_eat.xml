@@ -72,13 +72,13 @@
             android:gravity="center"
             android:textSize="20sp"></TextView>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/selecte_Eat_Date_btn"
             android:layout_width="33dp"
             android:layout_height="53dp"
             android:layout_weight="1"
             android:background="@drawable/calendar_icon"
-            android:gravity="center"></Button>
+            android:gravity="center"></androidx.appcompat.widget.AppCompatButton>
     </LinearLayout>
 
     <LinearLayout
@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:weightSum="2">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/food_Eat_btn"
             android:layout_width="match_parent"
             android:layout_height="53dp"
@@ -119,9 +119,9 @@
             android:text="추가"
             android:textColor="@color/MyNuWhite"
             android:textSize="15sp"
-            android:layout_weight="1"></Button>
+            android:layout_weight="1"></androidx.appcompat.widget.AppCompatButton>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancle_Food_Eat_btn"
             android:layout_width="match_parent"
             android:layout_height="53dp"
@@ -130,7 +130,7 @@
             android:gravity="center"
             android:text="취소"
             android:textColor="@color/MyNuMediumGray"
-            android:textSize="15sp"></Button>
+            android:textSize="15sp"></androidx.appcompat.widget.AppCompatButton>
     </LinearLayout>
 
 </LinearLayout>

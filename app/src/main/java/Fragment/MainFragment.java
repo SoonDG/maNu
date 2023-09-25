@@ -77,12 +77,8 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                fragmentMainBinding.myNuLable.setBackgroundColor(Color.parseColor("#464646"));
+                fragmentMainBinding.myNuTitle.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.MyNuGray));
                 fragmentMainBinding.myNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_tablelayout_style));
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                fragmentMainBinding.myNuLable.setBackgroundColor(Color.parseColor("#A6A6A6"));
-                fragmentMainBinding.myNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.tablelayout_style));
                 break;
         }
 

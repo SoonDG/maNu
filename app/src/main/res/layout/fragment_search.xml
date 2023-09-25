@@ -2,28 +2,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="Fragment.SearchFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_Food_TextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="식품 검색"
+        android:textColorHint="@color/textinputlayout_color"
+        app:boxBackgroundColor="@color/MyNuWhite"
+        app:boxBackgroundMode="filled"
+        app:boxStrokeColor="@color/textinputlayout_color"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/textinputlayout_color"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/search_icon"
+        app:endIconTint="@color/MyNuBlack">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_Food_Text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_Recycler_View"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarFadeDuration="0"
-        android:scrollbarSize="5dp"
+        android:layout_marginTop="60dp"
         android:layout_weight="1"
-        android:layout_marginTop="50dp"/>
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp" />
 
-    <EditText
-        android:id="@+id/search_Food_Text"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/edit_text_style"
-        android:ems="10"
-        android:hint="식품 검색"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:text=""
-        android:textColorHint="@color/MyNuMediumGray" />
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -18,12 +18,31 @@
     </style>
 
     <!-- Dialog 전용 테마-->
-    <style name="NoTitleBarDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">#464646</item>
-        <item name="colorPrimaryDark">@color/MyNuBlack</item>
+    <style name="NoTitleBarDialog" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">@color/MyNuGray</item>
+        <item name="colorPrimaryDark">@color/MyNuGray</item>
         <item name="android:windowBackground">@color/MyNuBlack </item>
         <item name="android:textColor">@color/MyNuWhite</item>
+        <item name="android:textColorPrimary">@color/MyNuWhite</item>
+        <item name="android:textColorHint">@color/MyNuGray</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Dialog">
+        <!-- 배경 색-->
+        <item name="android:background">@color/MyNuBlack</item>
+
+        <!-- 선택한 날짜 표시 색-->
+        <item name="colorControlActivated">@color/MyNuGray</item>
+        <item name="colorControlHighlight">@color/MyNuGray</item>
+
+        <!-- 날짜 색상-->
+        <item name="android:textColor">@color/MyNuWhite</item>
+        <item name="android:textColorPrimary">@color/MyNuWhite</item>
+
+        <!-- 취소/확인 버튼 색 -->
+        <item name="buttonBarNegativeButtonStyle">@color/MyNuWhite</item>
+        <item name="buttonBarPositiveButtonStyle">@color/MyNuWhite</item>
     </style>
 </resources>

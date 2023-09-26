@@ -18,31 +18,31 @@
         <activity
             android:name="Activity.PopupActivity.PopupCheckResetEatFoodActivity"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog"/>
+            android:theme="@style/DialogTheme"/>
         <activity
             android:name="Activity.PopupActivity.PopupExitActivity"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog" />
+            android:theme="@style/DialogTheme" />
         <activity
             android:name="Activity.PopupActivity.PopupSelecteDate"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog" />
+            android:theme="@style/DialogTheme" />
         <activity
             android:name="Activity.PopupActivity.PopupEatFoodEditActivity"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog" />
+            android:theme="@style/DialogTheme" />
         <activity
             android:name="Activity.PopupActivity.PopupFoodEatActivity"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog" />
+            android:theme="@style/DialogTheme" />
         <activity
             android:name="Activity.PopupActivity.PopupInformationActivity"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog" />
+            android:theme="@style/DialogTheme" />
         <activity
             android:name="Activity.PopupActivity.PopupCheckPasswordActivity"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog" />
+            android:theme="@style/DialogTheme" />
         <activity
             android:name="Activity.LoadingActivity"
             android:exported="true"
@@ -56,7 +56,7 @@
         <activity
             android:name="Activity.PopupActivity.PopupDetailShowNuActivity"
             android:exported="false"
-            android:theme="@style/NoTitleBarDialog" />
+            android:theme="@style/DialogTheme" />
         <activity
             android:name="Activity.EditPasswordActivity"
             android:exported="false" />

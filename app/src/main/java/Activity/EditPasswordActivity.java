@@ -35,7 +35,7 @@ public class EditPasswordActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                editPasswordBinding.EditPasswordTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                editPasswordBinding.EditPasswordTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
 
                 editPasswordBinding.newPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 editPasswordBinding.newPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
@@ -45,8 +45,8 @@ public class EditPasswordActivity extends AppCompatActivity {
                 editPasswordBinding.newRepeatPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 editPasswordBinding.newRepeatPasswordTextLayout.setEndIconTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
 
-                editPasswordBinding.editPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
-                editPasswordBinding.cancleEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
+                editPasswordBinding.editPasswordBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+                editPasswordBinding.cancleEditPasswordBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style));
                 editPasswordBinding.cancleEditPasswordBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
                 break;

@@ -7,7 +7,7 @@
     tools:context="Activity.MyAccountActivity">
 
     <TextView
-        android:id="@+id/My_Account_Account_Information_Title"
+        android:id="@+id/my_Account_Account_Information_Title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/textview_style2"
@@ -20,14 +20,13 @@
         app:layout_constraintBottom_toTopOf="@+id/my_Account_Account_Table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TableLayout
         android:id="@+id/my_Account_Account_Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="250dp"
         android:background="@drawable/tablelayout_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +53,7 @@
             <TextView
                 android:id="@+id/my_id"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:textSize="20sp"></TextView>
@@ -81,7 +80,7 @@
             <TextView
                 android:id="@+id/my_password"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:textSize="20sp"></TextView>
@@ -108,7 +107,7 @@
         android:id="@+id/my_Account_User_Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="400dp"
         android:background="@drawable/tablelayout_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +134,7 @@
             <TextView
                 android:id="@+id/my_age"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:textSize="20sp"></TextView>
@@ -162,7 +161,7 @@
             <TextView
                 android:id="@+id/my_gender"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:textSize="20sp"></TextView>
@@ -189,7 +188,7 @@
             <TextView
                 android:id="@+id/my_Height"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:textSize="20sp"></TextView>
@@ -216,7 +215,7 @@
             <TextView
                 android:id="@+id/my_Weight"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:textSize="20sp"></TextView>
@@ -227,12 +226,11 @@
         android:id="@+id/to_Edit_Information_btn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/button_style2"
         android:text="회원 정보 수정"
         android:textColor="@color/MyNuWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_Account_User_Table" />
 
@@ -241,11 +239,33 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/button_style2"
         android:text="회원 탈퇴"
         android:textColor="@color/MyNuWhite"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_Account_User_Table" />
+
+    <ImageView
+        android:id="@+id/my_Account_Profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/to_Edit_Information_btn" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/profile_icon" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/change_Profile_btn"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_style2"
+        android:text="프로필 변경"
+        android:textColor="@color/MyNuWhite"
+        app:layout_constraintBottom_toTopOf="@+id/my_Account_Account_Information_Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_Account_Profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

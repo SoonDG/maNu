@@ -94,8 +94,17 @@ public class MyMonthNuFragment extends Fragment {
                             return_display_click_date_to_default();
                         } //해당 날짜의 표시를 없애기
 
-                        textView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.selected_textview_style)); //텍스트 뷰의 외각선에 초록색 표시
-                        textView.setClickable(false);
+                        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+                            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
+                                textView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_selected_textview_style)); //텍스트 뷰에 흰색 외각선 표시
+                                break;
+
+                            case Configuration.UI_MODE_NIGHT_NO:
+                                textView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.selected_textview_style)); //텍스트 뷰에 검은색 외각선 표시
+                                break;
+                        }
+
+                        textView.setClickable(false); //지금 선택중인 날짜를 다시 선택할 수 없게 클릭 비활성화
                         day = Integer.parseInt(textView.getText().toString()); //선택한 날을 저장
                     }
                 });
@@ -362,11 +371,9 @@ public class MyMonthNuFragment extends Fragment {
 
                         //적정 영양분 섭취 검사
                         if(check_Appropriate_Nu(food_kcal, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat)){
-                            textView.setBackgroundColor(Color.parseColor("#212121")); //적정 영양분 섭취 표시
                             goodDay.add(check_day); //표 내용 갱신
                         }
                         else {
-                            textView.setBackgroundColor(Color.parseColor("#464646")); //부적정 영양분 섭취 표시
                             badDay.add(check_day); //표 내용 갱신
                         }
                         fragmentMyMonthNuBinding.goodDay.setText(String.valueOf(goodDay.size())); //아래 표에 적정 섭취 날짜 정보 표시
@@ -464,7 +471,6 @@ public class MyMonthNuFragment extends Fragment {
             for(int j = 1; j <= 7; j++){
                 textView_day += 1;
                 TextView textView = textViews[textView_day];
-                textView.setBackgroundColor(Color.parseColor("#00ff0000")); //배경색이 존재(이전 달에 부적절한 영양분 섭취 날로 계산되어)된 것을 지움
                 if(textView_day > first_day && (textView_day - first_day) <= last_day) { //달의 시작 날짜 ~ 마지막 날짜 사이의 textView 설정
                     textView.setText(String.valueOf(textView_day - first_day)); //첫 주 일때 시작 위치에 따라 설정, 각 달의 마지막 날 뒤로는 비활성화
                     textView.setTextSize(35);
@@ -513,9 +519,9 @@ public class MyMonthNuFragment extends Fragment {
     }
 
     public void return_display_click_date_to_default(){ //이전에 선택한 날짜의 표시(초록색)을 제거하는 함수
-        TextView textView = textViews[day + first_day];
-        textView.setBackground(null);
-        textView.setClickable(true);
+        TextView textView = textViews[day + first_day]; //현재 선택한 날짜에 해당하는 textView를 가져와서
+        textView.setBackground(null); //외각선 효과 제거
+        textView.setClickable(true); //다시 클릭 활성화
     }
     ////////// 표시되는 정보 제거하는 함수들
 

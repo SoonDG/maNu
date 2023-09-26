@@ -27,27 +27,18 @@ public class PopupSelecteDate extends AppCompatActivity {
 
         String [] year_Data = this.getResources().getStringArray(R.array.Year);
         String [] month_Data = this.getResources().getStringArray(R.array.Month);
-        ArrayAdapter yearAdapter = null;
-        ArrayAdapter monthAdapter = null;
+        ArrayAdapter yearAdapter = new ArrayAdapter(this, R.layout.spinner_item, year_Data);
+        ArrayAdapter monthAdapter = new ArrayAdapter(this, R.layout.spinner_item, month_Data);
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupSelecteDateBinding.popupSelecteDateTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                popupSelecteDateBinding.selecteDateBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
-                popupSelecteDateBinding.cancleSelecteDateBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
-                popupSelecteDateBinding.cancleSelecteDateBtn.setTextColor(Color.parseColor("#ffffff"));
+                popupSelecteDateBinding.popupSelecteDateTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                popupSelecteDateBinding.selecteDateBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+                popupSelecteDateBinding.cancleSelecteDateBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
+                popupSelecteDateBinding.cancleSelecteDateBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
                 yearAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, year_Data);
                 monthAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, month_Data);
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                popupSelecteDateBinding.popupSelecteDateTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                popupSelecteDateBinding.selecteDateBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style4));
-                popupSelecteDateBinding.cancleSelecteDateBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
-                popupSelecteDateBinding.cancleSelecteDateBtn.setTextColor(Color.parseColor("#A6A6A6"));
-
-                yearAdapter = new ArrayAdapter(this, R.layout.spinner_item, year_Data);
-                monthAdapter = new ArrayAdapter(this, R.layout.spinner_item, month_Data);
                 break;
         }
 

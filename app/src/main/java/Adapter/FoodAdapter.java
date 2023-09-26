@@ -49,11 +49,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
         switch (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
                 holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.night_textview_style));
-
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.textview_style));
-
                 break;
         }
 

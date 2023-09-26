@@ -26,12 +26,12 @@ public class PopupCheckPasswordActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupCheckPasswordBinding.popupCheckPasswordTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                popupCheckPasswordBinding.popupCheckPasswordTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
                 popupCheckPasswordBinding.checkPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 popupCheckPasswordBinding.checkPasswordTextLayout.setBoxBackgroundColor(ContextCompat.getColor(this, R.color.MyNuBlack));
                 popupCheckPasswordBinding.checkPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
-                popupCheckPasswordBinding.checkPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
-                popupCheckPasswordBinding.cancleCheckPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
+                popupCheckPasswordBinding.checkPasswordBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+                popupCheckPasswordBinding.cancleCheckPasswordBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
                 popupCheckPasswordBinding.cancleCheckPasswordBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
                 break;

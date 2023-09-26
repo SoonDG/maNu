@@ -13,8 +13,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,6 +31,8 @@ import com.example.my_first_project.databinding.ActivityMyAccountBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 import Request.WithdrawalRequest;
 
@@ -41,23 +48,62 @@ public class MyAccountActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                myAccountBinding.MyAccountAccountInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                myAccountBinding.myAccountAccountTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
-                myAccountBinding.myIdLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                myAccountBinding.myPasswordLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                myAccountBinding.MyAccountUserInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                myAccountBinding.myAccountUserTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
-                myAccountBinding.myAgeLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                myAccountBinding.myGenderLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                myAccountBinding.myHeightLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                myAccountBinding.myWeightLable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                myAccountBinding.toEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
-                myAccountBinding.withdrawalBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
+                myAccountBinding.myAccountProfile.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
+                myAccountBinding.changeProfileBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+                myAccountBinding.myAccountAccountInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                myAccountBinding.myAccountAccountTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
+                myAccountBinding.myIdLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                myAccountBinding.myPasswordLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                myAccountBinding.MyAccountUserInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                myAccountBinding.myAccountUserTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
+                myAccountBinding.myAgeLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                myAccountBinding.myGenderLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                myAccountBinding.myHeightLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                myAccountBinding.myWeightLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                myAccountBinding.toEditInformationBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+                myAccountBinding.withdrawalBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
 
                 break;
         }
 
         set_myAccount(); //회원 정보 표시
+
+        ActivityResultLauncher<Intent> changeProfileResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                            if (result.getResultCode() == Activity.RESULT_OK) {
+                                Intent intent = result.getData();
+                                Uri uri = intent.getData();
+                                try {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                                        Bitmap bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), uri));
+                                        if(bitmap != null){
+                                            myAccountBinding.myAccountProfile.setImageBitmap(bitmap);
+                                        }
+                                    } else {
+                                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                                        if(bitmap != null){
+                                            myAccountBinding.myAccountProfile.setImageBitmap(bitmap);
+                                        }
+                                    }
+                                }catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                    }
+                });
+
+        myAccountBinding.changeProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                changeProfileResultLauncher.launch(intent);
+            }
+        });
+
 
         ActivityResultLauncher<Intent> editInformationResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {

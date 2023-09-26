@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                registerBinding.registerTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
+                registerBinding.registerTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
 
                 registerBinding.registerIDTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 registerBinding.registerIDTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                 registerBinding.registerWeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 registerBinding.registerWeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
 
-                registerBinding.regBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
+                registerBinding.regBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
 
                 ageAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, age_Data);
                 genderAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, gen_Data);

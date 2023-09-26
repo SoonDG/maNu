@@ -47,19 +47,19 @@ public class EditInformationActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                editInformationBinding.accountInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                editInformationBinding.accountInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
-                editInformationBinding.userInformationTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                editInformationBinding.userInformationTable.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_tablelayout_style));
+                editInformationBinding.accountInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                editInformationBinding.accountInformationTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
+                editInformationBinding.userInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                editInformationBinding.userInformationTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
                 editInformationBinding.editHeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 editInformationBinding.editHeightTextLayout.setBoxBackgroundColor(ContextCompat.getColor(this, R.color.MyNuBlack));
                 editInformationBinding.editHeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 editInformationBinding.editWeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 editInformationBinding.editWeightTextLayout.setBoxBackgroundColor(ContextCompat.getColor(this, R.color.MyNuBlack));
                 editInformationBinding.editWeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
-                editInformationBinding.editInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
-                editInformationBinding.toEditPasswordBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style2));
-                editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style));
+                editInformationBinding.editInformationBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+                editInformationBinding.toEditPasswordBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+                editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style));
                 editInformationBinding.cancleEditInformationBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
                 ageAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, age_Data);

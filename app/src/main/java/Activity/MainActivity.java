@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 mainBinding.bottomMenuNavigation.setItemTextColor(ContextCompat.getColorStateList(this, R.color.night_menu_item_color));
 
                 mainBinding.menuNavigation.setBackground(ContextCompat.getDrawable(this, R.color.MyNuBlack));
-                mainBinding.menuNavigation.getHeaderView(0).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style));
-                navigationHaederBinding.profileImage.setImageResource(R.drawable.night_profile_icon); //이후에 프로필 이미지 추가 기능을 넣을 때 유저가 정한 프로필 이미지가 있는지 확인하는 과정이 필요함.
+                mainBinding.menuNavigation.getHeaderView(0).setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style));
+                navigationHaederBinding.profileImage.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
                 mainBinding.menuNavigation.setItemIconTintList(ContextCompat.getColorStateList(this, R.color.night_menu_item_color));
                 mainBinding.menuNavigation.setItemTextColor(ContextCompat.getColorStateList(this, R.color.night_menu_item_color));
                 break;

@@ -23,17 +23,10 @@ public class PopupCheckResetEatFoodActivity extends AppCompatActivity {
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupCheckResetEatFoodBinding.popupCheckResetEatFoodTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                popupCheckResetEatFoodBinding.resetEatFoodBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
-                popupCheckResetEatFoodBinding.cancleResetEatFoodBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
-                popupCheckResetEatFoodBinding.cancleResetEatFoodBtn.setTextColor(Color.parseColor("#ffffff"));
-
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                popupCheckResetEatFoodBinding.popupCheckResetEatFoodTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                popupCheckResetEatFoodBinding.resetEatFoodBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
-                popupCheckResetEatFoodBinding.cancleResetEatFoodBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
-                popupCheckResetEatFoodBinding.cancleResetEatFoodBtn.setTextColor(Color.parseColor("#A6A6A6"));
+                popupCheckResetEatFoodBinding.popupCheckResetEatFoodTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                popupCheckResetEatFoodBinding.resetEatFoodBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+                popupCheckResetEatFoodBinding.cancleResetEatFoodBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
+                popupCheckResetEatFoodBinding.cancleResetEatFoodBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
                 break;
         }

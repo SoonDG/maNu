@@ -18,7 +18,7 @@
     </style>
 
     <!-- Dialog 전용 테마-->
-    <style name="NoTitleBarDialog" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="DialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorPrimary">@color/MyNuMediumGray</item>
         <item name="colorPrimaryDark">@color/MyNuMediumGray</item>
         <item name="android:windowBackground">@color/MyNuWhite </item>
@@ -30,19 +30,20 @@
     </style>
 
     <style name="DatePickerTheme" parent="Theme.AppCompat.Dialog">
-        <!-- 배경 색-->
-        <item name="android:background">@color/MyNuWhite</item>
+        <item name="colorPrimary">@color/MyNuMediumGray</item>
+        <item name="colorPrimaryDark">@color/MyNuMediumGray</item>
 
-        <!-- 선택한 날짜 표시 색-->
-        <item name="colorControlActivated">@color/MyNuMediumGray</item>
-        <item name="colorControlHighlight">@color/MyNuMediumGray</item>
+        <!--하단 버튼 색-->
+        <item name="colorOnPrimary">@color/MyNuGray</item>
 
-        <!-- 날짜 색상-->
+        <!-- 달력 화면 색-->
+        <item name="android:windowBackground">@color/MyNuWhite</item>
+
+        <!--상단 바의 글자 색 + 날짜의 색-->
         <item name="android:textColor">@color/MyNuBlack</item>
         <item name="android:textColorPrimary">@color/MyNuBlack</item>
 
-        <!-- 취소/확인 버튼 색 -->
-        <item name="buttonBarNegativeButtonStyle">@color/MyNuBlack</item>
-        <item name="buttonBarPositiveButtonStyle">@color/MyNuBlack</item>
+        <!-- 오늘 날짜 색과 선택된 날짜 표시(원형) 색-->
+        <item name="colorAccent">@color/MyNuMediumGray</item>
     </style>
 </resources>

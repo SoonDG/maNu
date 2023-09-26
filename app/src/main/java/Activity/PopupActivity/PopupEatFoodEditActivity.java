@@ -36,26 +36,17 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
         setContentView(view);
 
         String [] serving_Data = getApplicationContext().getResources().getStringArray(R.array.serving);
-        ArrayAdapter servingAdapter = null;
+        ArrayAdapter servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, serving_Data);
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupEatFoodEditBinding.popupEatFoodEditTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                popupEatFoodEditBinding.eatFoodEditBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
-                popupEatFoodEditBinding.eatFoodDeleteBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style4));
-                popupEatFoodEditBinding.cancleEatFoodEditBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
-                popupEatFoodEditBinding.cancleEatFoodEditBtn.setTextColor(Color.parseColor("#ffffff"));
+                popupEatFoodEditBinding.popupEatFoodEditTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                popupEatFoodEditBinding.eatFoodEditBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+                popupEatFoodEditBinding.eatFoodDeleteBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+                popupEatFoodEditBinding.cancleEatFoodEditBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
+                popupEatFoodEditBinding.cancleEatFoodEditBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
                 servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.night_spinner_item, serving_Data);
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                popupEatFoodEditBinding.popupEatFoodEditTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                popupEatFoodEditBinding.eatFoodEditBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style4));
-                popupEatFoodEditBinding.eatFoodDeleteBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style4));
-                popupEatFoodEditBinding.cancleEatFoodEditBtn.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
-                popupEatFoodEditBinding.cancleEatFoodEditBtn.setTextColor(Color.parseColor("#A6A6A6"));
-
-                servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, serving_Data);
                 break;
         }
 

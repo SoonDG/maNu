@@ -52,15 +52,9 @@ public class PopupDetailShowNuActivity extends AppCompatActivity implements List
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupDetailShowNuBinding.popupDetailShowNuTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_textview_style2));
-                popupDetailShowNuBinding.closeDetailShowNu.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.night_button_style3));
-                popupDetailShowNuBinding.closeDetailShowNu.setTextColor(Color.parseColor("#ffffff"));
-
-                break;
-            case Configuration.UI_MODE_NIGHT_NO: //나이트 모드가 아니라면
-                popupDetailShowNuBinding.popupDetailShowNuTitle.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.textview_style2));
-                popupDetailShowNuBinding.closeDetailShowNu.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.button_style3));
-                popupDetailShowNuBinding.closeDetailShowNu.setTextColor(Color.parseColor("#A6A6A6"));
+                popupDetailShowNuBinding.popupDetailShowNuTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+                popupDetailShowNuBinding.closeDetailShowNu.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
+                popupDetailShowNuBinding.closeDetailShowNu.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
                 break;
         }

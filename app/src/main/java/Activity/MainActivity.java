@@ -16,8 +16,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -69,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         NavigationHaederBinding navigationHaederBinding = NavigationHaederBinding.bind(mainBinding.menuNavigation.getHeaderView(0));
         navigationHaederBinding.navID.setText(sharedPreferences.getString("ID", null) +"님"); //아이디를 네비게이션 헤더에 표시
+        if(sharedPreferences.getString("Profile", null) != null){ //미리 설정해둔 Profile 이미지가 있다면
+            String imgstr = sharedPreferences.getString("Profile", null);
+            byte[] bytes = Base64.decode(imgstr, Base64.DEFAULT); //String을 Base64방식으로 byte 배열로 변환
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length); //byte배열을 BitmapFactory의 메소드로 bitmap으로 변환
+            navigationHaederBinding.profileImage.setImageBitmap(bitmap); //해당 bitmap을 imageView에 넣기.
+        }
 
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
@@ -90,18 +99,31 @@ public class MainActivity extends AppCompatActivity {
         mainBinding.drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        ActivityResultLauncher<Intent> checkPasswordResultLauncher = registerForActivityResult(
+        ActivityResultLauncher<Intent> changeProfileResultLauncher = registerForActivityResult( //MyAccount액티비티에서 프로필 변경시 네비게이션뷰에 있는 프로필 변경
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK){
+                            String imgstr = sharedPreferences.getString("Profile", null);
+                            byte[] bytes = Base64.decode(imgstr, Base64.DEFAULT); //String을 Base64방식으로 byte 배열로 변환
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length); //byte배열을 BitmapFactory의 메소드로 bitmap으로 변환
+                            navigationHaederBinding.profileImage.setImageBitmap(bitmap); //해당 bitmap을 imageView에 넣기.
+                        }
+                    }
+                });
+
+        ActivityResultLauncher<Intent> checkPasswordResultLauncher = registerForActivityResult( //패스워드 검사를 통과 했다면 MyAccount액티비티를 호출함
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == Activity.RESULT_OK){
                             Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
-                            startActivity(intent);
+                            changeProfileResultLauncher.launch(intent);
                         }
                     }
                 });
 
-        ActivityResultLauncher<Intent> checkRestEatFoodResultLauncher = registerForActivityResult(
+        ActivityResultLauncher<Intent> checkRestEatFoodResultLauncher = registerForActivityResult( //먹은 음식 정보 초기화를 선택했다면 먹은 음식을 모두 제거
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {

@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.example.my_first_project.databinding.ActivityMyAccountBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import Request.WithdrawalRequest;
@@ -80,11 +82,33 @@ public class MyAccountActivity extends AppCompatActivity {
                                         Bitmap bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), uri));
                                         if(bitmap != null){
                                             myAccountBinding.myAccountProfile.setImageBitmap(bitmap);
+
+                                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                            bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos); //Bitmap을 압축(70%로)
+                                            byte[] bytes = baos.toByteArray(); //압축된 Bitmap을 byte 배열로 변환
+                                            String imgstr = Base64.encodeToString(bytes, Base64.DEFAULT); //Base64 방식으로 byte 배열을 String으로 변환
+
+                                            SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("Profile", imgstr); //String으로 변환된 이미지(Bitmap)을 sharedPreferences로 기기에 저장
+                                            editor.commit();
+                                            setResult(RESULT_OK);
                                         }
                                     } else {
                                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                                         if(bitmap != null){
                                             myAccountBinding.myAccountProfile.setImageBitmap(bitmap);
+
+                                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                            bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos); //Bitmap을 압축(70%로)
+                                            byte[] bytes = baos.toByteArray(); //압축된 Bitmap을 byte 배열로 변환
+                                            String imgstr = Base64.encodeToString(bytes, Base64.DEFAULT); //Base64 방식으로 byte 배열을 String으로 변환
+
+                                            SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("Profile", imgstr); //String으로 변환된 이미지(Bitmap)을 sharedPreferences로 기기에 저장
+                                            editor.commit();
+                                            setResult(RESULT_OK);
                                         }
                                     }
                                 }catch (IOException e) {

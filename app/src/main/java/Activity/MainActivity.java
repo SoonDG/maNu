@@ -89,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
                 mainBinding.menuNavigation.setBackground(ContextCompat.getDrawable(this, R.color.MyNuBlack));
                 mainBinding.menuNavigation.getHeaderView(0).setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style));
-                navigationHaederBinding.profileImage.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
+                if(sharedPreferences.getString("Profile", null) == null) { //프로필이 설정 된 것이 없어 기본 프로필을 사용 중일 때
+                    navigationHaederBinding.profileImage.setImageTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite)); //기본 프로필의 색상을 나이트 모드에서 잘 보이는 색으로 변경
+                }
                 mainBinding.menuNavigation.setItemIconTintList(ContextCompat.getColorStateList(this, R.color.night_menu_item_color));
                 mainBinding.menuNavigation.setItemTextColor(ContextCompat.getColorStateList(this, R.color.night_menu_item_color));
                 break;
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                             byte[] bytes = Base64.decode(imgstr, Base64.DEFAULT); //String을 Base64방식으로 byte 배열로 변환
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length); //byte배열을 BitmapFactory의 메소드로 bitmap으로 변환
                             navigationHaederBinding.profileImage.setImageBitmap(bitmap); //해당 bitmap을 imageView에 넣기.
+                            navigationHaederBinding.profileImage.setImageTintList(null);
                         }
                     }
                 });

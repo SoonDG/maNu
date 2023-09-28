@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -107,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                             String Gender = jsonObject.getString("Gender");
                             double Height = jsonObject.getDouble("Height");
                             double Weight = jsonObject.getDouble("Weight");
+                            String Profile = jsonObject.getString("Profile");
 
                             SharedPreferences.Editor autoLogin = sharedPreferences.edit(); //자동 로그인 되도록 입력한 정보를 저장
                             autoLogin.putString("ID", ID);
@@ -115,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                             autoLogin.putString("Gender", Gender);
                             autoLogin.putLong("Height", Double.doubleToRawLongBits(Height)); //putDouble이 없으므로 비트 낭비없이 담기 위해서 원시 long 비트로 변환하고 long값으로 저장
                             autoLogin.putLong("Weight", Double.doubleToRawLongBits(Weight));
+                            if(!Profile.equals("null")) autoLogin.putString("Profile", Profile); //null값이 아닐때만 프로필 이미지 가져오기.
                             autoLogin.commit();
                         }
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

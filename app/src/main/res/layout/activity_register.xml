@@ -23,7 +23,7 @@
         android:id="@+id/register_Id_And_Password_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,12 +39,24 @@
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/textinputlayout_color"
             app:boxStrokeWidth="1dp"
-            app:hintTextColor="@color/textinputlayout_color">
+            app:hintTextColor="@color/textinputlayout_color"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_ID_Text"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/check_ID_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_style2"
+                android:text="중복 확인"
+                android:textColor="@color/MyNuWhite"
+                android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +75,8 @@
             app:counterTextColor="@color/MyNuMediumGray"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/MyNuBlack"
-            app:hintTextColor="@color/textinputlayout_color">
+            app:hintTextColor="@color/textinputlayout_color"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_Password_Text"
@@ -88,7 +101,8 @@
             app:counterTextColor="@color/MyNuMediumGray"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/MyNuBlack"
-            app:hintTextColor="@color/textinputlayout_color">
+            app:hintTextColor="@color/textinputlayout_color"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_Repeat_Password_Text"
@@ -96,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -177,7 +192,8 @@
             app:boxStrokeColor="@color/textinputlayout_color"
             app:boxStrokeWidth="1dp"
             app:suffixText="(cm)"
-            app:suffixTextColor="@color/MyNuMediumGray">
+            app:suffixTextColor="@color/MyNuMediumGray"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_Height_Text"
@@ -199,7 +215,8 @@
             app:boxStrokeColor="@color/textinputlayout_color"
             app:boxStrokeWidth="1dp"
             app:suffixText="(kg)"
-            app:suffixTextColor="@color/MyNuMediumGray">
+            app:suffixTextColor="@color/MyNuMediumGray"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/register_Weight_Text"

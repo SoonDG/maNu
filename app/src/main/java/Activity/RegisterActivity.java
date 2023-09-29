@@ -8,6 +8,8 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -23,11 +25,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import Activity.PopupActivity.PopupInformationActivity;
+import Request.CheckIDRequest;
 import Request.RegisterRequest;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private ActivityRegisterBinding registerBinding;
+    private boolean checkID = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                 registerBinding.registerIDTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 registerBinding.registerIDTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+
+                registerBinding.checkIDBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
 
                 registerBinding.registerPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 registerBinding.registerPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
@@ -72,29 +78,85 @@ public class RegisterActivity extends AppCompatActivity {
         registerBinding.ageSpinner.setAdapter(ageAdapter);
         registerBinding.genderSpinner.setAdapter(genderAdapter);
 
-        registerBinding.regBtn.setOnClickListener(new View.OnClickListener() {
+        registerBinding.checkIDBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String ID = registerBinding.registerIDText.getText().toString();
-                String Password = registerBinding.registerPasswordText.getText().toString();
-                String Repeat_Password = registerBinding.registerRepeatPasswordText.getText().toString();
-                int Age = Integer.parseInt(registerBinding.ageSpinner.getSelectedItem().toString());
-                String Gender = registerBinding.genderSpinner.getSelectedItem().toString();
-                double Height = Double.parseDouble(registerBinding.registerHeightText.getText().toString());
-                double Weight = Double.parseDouble(registerBinding.registerWeightText.getText().toString());
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int success = jsonObject.getInt("success");
+
+                            Intent intent = new Intent(RegisterActivity.this, PopupInformationActivity.class);
+                            if (success == 0) {
+                                checkID = true; //중복 확인 표시
+                                registerBinding.registerIDTextLayout.setError(null); //중복 확인 요청 에러 제거.
+                                intent.putExtra("Contents", "사용 가능한 아이디 입니다.");
+                                startActivity(intent);
+                            } else if (success == 1) {
+                                intent.putExtra("Contents", "데이터 전송 실패");
+                                startActivity(intent);
+                            } else if (success == 2) {
+                                intent.putExtra("Contents", "sql문 실행 실패");
+                                startActivity(intent);
+                            }
+                            else if(success == -1){
+                                intent.putExtra("Contents", "이미 사용중인 아이디 입니다. 다른 아이디를 입력해 주세요");
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                            throw new RuntimeException(e);
+                        }
+                    }
+                };
+
+                CheckIDRequest checkIDRequest = new CheckIDRequest(ID, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                queue.add(checkIDRequest);
+            }
+        });
+
+        registerBinding.regBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(RegisterActivity.this, PopupInformationActivity.class);
-                if(ID.isEmpty() || Password.isEmpty()){
+                if(registerBinding.registerIDText.getText().toString().length() == 0){
                     intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
                     startActivity(intent);
-                    Toast.makeText(RegisterActivity.this, "비어있는 칸을 모두 채워주세요.", Toast.LENGTH_SHORT).show();
+                    registerBinding.registerIDTextLayout.setError("값을 입력해 주세요.");
                 }
-                else if(ID.length() > 20 || Password.length() > 20){
+                else if(registerBinding.registerPasswordText.getText().toString().length() == 0){
+                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
+                    startActivity(intent);
+                    registerBinding.registerPasswordTextLayout.setError("값을 입력해 주세요.");
+                }
+                else if(registerBinding.registerIDText.getText().toString().length() > 20 || registerBinding.registerPasswordText.getText().toString().length() > 20){
                     intent.putExtra("Contents", "아이디 또는 비밀번호의 길이를 20자 내로 해주세요.");
                     startActivity(intent);
                 }
-                else if(!Password.equals(Repeat_Password)){
+                else if(!registerBinding.registerPasswordText.getText().toString().equals(registerBinding.registerRepeatPasswordText.getText().toString())){
                     intent.putExtra("Contents", "비밀번호가 다릅니다. 비밀번호를 똑같이 2번 입력해 주세요.");
                     startActivity(intent);
+                    registerBinding.registerRepeatPasswordTextLayout.setError("비밀번호를 똑같이 2번 입력해 주세요.");
+                }
+                else if(!checkID){
+                    intent.putExtra("Contents", "아이디 중복 확인을 해주세요.");
+                    startActivity(intent);
+                    registerBinding.registerIDTextLayout.setError("아이디 중복 확인을 해주세요.");
+
+                }
+                else if(registerBinding.registerHeightText.getText().toString().length() == 0){
+                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
+                    startActivity(intent);
+                    registerBinding.registerHeightTextLayout.setError("값을 입력해 주세요.");
+                }
+                else if(registerBinding.registerWeightText.getText().toString().length() == 0l){
+                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
+                    startActivity(intent);
+                    registerBinding.registerWeightTextLayout.setError("값을 입력해 주세요.");
                 }
                 else {
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -123,9 +185,41 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     };
 
+                    String ID = registerBinding.registerIDText.getText().toString();
+                    String Password = registerBinding.registerPasswordText.getText().toString();
+                    String Repeat_Password = registerBinding.registerRepeatPasswordText.getText().toString();
+                    int Age = Integer.parseInt(registerBinding.ageSpinner.getSelectedItem().toString());
+                    String Gender = registerBinding.genderSpinner.getSelectedItem().toString();
+                    double Height = Double.parseDouble(registerBinding.registerHeightText.getText().toString());
+                    double Weight = Double.parseDouble(registerBinding.registerWeightText.getText().toString());
+
                     RegisterRequest registerRequest = new RegisterRequest(ID, Password, Age, Gender, Height, Weight, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                     queue.add(registerRequest);
+                }
+            }
+        });
+
+        registerBinding.registerIDText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(checkID){
+                    checkID = false; //중복 확인 후 아이디 값을 변경 시 변경된 값으로 다시 중복 확인 하도록 함.
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        registerBinding.registerIDText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b && !checkID){ //ID텍스트 창에서 포커스 뺏겼을 때 && 중복 확인을 하지 않았을 때 중복확인을 요청 함.
+                    registerBinding.registerIDTextLayout.setError("아이디 중복 확인을 해 주세요.");
                 }
             }
         });

@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ public class PopupCheckPasswordActivity extends AppCompatActivity {
                 popupCheckPasswordBinding.checkPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
                 popupCheckPasswordBinding.checkPasswordTextLayout.setBoxBackgroundColor(ContextCompat.getColor(this, R.color.MyNuBlack));
                 popupCheckPasswordBinding.checkPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+                popupCheckPasswordBinding.checkPasswordTextLayout.setEndIconTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
                 popupCheckPasswordBinding.checkPasswordBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
                 popupCheckPasswordBinding.cancleCheckPasswordBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
                 popupCheckPasswordBinding.cancleCheckPasswordBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
@@ -46,12 +49,15 @@ public class PopupCheckPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String Password = popupCheckPasswordBinding.checkPasswordText.getText().toString();
                 SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-                if(Password.equals(sharedPreferences.getString("Password", null))){ //입력한 비밀번호가 맞다면,
+                if(Password.isEmpty()){
+                    popupCheckPasswordBinding.checkPasswordTextLayout.setError("값을 입력해 주세요.");
+                }
+                else if(Password.equals(sharedPreferences.getString("Password", null))){ //입력한 비밀번호가 맞다면,
                     setResult(RESULT_OK); //MainActivity에 MyAccount Activity로 가도록 결과 전달
                     finish(); //종료
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                    popupCheckPasswordBinding.checkPasswordTextLayout.setError("비밀번호가 틀렸습니다.");
                 }
             }
         });
@@ -60,6 +66,19 @@ public class PopupCheckPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        popupCheckPasswordBinding.checkPasswordText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                popupCheckPasswordBinding.checkPasswordTextLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
     }

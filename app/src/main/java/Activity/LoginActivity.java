@@ -6,7 +6,9 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -82,12 +84,39 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String ID = loginBinding.loginIDText.getText().toString();
                 String Password = loginBinding.loginPasswordText.getText().toString();
-                if(ID.isEmpty() || Password.isEmpty()){
-                    Intent intent = new Intent(LoginActivity.this, PopupInformationActivity.class);
-                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
-                    startActivity(intent);
+                if(ID.isEmpty()){
+                    loginBinding.loginIDTextLayout.setError("값을 입력해 주세요.");
+                }
+                else if(Password.isEmpty()){
+                    loginBinding.loginPasswordTextLayout.setError("값을 입력해 주세요.");
                 }
                 else check_login(ID, Password); //입력한 정보로 로그인
+            }
+        });
+
+        loginBinding.loginIDText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                loginBinding.loginIDTextLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        loginBinding.loginPasswordText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                loginBinding.loginPasswordTextLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
     }

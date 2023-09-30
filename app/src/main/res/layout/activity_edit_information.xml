@@ -190,7 +190,8 @@
             <TextView
                 android:id="@+id/cur_Height_Lable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="fill_vertical"
                 android:gravity="center"
                 android:text="키: "
                 android:textSize="20sp"></TextView>
@@ -198,7 +199,8 @@
             <TextView
                 android:id="@+id/cur_Height"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="fill_vertical"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp"></TextView>
@@ -206,13 +208,14 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_Height_TextLayout"
                 android:layout_width="229dp"
-                android:layout_height="60dp"
+                android:layout_height="80dp"
                 android:layout_span="2"
                 android:hint="변경 키"
                 android:textColorHint="@color/textinputlayout_color"
                 app:boxBackgroundColor="@color/MyNuWhite"
                 app:boxStrokeColor="@color/textinputlayout_color"
                 app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
                 app:hintTextColor="@color/textinputlayout_color"
                 app:suffixText="(cm)"
                 app:suffixTextColor="@color/MyNuMediumGray">
@@ -220,7 +223,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_Height_Text"
                     android:layout_width="228dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
         </TableRow>
@@ -232,7 +235,8 @@
             <TextView
                 android:id="@+id/cur_Weight_Lable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="fill_vertical"
                 android:gravity="center"
                 android:text="몸무게: "
                 android:textSize="20sp"></TextView>
@@ -240,7 +244,8 @@
             <TextView
                 android:id="@+id/cur_Weight"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="fill_vertical"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="20sp"></TextView>
@@ -248,13 +253,14 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_Weight_TextLayout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="80dp"
                 android:layout_span="2"
                 android:hint="변경 몸무게"
                 android:textColorHint="@color/textinputlayout_color"
                 app:boxBackgroundColor="@color/MyNuWhite"
                 app:boxStrokeColor="@color/textinputlayout_color"
                 app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
                 app:hintTextColor="@color/textinputlayout_color"
                 app:suffixText="(kg)"
                 app:suffixTextColor="@color/MyNuMediumGray">
@@ -262,7 +268,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_Weight_Text"
                     android:layout_width="228dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
         </TableRow>

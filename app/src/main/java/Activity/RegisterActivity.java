@@ -122,41 +122,34 @@ public class RegisterActivity extends AppCompatActivity {
         registerBinding.regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this, PopupInformationActivity.class);
                 if(registerBinding.registerIDText.getText().toString().length() == 0){
-                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
-                    startActivity(intent);
                     registerBinding.registerIDTextLayout.setError("값을 입력해 주세요.");
                 }
+                else if(!checkID){
+                    registerBinding.registerIDTextLayout.setError("아이디 중복 확인을 해주세요.");
+                }
                 else if(registerBinding.registerPasswordText.getText().toString().length() == 0){
-                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
-                    startActivity(intent);
                     registerBinding.registerPasswordTextLayout.setError("값을 입력해 주세요.");
                 }
                 else if(registerBinding.registerIDText.getText().toString().length() > 20 || registerBinding.registerPasswordText.getText().toString().length() > 20){
+                    Intent intent = new Intent(RegisterActivity.this, PopupInformationActivity.class);
                     intent.putExtra("Contents", "아이디 또는 비밀번호의 길이를 20자 내로 해주세요.");
                     startActivity(intent);
                 }
                 else if(!registerBinding.registerPasswordText.getText().toString().equals(registerBinding.registerRepeatPasswordText.getText().toString())){
-                    intent.putExtra("Contents", "비밀번호가 다릅니다. 비밀번호를 똑같이 2번 입력해 주세요.");
-                    startActivity(intent);
-                    registerBinding.registerRepeatPasswordTextLayout.setError("비밀번호를 똑같이 2번 입력해 주세요.");
-                }
-                else if(!checkID){
-                    intent.putExtra("Contents", "아이디 중복 확인을 해주세요.");
-                    startActivity(intent);
-                    registerBinding.registerIDTextLayout.setError("아이디 중복 확인을 해주세요.");
-
+                    registerBinding.registerRepeatPasswordTextLayout.setError("비밀번호가 일치하지 않습니다.");
                 }
                 else if(registerBinding.registerHeightText.getText().toString().length() == 0){
-                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
-                    startActivity(intent);
                     registerBinding.registerHeightTextLayout.setError("값을 입력해 주세요.");
                 }
+                else if(registerBinding.registerHeightText.getText().toString().equals(".")){
+                    registerBinding.registerHeightTextLayout.setError("유효한 값을 입력해 주세요.");
+                }
                 else if(registerBinding.registerWeightText.getText().toString().length() == 0l){
-                    intent.putExtra("Contents", "비어있는 칸을 모두 채워주세요.");
-                    startActivity(intent);
                     registerBinding.registerWeightTextLayout.setError("값을 입력해 주세요.");
+                }
+                else if(registerBinding.registerWeightText.getText().toString().equals(".")){
+                    registerBinding.registerWeightTextLayout.setError("유효한 값을 입력해 주세요.");
                 }
                 else {
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -206,9 +199,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(checkID){
-                    checkID = false; //중복 확인 후 아이디 값을 변경 시 변경된 값으로 다시 중복 확인 하도록 함.
-                }
+                checkID = false; //중복 확인 후 아이디 값을 변경 시 변경된 값으로 다시 중복 확인 하도록 함.
+                registerBinding.registerIDTextLayout.setError(null);
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -221,6 +213,58 @@ public class RegisterActivity extends AppCompatActivity {
                 if(!b && !checkID){ //ID텍스트 창에서 포커스 뺏겼을 때 && 중복 확인을 하지 않았을 때 중복확인을 요청 함.
                     registerBinding.registerIDTextLayout.setError("아이디 중복 확인을 해 주세요.");
                 }
+            }
+        });
+
+        registerBinding.registerPasswordText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                registerBinding.registerPasswordTextLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        registerBinding.registerRepeatPasswordText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                registerBinding.registerRepeatPasswordTextLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        registerBinding.registerHeightText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                registerBinding.registerHeightTextLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        registerBinding.registerWeightText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                registerBinding.registerWeightTextLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
     }

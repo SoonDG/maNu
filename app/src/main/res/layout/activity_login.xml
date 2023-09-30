@@ -38,12 +38,14 @@
             android:textColorHint="@color/textinputlayout_color"
             app:hintTextColor="@color/textinputlayout_color"
             app:boxStrokeColor="@color/textinputlayout_color"
-            app:boxStrokeWidth="1dp">
+            app:boxStrokeWidth="1dp"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_ID_Text"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -59,7 +61,8 @@
             app:boxStrokeColor="@color/textinputlayout_color"
             app:boxStrokeWidth="1dp"
             app:endIconMode="password_toggle"
-            app:endIconTint="@color/MyNuBlack">
+            app:endIconTint="@color/MyNuBlack"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login_Password_Text"

@@ -38,16 +38,14 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
         String [] serving_Data = getApplicationContext().getResources().getStringArray(R.array.serving);
         ArrayAdapter servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.spinner_item, serving_Data);
 
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupEatFoodEditBinding.popupEatFoodEditTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                popupEatFoodEditBinding.eatFoodEditBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
-                popupEatFoodEditBinding.eatFoodDeleteBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
-                popupEatFoodEditBinding.cancleEatFoodEditBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
-                popupEatFoodEditBinding.cancleEatFoodEditBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
+        if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
+            popupEatFoodEditBinding.popupEatFoodEditTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            popupEatFoodEditBinding.eatFoodEditBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+            popupEatFoodEditBinding.eatFoodDeleteBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+            popupEatFoodEditBinding.cancleEatFoodEditBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
+            popupEatFoodEditBinding.cancleEatFoodEditBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
-                servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.night_spinner_item, serving_Data);
-                break;
+            servingAdapter = new ArrayAdapter(getApplicationContext(), R.layout.night_spinner_item, serving_Data);
         }
 
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();

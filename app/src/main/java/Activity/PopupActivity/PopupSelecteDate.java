@@ -30,16 +30,14 @@ public class PopupSelecteDate extends AppCompatActivity {
         ArrayAdapter yearAdapter = new ArrayAdapter(this, R.layout.spinner_item, year_Data);
         ArrayAdapter monthAdapter = new ArrayAdapter(this, R.layout.spinner_item, month_Data);
 
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupSelecteDateBinding.popupSelecteDateTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                popupSelecteDateBinding.selecteDateBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
-                popupSelecteDateBinding.cancleSelecteDateBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
-                popupSelecteDateBinding.cancleSelecteDateBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
+        if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
+            popupSelecteDateBinding.popupSelecteDateTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            popupSelecteDateBinding.selecteDateBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+            popupSelecteDateBinding.cancleSelecteDateBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
+            popupSelecteDateBinding.cancleSelecteDateBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
-                yearAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, year_Data);
-                monthAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, month_Data);
-                break;
+            yearAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, year_Data);
+            monthAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, month_Data);
         }
 
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();

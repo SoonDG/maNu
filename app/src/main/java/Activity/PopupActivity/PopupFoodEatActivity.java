@@ -42,16 +42,14 @@ public class PopupFoodEatActivity extends AppCompatActivity {
         String [] serving_Data = this.getResources().getStringArray(R.array.serving);
         ArrayAdapter servingAdapter = new ArrayAdapter(this, R.layout.spinner_item, serving_Data);
 
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupFoodEatBinding.popupFoodEatTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                popupFoodEatBinding.selecteEatDateBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
-                popupFoodEatBinding.foodEatBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
-                popupFoodEatBinding.cancleFoodEatBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
-                popupFoodEatBinding.cancleFoodEatBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
+        if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
+            popupFoodEatBinding.popupFoodEatTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            popupFoodEatBinding.selecteEatDateBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
+            popupFoodEatBinding.foodEatBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+            popupFoodEatBinding.cancleFoodEatBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
+            popupFoodEatBinding.cancleFoodEatBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
-                servingAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, serving_Data);
-                break;
+            servingAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, serving_Data);
         }
 
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();

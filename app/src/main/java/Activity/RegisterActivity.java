@@ -45,34 +45,32 @@ public class RegisterActivity extends AppCompatActivity {
         ArrayAdapter ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data);
         ArrayAdapter genderAdapter = new ArrayAdapter(this, R.layout.spinner_item, gen_Data);
 
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                registerBinding.registerTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+        if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
+            registerBinding.registerTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
 
-                registerBinding.registerIDTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
-                registerBinding.registerIDTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerIDTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerIDTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
 
-                registerBinding.checkIDBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+            registerBinding.checkIDBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
 
-                registerBinding.registerPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
-                registerBinding.registerPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
-                registerBinding.registerPasswordTextLayout.setEndIconTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
+            registerBinding.registerPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerPasswordTextLayout.setEndIconTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
 
-                registerBinding.registerRepeatPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
-                registerBinding.registerRepeatPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
-                registerBinding.registerRepeatPasswordTextLayout.setEndIconTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
+            registerBinding.registerRepeatPasswordTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerRepeatPasswordTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerRepeatPasswordTextLayout.setEndIconTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite));
 
-                registerBinding.registerHeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
-                registerBinding.registerHeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerHeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerHeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
 
-                registerBinding.registerWeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
-                registerBinding.registerWeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerWeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+            registerBinding.registerWeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
 
-                registerBinding.regBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+            registerBinding.regBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
 
-                ageAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, age_Data);
-                genderAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, gen_Data);
-                break;
+            ageAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, age_Data);
+            genderAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, gen_Data);
         }
 
         registerBinding.ageSpinner.setAdapter(ageAdapter);

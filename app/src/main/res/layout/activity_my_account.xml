@@ -22,6 +22,42 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/my_Account_Profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/profile_icon" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:weightSum="2"
+        app:layout_constraintTop_toBottomOf="@+id/my_Account_Profile">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/change_Profile_btn"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style2"
+            android:text="프로필 변경"
+            android:textColor="@color/MyNuWhite" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/delete_Profile_btn"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style"
+            android:text="프로필 초기화"
+            android:textColor="@color/MyNuMediumGray"></androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+
     <TableLayout
         android:id="@+id/my_Account_Account_Table"
         android:layout_width="match_parent"
@@ -245,27 +281,5 @@
         android:textColor="@color/MyNuWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_Account_User_Table" />
-
-    <ImageView
-        android:id="@+id/my_Account_Profile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/profile_icon" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/change_Profile_btn"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:background="@drawable/button_style2"
-        android:text="프로필 변경"
-        android:textColor="@color/MyNuWhite"
-        app:layout_constraintBottom_toTopOf="@+id/my_Account_Account_Information_Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_Account_Profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,6 +38,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import Activity.PopupActivity.PopupInformationActivity;
+import Request.DeleteProfileRequest;
 import Request.EditEatFoodRequest;
 import Request.EditProfileRequest;
 import Request.WithdrawalRequest;
@@ -59,26 +60,28 @@ public class MyAccountActivity extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length); //byte배열을 BitmapFactory의 메소드로 bitmap으로 변환
             myAccountBinding.myAccountProfile.setImageBitmap(bitmap); //해당 bitmap을 imageView에 넣기.
         }
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                if(sharedPreferences.getString("Profile", null) == null) { //프로필이 설정 된 것이 없어 기본 프로필을 사용 중일 때
-                    myAccountBinding.myAccountProfile.setImageTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite)); //기본 프로필의 색상을 나이트 모드에서 잘 보이는 색으로 변경
-                }
-                myAccountBinding.changeProfileBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
-                myAccountBinding.myAccountAccountInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                myAccountBinding.myAccountAccountTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
-                myAccountBinding.myIdLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                myAccountBinding.myPasswordLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                myAccountBinding.MyAccountUserInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                myAccountBinding.myAccountUserTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
-                myAccountBinding.myAgeLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                myAccountBinding.myGenderLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                myAccountBinding.myHeightLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                myAccountBinding.myWeightLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                myAccountBinding.toEditInformationBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
-                myAccountBinding.withdrawalBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+        if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
+            if(sharedPreferences.getString("Profile", null) == null) { //프로필이 설정 된 것이 없어 기본 프로필을 사용 중일 때
+                myAccountBinding.myAccountProfile.setImageTintList(ContextCompat.getColorStateList(this, R.color.MyNuWhite)); //기본 프로필의 색상을 나이트 모드에서 잘 보이는 색으로 변경
+            }
+            myAccountBinding.changeProfileBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+            myAccountBinding.deleteProfileBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style));
+            myAccountBinding.deleteProfileBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
 
-                break;
+            myAccountBinding.myAccountAccountInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            myAccountBinding.myAccountAccountTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
+            myAccountBinding.myIdLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            myAccountBinding.myPasswordLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+
+            myAccountBinding.MyAccountUserInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            myAccountBinding.myAccountUserTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
+            myAccountBinding.myAgeLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            myAccountBinding.myGenderLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            myAccountBinding.myHeightLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            myAccountBinding.myWeightLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+
+            myAccountBinding.toEditInformationBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
+            myAccountBinding.withdrawalBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
         }
 
         set_myAccount(); //회원 정보 표시
@@ -101,11 +104,6 @@ public class MyAccountActivity extends AppCompatActivity {
                                             byte[] bytes = baos.toByteArray(); //압축된 Bitmap을 byte 배열로 변환
                                             String imgstr = Base64.encodeToString(bytes, Base64.DEFAULT); //Base64 방식으로 byte 배열을 String으로 변환
 
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.putString("Profile", imgstr); //String으로 변환된 이미지(Bitmap)을 sharedPreferences로 기기에 저장
-                                            editor.commit();
-                                            setResult(RESULT_OK); //MainActivity로 프로필이 변경됨을 알림.
-
                                             Response.Listener<String> responseListener = new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {
@@ -113,6 +111,11 @@ public class MyAccountActivity extends AppCompatActivity {
                                                         JSONObject jsonObject = new JSONObject(response);
                                                         int success = jsonObject.getInt("success");
                                                         if(success == 0){ //데이터 베이스에서 변경이 성공했다면.
+                                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                            editor.putString("Profile", imgstr); //String으로 변환된 이미지(Bitmap)을 sharedPreferences로 기기에 저장
+                                                            editor.commit();
+                                                            setResult(RESULT_OK); //MainActivity로 프로필이 변경됨을 알림.
+
                                                             Intent intent1 = new Intent(MyAccountActivity.this, PopupInformationActivity.class);
                                                             intent1.putExtra("Contents", "프로필 이미지가 설정되었습니다.");
                                                             startActivity(intent1);
@@ -145,12 +148,6 @@ public class MyAccountActivity extends AppCompatActivity {
                                             byte[] bytes = baos.toByteArray(); //압축된 Bitmap을 byte 배열로 변환
                                             String imgstr = Base64.encodeToString(bytes, Base64.DEFAULT); //Base64 방식으로 byte 배열을 String으로 변환
 
-                                            SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.putString("Profile", imgstr); //String으로 변환된 이미지(Bitmap)을 sharedPreferences로 기기에 저장
-                                            editor.commit();
-                                            setResult(RESULT_OK); //MainActivity로 프로필이 변경됨을 알림.
-
                                             Response.Listener<String> responseListener = new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {
@@ -158,6 +155,11 @@ public class MyAccountActivity extends AppCompatActivity {
                                                         JSONObject jsonObject = new JSONObject(response);
                                                         int success = jsonObject.getInt("success");
                                                         if(success == 0){ //데이터 베이스에서 변경이 성공했다면.
+                                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                            editor.putString("Profile", imgstr); //String으로 변환된 이미지(Bitmap)을 sharedPreferences로 기기에 저장
+                                                            editor.commit();
+                                                            setResult(RESULT_OK); //MainActivity로 프로필이 변경됨을 알림.
+
                                                             Intent intent1 = new Intent(MyAccountActivity.this, PopupInformationActivity.class);
                                                             intent1.putExtra("Contents", "프로필 이미지가 설정되었습니다.");
                                                             startActivity(intent1);
@@ -193,6 +195,49 @@ public class MyAccountActivity extends AppCompatActivity {
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 intent.setAction(Intent.ACTION_PICK);
                 changeProfileResultLauncher.launch(intent);
+            }
+        });
+
+        myAccountBinding.deleteProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int success = jsonObject.getInt("success");
+                            if(success == 0){ //데이터 베이스에서 변경이 성공했다면.
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.remove("Profile"); //SharedPreferences에서도 제거
+                                editor.commit();
+
+                                myAccountBinding.myAccountProfile.setImageResource(R.drawable.profile_icon);
+                                if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
+                                    myAccountBinding.myAccountProfile.setImageTintList(ContextCompat.getColorStateList(MyAccountActivity.this, R.color.MyNuWhite)); //기본 프로필의 색상을 나이트 모드에서 잘 보이는 색으로 변경
+                                } //MyAccount의 프로필을 기본 이미지로 변환
+
+                                setResult(RESULT_OK); //MainActivity로 프로필이 변경됨을 알림.
+
+                                Intent intent1 = new Intent(MyAccountActivity.this, PopupInformationActivity.class);
+                                intent1.putExtra("Contents", "프로필 이미지가 초기화 되었습니다.");
+                                startActivity(intent1);
+                            }
+                            else if(success == 1){
+                                Toast.makeText(MyAccountActivity.this, "데이터 전송 실패", Toast.LENGTH_SHORT).show();
+                            }
+                            else if(success == 2){
+                                Toast.makeText(MyAccountActivity.this, "sql문 실행 실패", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                };
+
+                DeleteProfileRequest deleteProfileRequest = new DeleteProfileRequest(sharedPreferences.getString("ID", null), responseListener);
+                RequestQueue queue = Volley.newRequestQueue(MyAccountActivity.this);
+                queue.add(deleteProfileRequest);
             }
         });
 

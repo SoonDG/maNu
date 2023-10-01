@@ -68,14 +68,13 @@ public class SearchFragment extends Fragment implements ListItemClickInterface {
         foodAdapter = new FoodAdapter(arrayList, this);
         fragmentSearchBinding.searchRecyclerView.setAdapter(foodAdapter);
 
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                fragmentSearchBinding.searchFoodTextLayout.setHintTextColor(ContextCompat.getColorStateList(getContext(), R.color.night_textinputlayout_color));
-                fragmentSearchBinding.searchFoodTextLayout.setBoxBackgroundColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-                fragmentSearchBinding.searchFoodTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(getContext(), R.color.night_textinputlayout_color));
-                fragmentSearchBinding.searchFoodTextLayout.setEndIconTintList(ContextCompat.getColorStateList(getContext(), R.color.MyNuWhite));
+        if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
+            fragmentSearchBinding.searchFoodTextLayout.setHintTextColor(ContextCompat.getColorStateList(getContext(), R.color.night_textinputlayout_color));
+            fragmentSearchBinding.searchFoodTextLayout.setBoxBackgroundColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            fragmentSearchBinding.searchFoodTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(getContext(), R.color.night_textinputlayout_color));
+            fragmentSearchBinding.searchFoodTextLayout.setEndIconTintList(ContextCompat.getColorStateList(getContext(), R.color.MyNuWhite));
 
-                break;
+            fragmentSearchBinding.progressBar.setIndeterminateTintList(ContextCompat.getColorStateList(getContext(), R.color.MyNuWhite));
         }
 
         fragmentSearchBinding.searchFoodText.setOnEditorActionListener(new TextView.OnEditorActionListener() { //키패드의 검색 버튼을 누를경우 해당 검색어로 검색된 식품을 출력

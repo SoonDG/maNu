@@ -21,14 +21,11 @@ public class PopupExitActivity extends AppCompatActivity {
         View view = popupExitBinding.getRoot();
         setContentView(view);
 
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                popupExitBinding.popupExitTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
-                popupExitBinding.exitBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
-                popupExitBinding.cancleExitBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
-                popupExitBinding.cancleExitBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
-
-                break;
+        if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
+            popupExitBinding.popupExitTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            popupExitBinding.exitBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
+            popupExitBinding.cancleExitBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));
+            popupExitBinding.cancleExitBtn.setTextColor(ContextCompat.getColor(this, R.color.MyNuWhite));
         }
 
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();

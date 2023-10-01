@@ -46,10 +46,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
-        switch (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES: //나이트 모드라면
-                holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.night_textview_style));
-                break;
+        if((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
+            holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.night_textview_style));
         }
 
         holder.serving.setText(arrayList.get(position).getServing() + " 인분");

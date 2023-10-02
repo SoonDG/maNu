@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Activity.RegisterSecondActivity">
+
+    <TextView
+        android:id="@+id/register_Second_Title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/textview_style2"
+        android:gravity="center"
+        android:text="회원가입"
+        android:textColor="@color/MyNuWhite"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/age_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_Second_Title">
+
+        <TextView
+            android:id="@+id/age_Lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:text="나이"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/age_Spinner"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gender_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/age_LinearLayout">
+
+        <TextView
+            android:id="@+id/gender_Lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:text="성별"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/gender_Spinner"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/height_And_Weight_LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gender_LinearLayout">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_Height_TextLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="키"
+            android:textColorHint="@color/textinputlayout_color"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/textinputlayout_color"
+            app:boxStrokeWidth="1dp"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/textinputlayout_color"
+            app:suffixText="(cm)"
+            app:suffixTextColor="@color/MyNuMediumGray">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_Height_Text"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_Weight_TextLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:hint="몸무게"
+            android:textColorHint="@color/textinputlayout_color"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/textinputlayout_color"
+            app:boxStrokeWidth="1dp"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/textinputlayout_color"
+            app:suffixText="(kg)"
+            app:suffixTextColor="@color/MyNuMediumGray">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_Weight_Text"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/height_And_Weight_LinearLayout">
+
+        <TextView
+            android:id="@+id/activity_Lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="활동량"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/activity_Spinner"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="610dp" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_style2"
+        android:text="회원가입"
+        android:textColor="@color/MyNuWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

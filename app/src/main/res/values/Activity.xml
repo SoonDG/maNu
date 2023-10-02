@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Activity">
+        <item>육체활동이 거의 없다.</item>
+        <item>보통의 활동을 한다.</item>
+        <item>심한 육체활동을 한다.</item>
+    </string-array>
+</resources>

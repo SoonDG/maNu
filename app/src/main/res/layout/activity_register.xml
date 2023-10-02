@@ -23,7 +23,7 @@
         android:id="@+id/register_Id_And_Password_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="150dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
                 android:id="@+id/register_ID_Text"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="text" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/check_ID_btn"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:hint="비밀번호"
             android:textColorHint="@color/textinputlayout_color"
             app:boxBackgroundMode="outline"
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:hint="비밀번호 확인"
             android:textColorHint="@color/textinputlayout_color"
             app:boxBackgroundMode="outline"
@@ -116,128 +116,29 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/age_LinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_Id_And_Password_LinearLayout">
-
-        <TextView
-            android:id="@+id/age_Lable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="100dp"
-            android:text="나이"
-            android:textSize="20sp" />
-
-        <Spinner
-            android:id="@+id/age_Spinner"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
-            android:textAlignment="center" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/gender_LinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age_LinearLayout">
-
-        <TextView
-            android:id="@+id/gender_Lable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="100dp"
-            android:text="성별"
-            android:textSize="20sp" />
-
-        <Spinner
-            android:id="@+id/gender_Spinner"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
-            android:textAlignment="center" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/height_And_Weight_LinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_LinearLayout">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/register_Height_TextLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:hint="키"
-            android:textColorHint="@color/textinputlayout_color"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/textinputlayout_color"
-            app:boxStrokeWidth="1dp"
-            app:errorEnabled="true"
-            app:hintTextColor="@color/textinputlayout_color"
-            app:suffixText="(cm)"
-            app:suffixTextColor="@color/MyNuMediumGray">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_Height_Text"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/register_Weight_TextLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:hint="몸무게"
-            android:textColorHint="@color/textinputlayout_color"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/textinputlayout_color"
-            app:boxStrokeWidth="1dp"
-            app:errorEnabled="true"
-            app:hintTextColor="@color/textinputlayout_color"
-            app:suffixText="(kg)"
-            app:suffixTextColor="@color/MyNuMediumGray">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/register_Weight_Text"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/reg_btn"
+        android:id="@+id/next_Register_btn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
         android:background="@drawable/button_style2"
-        android:text="회원가입"
+        android:text="다음"
         android:textColor="@color/MyNuWhite"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/height_And_Weight_LinearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/register_Id_And_Password_LinearLayout" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancle_Register_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="30dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_style"
+        android:text="취소"
+        android:textColor="@color/MyNuMediumGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_Id_And_Password_LinearLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

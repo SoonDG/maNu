@@ -12,7 +12,7 @@ public class RegisterRequest extends StringRequest{
     final static private String URL = "http://sans12.ivyro.net/Register.php";
     private Map<String, String> map;
 
-    public RegisterRequest(String ID, String Password, int Age, String Gender, double Height, double Weight, Response.Listener<String> listener){
+    public RegisterRequest(String ID, String Password, int Age, String Gender, double Height, double Weight, int Activity, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
@@ -22,6 +22,7 @@ public class RegisterRequest extends StringRequest{
         map.put("Gender", Gender);
         map.put("Height", Height + "");
         map.put("Weight", Weight + "");
+        map.put("Activity", Activity + "");
     }
 
     @Override

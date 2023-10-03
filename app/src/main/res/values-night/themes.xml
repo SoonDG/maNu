@@ -43,4 +43,12 @@
         <!-- 오늘 날짜 색과 선택된 날짜 표시(원형) 색-->
         <item name="colorAccent">@color/MyNuMediumGray</item>
     </style>
+
+    <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">@color/MyNuGray</item> <!-- divider 색 -->
+        <item name="android:dividerHeight">1dp</item> <!-- divider 높이 -->
+    </style>
+    <style name="SpinnerTheme">
+        <item name="android:dropDownListViewStyle">@style/SpinnerDivideStyle</item>
+    </style>
 </resources>

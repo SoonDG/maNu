@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:background="@drawable/textview_style"
             android:text=""
             android:textSize="20sp"></TextView>
     </LinearLayout>
@@ -45,12 +46,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:background="@drawable/spinner_style"
+            android:theme="@style/SpinnerTheme"
             android:textAlignment="center"></Spinner>
 
         <TextView
+            android:id="@+id/edit_Serving_Lable"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_weight="3"
+            android:background="@drawable/textview_style"
             android:gravity="center"
             android:text="인분"
             android:textSize="20sp"></TextView>

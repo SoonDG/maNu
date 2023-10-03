@@ -40,6 +40,9 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
 
         if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
             popupEatFoodEditBinding.popupEatFoodEditTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
+            popupEatFoodEditBinding.editFoodName.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style));
+            popupEatFoodEditBinding.eatFoodServingSpinner.setBackground(ContextCompat.getDrawable(this, R.drawable.night_spinner_style));
+            popupEatFoodEditBinding.editServingLable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style));
             popupEatFoodEditBinding.eatFoodEditBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
             popupEatFoodEditBinding.eatFoodDeleteBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style4));
             popupEatFoodEditBinding.cancleEatFoodEditBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style3));

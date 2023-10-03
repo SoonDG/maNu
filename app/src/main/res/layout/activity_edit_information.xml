@@ -142,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overlapAnchor="false"
-                android:spinnerMode="dropdown"
+                android:theme="@style/SpinnerTheme"
                 android:textAlignment="center" />
         </TableRow>
 
@@ -180,6 +180,7 @@
                 android:layout_height="match_parent"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
+                android:theme="@style/SpinnerTheme"
                 android:textAlignment="center" />
         </TableRow>
 
@@ -222,7 +223,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_Height_Text"
-                    android:layout_width="228dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -267,7 +268,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_Weight_Text"
-                    android:layout_width="228dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>

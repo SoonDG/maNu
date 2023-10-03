@@ -259,32 +259,52 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
     public void check_Nu() { //영양분을 적절히 섭취 했는지 확인
         cal_Recommend_Nu();
 
-        if(sum_kcal < rec_kcal || sum_kcal > rec_kcal * 2){
-            fragmentMainBinding.myKcalVal.setTextColor(Color.parseColor("#464646"));
+        if(sum_kcal < rec_kcal || sum_kcal > (rec_kcal * 2)){
+            fragmentMainBinding.myKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
         }
         else {
-            fragmentMainBinding.myKcalVal.setTextColor(Color.parseColor("#ffffff"));
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMainBinding.myKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMainBinding.myKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
         }
 
-        if(sum_carbs < rec_carbs || sum_carbs > rec_carbs * 2){
-            fragmentMainBinding.myCarbsVal.setTextColor(Color.parseColor("#464646"));
+        if(sum_carbs < rec_carbs || sum_carbs > (rec_carbs * 2)){
+            fragmentMainBinding.myCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
         }
         else {
-            fragmentMainBinding.myCarbsVal.setTextColor(Color.parseColor("#ffffff"));
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMainBinding.myCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMainBinding.myCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
         }
 
-        if(sum_protein < rec_protein || sum_protein > rec_protein * 2){
-            fragmentMainBinding.myProteinVal.setTextColor(Color.parseColor("#464646"));
+        if(sum_protein < rec_protein || sum_protein > (rec_protein * 2)){
+            fragmentMainBinding.myProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
         }
         else {
-            fragmentMainBinding.myProteinVal.setTextColor(Color.parseColor("#ffffff"));
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMainBinding.myProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMainBinding.myProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
         }
 
         if(sum_sodium > rec_sodium){
-            fragmentMainBinding.mySodiumVal.setTextColor(Color.parseColor("#464646"));
+            fragmentMainBinding.mySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
         }
         else {
-            fragmentMainBinding.mySodiumVal.setTextColor(Color.parseColor("#ffffff"));
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMainBinding.mySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMainBinding.mySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
         }
     }
 
@@ -292,6 +312,26 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
         int Age = sharedPreferences.getInt("Age", 0);
         int Gender = (sharedPreferences.getString("Gender", null).equals("남자")) ? 0 : 1;
+        int Activity = sharedPreferences.getInt("Activity", -1);
+        double Height = Double.longBitsToDouble(sharedPreferences.getLong("Height", 0));
+        double Weight = Double.longBitsToDouble(sharedPreferences.getLong("Weight", 0));
+
+        if(Gender == 0){ //남자의 경우 표준 체중이 키(m)^2 * 22
+            rec_kcal = (Height / 100) * (Height / 100) * 22;
+        }
+        else if(Gender == 1){//여자의 경우 표준 체중이 키(m)^2 * 22
+            rec_kcal = (Height / 100) * (Height / 100) * 21;
+        }
+        if(Activity == 0){ //활동량이 거의 없다면 표준 체중의 * 25 ~ 30정도가 권장 칼로리
+            rec_kcal *= 28;
+        }
+        else if(Activity == 1){ //활동량이 보통이라면 표준 체중의 * 30 ~ 35정도가 권장 칼로리
+            rec_kcal *= 33;
+        }
+        else if(Activity == 2){ //활동량이 많다면 표준 체중의 * 35 ~ 40정도가 권장 칼로리
+            rec_kcal *= 38;
+        }
+
         if(6 <= Age && Age <= 8){
             if(Gender == 0){
 
@@ -326,13 +366,11 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         }
         else if(19 <= Age && Age <= 29){
             if(Gender == 0){
-                rec_kcal = 2600;
                 rec_carbs = 130;
                 rec_protein = 65;
                 rec_sodium = 1500;
             }
             else {
-                rec_kcal = 2000;
                 rec_carbs = 130;
                 rec_protein = 55;
                 rec_sodium = 1500;
@@ -374,7 +412,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
     }
     public void set_Tooltips() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            fragmentMainBinding.myKcalLable.setTooltipText("칼로리의 필요 추정량은 " + rec_kcal + "(kcal) 입니다.");
+            fragmentMainBinding.myKcalLable.setTooltipText("권장 칼로리는 " + rec_kcal + "(kcal) 입니다.");
             fragmentMainBinding.myCarbsLable.setTooltipText("탄수화물의 권장 섭취량은 " + rec_carbs + "(g) 입니다.");
             fragmentMainBinding.myProteinLable.setTooltipText("단백질의 권장 섭취량은 " + rec_protein + "(g) 입니다.");
             fragmentMainBinding.mySodiumLable.setTooltipText("나트륨의 충분 섭취량은 " + rec_sodium + "(mg) 입니다.");

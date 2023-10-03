@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/MyNuBlack"></solid>
+                    <stroke android:color="@color/MyNuGray" android:width="2dp"/>
+                </shape>
+            </item>
+            <item
+                android:id="@+id/spinner_dropdown"
+                android:drawable="@drawable/dropdown_icon"
+                android:gravity="center|end"
+                android:width="25dp"
+                android:height="25dp"/>
+        </layer-list>
+    </item>
+</selector>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context="Activity.PopupActivity.PopupCheckResetEatFoodActivity">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/popup_Delete_Profile_Title"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/textview_style2"
+            android:gravity="center"
+            android:text="프로필 초기화"
+            android:textColor="#ffffff"
+            android:textSize="15sp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="프로필 이미지가 초기화 됩니다.\n정말 초기화 하시겠습니까?"
+            android:textSize="20sp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/check_Delete_Profile_btn"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style4"
+            android:gravity="center"
+            android:text="확인"
+            android:textColor="@color/MyNuWhite"
+            android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancle_Delete_Profile_btn"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style3"
+            android:gravity="center"
+            android:text="취소"
+            android:textColor="@color/MyNuMediumGray"
+            android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+</LinearLayout>

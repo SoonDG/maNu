@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="age">
+        <item>나이</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -81,7 +82,6 @@
         <item>78</item>
         <item>79</item>
         <item>80</item>
-        <item>나이</item>
     </string-array>
 
 </resources>

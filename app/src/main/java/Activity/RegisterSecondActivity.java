@@ -43,20 +43,23 @@ private String ID, Password;
         String [] act_Data = getResources().getStringArray(R.array.Activity);
         ArrayAdapter ageAdapter = new ArrayAdapter(this, R.layout.spinner_item, age_Data) {
             @Override
-            public int getCount() {
-                return super.getCount() - 1;
+            public boolean isEnabled(int position) {
+                if(position == 0) return false;
+                else return true;
             }
         };
         ArrayAdapter genderAdapter = new ArrayAdapter(this, R.layout.spinner_item, gen_Data){
             @Override
-            public int getCount() {
-                return super.getCount() - 1;
+            public boolean isEnabled(int position) {
+                if(position == 0) return false;
+                else return true;
             }
         };;
         ArrayAdapter activityAdapter = new ArrayAdapter(this, R.layout.spinner_item, act_Data){
             @Override
-            public int getCount() {
-                return super.getCount() - 1;
+            public boolean isEnabled(int position) {
+                if(position == 0) return false;
+                else return true;
             }
         };;
 
@@ -76,20 +79,23 @@ private String ID, Password;
 
             ageAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, age_Data){
                 @Override
-                public int getCount() {
-                    return super.getCount() - 1;
+                public boolean isEnabled(int position) {
+                    if(position == 0) return false;
+                    else return true;
                 }
             };
             genderAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, gen_Data){
                 @Override
-                public int getCount() {
-                    return super.getCount() - 1;
+                public boolean isEnabled(int position) {
+                    if(position == 0) return false;
+                    else return true;
                 }
             };
             activityAdapter = new ArrayAdapter(this, R.layout.night_spinner_item, act_Data){
                 @Override
-                public int getCount() {
-                    return super.getCount() - 1;
+                public boolean isEnabled(int position) {
+                    if(position == 0) return false;
+                    else return true;
                 }
             };
         }
@@ -98,23 +104,20 @@ private String ID, Password;
         registerSecondBinding.genderSpinner.setAdapter(genderAdapter);
         registerSecondBinding.activitySpinner.setAdapter(activityAdapter);
 
-        registerSecondBinding.ageSpinner.setSelection(ageAdapter.getCount());
-        registerSecondBinding.genderSpinner.setSelection(genderAdapter.getCount());
-        registerSecondBinding.activitySpinner.setSelection(activityAdapter.getCount());
         registerSecondBinding.registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (registerSecondBinding.ageSpinner.getSelectedItem().toString().equals("나이")){
+                if (registerSecondBinding.ageSpinner.getSelectedItemPosition() == 0){
                     Intent intent1 = new Intent(RegisterSecondActivity.this, PopupInformationActivity.class);
                     intent1.putExtra("Contents", "정확한 나이를 선택 해 주세요.");
                     startActivity(intent1);
                 }
-                else if(registerSecondBinding.genderSpinner.getSelectedItem().toString().equals("성별")){
+                else if(registerSecondBinding.genderSpinner.getSelectedItemPosition() == 0){
                     Intent intent1 = new Intent(RegisterSecondActivity.this, PopupInformationActivity.class);
                     intent1.putExtra("Contents", "정확한 성별을 선택 해 주세요.");
                     startActivity(intent1);
                 }
-                else if(registerSecondBinding.activitySpinner.getSelectedItem().toString().equals("활동량")){
+                else if(registerSecondBinding.activitySpinner.getSelectedItemPosition() == 0){
                     Intent intent1 = new Intent(RegisterSecondActivity.this, PopupInformationActivity.class);
                     intent1.putExtra("Contents", "정확한 활동량을 선택 해 주세요.");
                     startActivity(intent1);

@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="Activity.PopupActivity.PopupDeleteProfile"
+            android:exported="false" />
+        <activity
             android:name="Activity.RegisterSecondActivity"
             android:exported="false" />
         <activity

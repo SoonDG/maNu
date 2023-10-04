@@ -50,6 +50,7 @@ public class EditInformationActivity extends AppCompatActivity {
         if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
             editInformationBinding.accountInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
             editInformationBinding.accountInformationTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
+
             editInformationBinding.userInformationTitle.setBackground(ContextCompat.getDrawable(this, R.drawable.night_textview_style2));
             editInformationBinding.userInformationTable.setBackground(ContextCompat.getDrawable(this, R.drawable.night_tablelayout_style));
             editInformationBinding.editHeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
@@ -58,6 +59,7 @@ public class EditInformationActivity extends AppCompatActivity {
             editInformationBinding.editWeightTextLayout.setHintTextColor(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
             editInformationBinding.editWeightTextLayout.setBoxBackgroundColor(ContextCompat.getColor(this, R.color.MyNuBlack));
             editInformationBinding.editWeightTextLayout.setBoxStrokeColorStateList(ContextCompat.getColorStateList(this, R.color.night_textinputlayout_color));
+
             editInformationBinding.editInformationBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
             editInformationBinding.toEditPasswordBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style2));
             editInformationBinding.cancleEditInformationBtn.setBackground(ContextCompat.getDrawable(this, R.drawable.night_button_style));

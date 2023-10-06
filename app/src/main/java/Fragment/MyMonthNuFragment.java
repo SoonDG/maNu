@@ -46,6 +46,7 @@ import Request.GetEatFoodRequest;
 public class MyMonthNuFragment extends Fragment {
     private FragmentMyMonthNuBinding fragmentMyMonthNuBinding;
     private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0; //아래 영양분 표에 표시될 영양분 정보를 담는 변수
+    private double rec_kcal = 0, rec_Max_carbs = 0, rec_Min_carbs = 0, rec_Max_protein = 0, rec_Min_protein = 0, rec_Max_fat = 0, rec_Min_fat = 0, rec_sugars = 0, rec_sodium = 0, rec_CH = 0, rec_Sat_fat = 0, rec_trans_fat = 0; //권장되는 영양분
     private ArrayList<Integer> goodDay = new ArrayList<>(), badDay = new ArrayList<>(); //표시되는 날의 적정 영양분을 섭취한 날짜, 적정 영양분을 섭취하지 못한 날짜를 담는 리스트
     private int year = 0, month = 0, day = 0; //현재 표시 되는 년도, 월, 일
     private int cur_year = 0, cur_month = 0, cur_day = 0; //오늘 날짜
@@ -74,6 +75,8 @@ public class MyMonthNuFragment extends Fragment {
             fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_tablelayout_style));
             fragmentMyMonthNuBinding.showDetailNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
         }
+
+        cal_Recommend_Nu(); //권장 영양분 섭취량 계산
 
         for(int i = 1; i <= 42; i++) { //42개의 칸을 초기화
             textViews[i] = new TextView(getContext());
@@ -395,63 +398,88 @@ public class MyMonthNuFragment extends Fragment {
         queue.add(getEatfoodRequest);
     }
 
-    //나이 & 성별 정보를 기반으로 적정 영양분 섭취를 했는지 확인하는 함수
+    //적정 영양분 섭취를 했는지 확인하는 함수
     public boolean check_Appropriate_Nu(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat){ //적정 영양분 섭취인지 검사하는 함수
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        int age = sharedPreferences.getInt("Age", -1);
-        int gender = (sharedPreferences.getString("Gender", null).equals("남자")) ? 0 : 1;
-        if(6 <= age && age <= 8){
-            if(gender == 0){
-                if(food_kcal < 1700) return false;
-                if(food_carbs < 130) return false;
-                if(food_protein < 35) return false;
-                if(food_sodium > 1200) return false;
-
-            }
-            else {
-                if(food_kcal < 1500) return false;
-                if(food_carbs < 130) return false;
-                if(food_protein < 35) return false;
-                if(food_sodium > 1200) return false;
-            }
+        if(sum_kcal < rec_kcal){
+            return false;
         }
-        else if(9 <= age && age <= 11){
-
+        if(sum_carbs < rec_Min_carbs || sum_carbs > rec_Max_carbs){
+            return false;
         }
-        else if(12 <= age && age <= 14){
-
+        if(sum_protein < rec_Min_protein || sum_protein > rec_Max_protein){
+            return false;
         }
-        else if(15 <= age && age <= 18){
-
+        if(sum_fat < rec_Min_fat || sum_fat > rec_Max_fat){
+            return false;
         }
-        else if(19 <= age && age <= 29){
-            if(gender == 0){
-                if(food_kcal < 2600) return false;
-                if(food_carbs < 130) return false;
-                if(food_protein < 65) return false;
-                if(food_sodium > 1500) return false;
-
-            }
-            else {
-                if(food_kcal < 2000) return false;
-                if(food_carbs < 130) return false;
-                if(food_protein < 55) return false;
-                if(food_sodium > 1500) return false;
-            }
+        if(sum_sugars > rec_sugars){
+            return false;
         }
-        else if(30 <= age && age <= 49){
-
+        if(sum_sodium > rec_sodium){
+            return false;
         }
-        else if(50 <= age && age <= 64){
-
+        if(sum_CH > rec_CH){
+            return false;
         }
-        else if(65 <= age && age <= 74){
-
+        if(sum_Sat_fat > rec_Sat_fat){
+            return false;
         }
-        else {
-
+        if(sum_trans_fat > rec_trans_fat){
+            return false;
         }
         return true;
+    }
+    public void cal_Recommend_Nu(){ //권장 영양분 섭취량 계산
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+        int Age = sharedPreferences.getInt("Age", 0);
+        int Gender = (sharedPreferences.getString("Gender", null).equals("남자")) ? 0 : 1;
+        int Activity = sharedPreferences.getInt("Activity", -1);
+        double Height = Double.longBitsToDouble(sharedPreferences.getLong("Height", 0));
+        double Weight = Double.longBitsToDouble(sharedPreferences.getLong("Weight", 0));
+
+        if(Gender == 0){ //남자의 경우 표준 체중이 키(m)^2 * 22
+            rec_kcal = (Height / 100) * (Height / 100) * 22;
+        }
+        else if(Gender == 1){//여자의 경우 표준 체중이 키(m)^2 * 22
+            rec_kcal = (Height / 100) * (Height / 100) * 21;
+        }
+        if(Activity == 0){ //활동량이 거의 없다면 표준 체중의 * 25 ~ 30정도가 권장 칼로리
+            rec_kcal *= 28;
+        }
+        else if(Activity == 1){ //활동량이 보통이라면 표준 체중의 * 30 ~ 35정도가 권장 칼로리
+            rec_kcal *= 33;
+        }
+        else if(Activity == 2){ //활동량이 많다면 표준 체중의 * 35 ~ 40정도가 권장 칼로리
+            rec_kcal *= 38;
+        }
+
+        rec_Max_carbs = rec_kcal * 0.65 / 4; //탄수화물의 권장 최대 섭취량은 권장 섭취 칼로리 * 권장 최대 탄수화물 비율(65%) / 4g
+        rec_Min_carbs = rec_kcal * 0.55 / 4; //탄수화물의 권장 최소 섭취량은 권장 섭취 칼로리 * 권장 최소 탄수화물 비율(55%) / 4g
+
+        rec_Max_protein = rec_kcal * 0.2 / 4; //단백질의 권장 최대 섭취량은 권장 섭취 칼로리 * 권장 최대 단백질 비율(20%) / 4g
+        rec_Min_protein = rec_kcal * 0.07 / 4; //단백질의 권장 최소 섭취량은 권장 섭취 칼로리 * 권장 최소 단백질 비율(7%) / 4g
+
+        if(Age <= 2){ //나이가 1 ~ 2세의 유아일 경우
+            rec_Max_fat = rec_kcal * 0.35 / 9; //지방의 권장 최대 섭취량은 권장 섭취 칼로리 * 권장 최대 지방 비율(35%) / 9g
+            rec_Min_fat = rec_kcal * 0.2 / 9; //지방의 권장 최소 섭취량은 권장 섭취 칼로리 * 권장 최소 지방 비율(20%) / 9g
+        }
+        else {
+            rec_Max_fat = rec_kcal * 0.3 / 9; //지방의 권장 최대 섭취량은 권장 섭취 칼로리 * 권장 최대 지방 비율(30%) / 9g
+            rec_Min_fat = rec_kcal * 0.15 / 9; //지방의 권장 최소 섭취량은 권장 섭취 칼로리 * 권장 최소 지방 비율(15%) / 9g
+        }
+
+        rec_sugars = rec_kcal * 0.2 / 4; //당류의 권장 섭취량은 권장 섭취 칼로리 * 권장 당류 비율(20%) / 4g
+        rec_sodium = 2300; //나트륨의 하루 권장량은 2300mg 미만
+        rec_CH = 300; //콜레스테롤의 하루 권장량은 300mg 미만
+
+        if(Age >= 3 && Age <= 18){ //나이가 3 ~ 18세일 경우
+            rec_Sat_fat = rec_kcal * 0.08 / 9; //포화지방의 권장 섭취량은 권장 섭취 칼로리 * 권장 포화 지방 비율(8%) / 9g
+        }
+        else if(Age >= 19) {
+            rec_Sat_fat = rec_kcal * 0.07 / 9; //포화지방의 권장 섭취량은 권장 섭취 칼로리 * 권장 포화 지방 비율(7%) / 9g
+        }
+
+        rec_trans_fat = rec_kcal * 0.01 / 9; //트랜스지방의 권장 섭취량은 권장 섭취 칼로리 * 권장 트랜스 지방 비율(1%) / 9g
     }
     ////////// 각 날짜의 영양분 정보를 가져오는 함수
 

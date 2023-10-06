@@ -51,7 +51,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
 
     //오늘 유저가 먹은 음식의 영양분의 합을 저장할 변수들
     private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0; //오늘 먹은 영양분 총합
-    private double rec_kcal = 0, rec_carbs = 0, rec_protein = 0, rec_fat = 0, rec_sugars = 0, rec_sodium = 0, rec_CH = 0, rec_Sat_fat = 0, rec_trans_fat = 0; //권장되는 영양분
+    private double rec_kcal = 0, rec_Max_carbs = 0, rec_Min_carbs = 0, rec_Max_protein = 0, rec_Min_protein = 0, rec_Max_fat = 0, rec_Min_fat = 0, rec_sugars = 0, rec_sodium = 0, rec_CH = 0, rec_Sat_fat = 0, rec_trans_fat = 0; //권장되는 영양분
     public MainFragment() {
         // Required empty public constructor
     }
@@ -80,6 +80,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
             fragmentMainBinding.myNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_tablelayout_style));
         }
 
+        cal_Recommend_Nu(); //권장 영양분 섭취량 계산
         set_Food_list(); //오늘 먹은 음식 데이터를 데이터베이스로 부터 가져와 리사이클러 뷰에 표시
 
         eatFoodEditResultLauncher = registerForActivityResult( //RecyclerView의 아이템 클릭시 발생하는 클릭 이벤트 작성 부분
@@ -257,9 +258,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
     }
 
     public void check_Nu() { //영양분을 적절히 섭취 했는지 확인
-        cal_Recommend_Nu();
-
-        if(sum_kcal < rec_kcal || sum_kcal > (rec_kcal * 2)){
+        if(sum_kcal < rec_kcal){
             fragmentMainBinding.myKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
         }
         else {
@@ -271,7 +270,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
             }
         }
 
-        if(sum_carbs < rec_carbs || sum_carbs > (rec_carbs * 2)){
+        if(sum_carbs < rec_Min_carbs || sum_carbs > rec_Max_carbs){
             fragmentMainBinding.myCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
         }
         else {
@@ -283,7 +282,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
             }
         }
 
-        if(sum_protein < rec_protein || sum_protein > (rec_protein * 2)){
+        if(sum_protein < rec_Min_protein || sum_protein > rec_Max_protein){
             fragmentMainBinding.myProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
         }
         else {
@@ -292,6 +291,30 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
             }
             else {
                 fragmentMainBinding.myProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
+        if(sum_fat < rec_Min_fat || sum_fat > rec_Max_fat){
+            fragmentMainBinding.myFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMainBinding.myFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMainBinding.myFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
+        if(sum_sugars > rec_sugars){
+            fragmentMainBinding.mySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMainBinding.mySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMainBinding.mySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
             }
         }
 
@@ -304,6 +327,40 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
             }
             else {
                 fragmentMainBinding.mySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
+        if(sum_CH > rec_CH){
+            fragmentMainBinding.myCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMainBinding.myCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+            fragmentMainBinding.myCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
+        if(sum_Sat_fat > rec_Sat_fat){
+            fragmentMainBinding.mySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMainBinding.mySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            } else {
+                fragmentMainBinding.mySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
+        if(sum_trans_fat > rec_trans_fat){
+            fragmentMainBinding.myTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMainBinding.myTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            } else {
+                fragmentMainBinding.myTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
             }
         }
     }
@@ -332,90 +389,46 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
             rec_kcal *= 38;
         }
 
-        if(6 <= Age && Age <= 8){
-            if(Gender == 0){
+        rec_Max_carbs = rec_kcal * 0.65 / 4; //탄수화물의 권장 최대 섭취량은 권장 섭취 칼로리 * 권장 최대 탄수화물 비율(65%) / 4g
+        rec_Min_carbs = rec_kcal * 0.55 / 4; //탄수화물의 권장 최소 섭취량은 권장 섭취 칼로리 * 권장 최소 탄수화물 비율(55%) / 4g
 
-            }
-            else {
+        rec_Max_protein = rec_kcal * 0.2 / 4; //단백질의 권장 최대 섭취량은 권장 섭취 칼로리 * 권장 최대 단백질 비율(20%) / 4g
+        rec_Min_protein = rec_kcal * 0.07 / 4; //단백질의 권장 최소 섭취량은 권장 섭취 칼로리 * 권장 최소 단백질 비율(7%) / 4g
 
-            }
-        }
-        else if(9 <= Age && Age <= 11){
-            if(Gender == 0){
-
-            }
-            else {
-
-            }
-        }
-        else if(12 <= Age && Age <= 14){
-            if(Gender == 0){
-
-            }
-            else {
-
-            }
-        }
-        else if(15 <= Age && Age <= 18){
-            if(Gender == 0){
-
-            }
-            else {
-
-            }
-        }
-        else if(19 <= Age && Age <= 29){
-            if(Gender == 0){
-                rec_carbs = 130;
-                rec_protein = 65;
-                rec_sodium = 1500;
-            }
-            else {
-                rec_carbs = 130;
-                rec_protein = 55;
-                rec_sodium = 1500;
-            }
-        }
-        else if(30 <= Age && Age <= 49){
-            if(Gender == 0){
-
-            }
-            else {
-
-            }
-        }
-        else if(50 <= Age && Age <= 64){
-            if(Gender == 0){
-
-            }
-            else {
-
-            }
-        }
-        else if(65 <= Age && Age <= 74){
-            if(Gender == 0){
-
-            }
-            else {
-
-            }
+        if(Age <= 2){ //나이가 1 ~ 2세의 유아일 경우
+            rec_Max_fat = rec_kcal * 0.35 / 9; //지방의 권장 최대 섭취량은 권장 섭취 칼로리 * 권장 최대 지방 비율(35%) / 9g
+            rec_Min_fat = rec_kcal * 0.2 / 9; //지방의 권장 최소 섭취량은 권장 섭취 칼로리 * 권장 최소 지방 비율(20%) / 9g
         }
         else {
-            if(Gender == 0){
-
-            }
-            else {
-
-            }
+            rec_Max_fat = rec_kcal * 0.3 / 9; //지방의 권장 최대 섭취량은 권장 섭취 칼로리 * 권장 최대 지방 비율(30%) / 9g
+            rec_Min_fat = rec_kcal * 0.15 / 9; //지방의 권장 최소 섭취량은 권장 섭취 칼로리 * 권장 최소 지방 비율(15%) / 9g
         }
+
+        rec_sugars = rec_kcal * 0.2 / 4; //당류의 권장 섭취량은 권장 섭취 칼로리 * 권장 당류 비율(20%) / 4g
+        rec_sodium = 2300; //나트륨의 하루 권장량은 2300mg 미만
+        rec_CH = 300; //콜레스테롤의 하루 권장량은 300mg 미만
+
+        if(Age >= 3 && Age <= 18){ //나이가 3 ~ 18세일 경우
+            rec_Sat_fat = rec_kcal * 0.08 / 9; //포화지방의 권장 섭취량은 권장 섭취 칼로리 * 권장 포화 지방 비율(8%) / 9g
+        }
+        else if(Age >= 19) {
+            rec_Sat_fat = rec_kcal * 0.07 / 9; //포화지방의 권장 섭취량은 권장 섭취 칼로리 * 권장 포화 지방 비율(7%) / 9g
+        }
+
+        rec_trans_fat = rec_kcal * 0.01 / 9; //트랜스지방의 권장 섭취량은 권장 섭취 칼로리 * 권장 트랜스 지방 비율(1%) / 9g
         set_Tooltips();
     }
     public void set_Tooltips() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             fragmentMainBinding.myKcalLable.setTooltipText("권장 칼로리는 " + rec_kcal + "(kcal) 입니다.");
-            fragmentMainBinding.myCarbsLable.setTooltipText("탄수화물의 권장 섭취량은 " + rec_carbs + "(g) 입니다.");
-            fragmentMainBinding.myProteinLable.setTooltipText("단백질의 권장 섭취량은 " + rec_protein + "(g) 입니다.");
-            fragmentMainBinding.mySodiumLable.setTooltipText("나트륨의 충분 섭취량은 " + rec_sodium + "(mg) 입니다.");
+            fragmentMainBinding.myCarbsLable.setTooltipText("탄수화물의 권장 섭취량은 " + rec_Min_carbs + "(g) ~ " + rec_Max_carbs + "(g) 입니다.");
+            fragmentMainBinding.myProteinLable.setTooltipText("단백질의 권장 섭취량은 " + rec_Min_protein + "(g) ~ " + rec_Max_protein + "(g) 입니다.");
+            fragmentMainBinding.myFatLable.setTooltipText("지방의 권장 섭취량은 " + rec_Min_fat + "(g) ~ " + rec_Max_fat + "(g) 입니다.");
+            fragmentMainBinding.mySugarsLable.setTooltipText("당류의 권장 섭취량은 " + rec_sugars + "(g) 입니다.");
+            fragmentMainBinding.mySodiumLable.setTooltipText("나트륨의 권장 섭취량은 " + rec_sodium + "(mg) 입니다.");
+            fragmentMainBinding.myCHLable.setTooltipText("콜레스테롤의 권장 섭취량은" + rec_CH + "(mg) 입니다.");
+            fragmentMainBinding.mySatFatLable.setTooltipText("포화지방의 권장 섭취량은 " + rec_Sat_fat + "(g) 입니다.");
+            fragmentMainBinding.myTransFatLable.setTooltipText("트랜스지방의 권장 섭취량은 " + rec_trans_fat + "(g) 입니다.");
         }
     }
 }

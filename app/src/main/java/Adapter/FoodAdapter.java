@@ -24,8 +24,6 @@ import Model.Food;
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     private ArrayList<Food> arrayList;
     private ListItemClickInterface Listener;
-    private SharedPreferences sharedPreferences;
-    private String user_ID;
 
     public FoodAdapter(ArrayList<Food> arrayList, ListItemClickInterface Listener){
         this.arrayList = arrayList;
@@ -38,8 +36,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
         Context context = parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
-        sharedPreferences = context.getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        user_ID = sharedPreferences.getString("ID", null);
         return viewHolder;
     }
 

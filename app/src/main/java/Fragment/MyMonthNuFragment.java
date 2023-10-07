@@ -330,14 +330,121 @@ public class MyMonthNuFragment extends Fragment {
 
     public void set_My_Nu_Val(){ //레이아웃 밑에 있는 영양분 표시를 수정하는 함수.
         fragmentMyMonthNuBinding.monthMyKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
+        if(sum_kcal < rec_kcal){
+            fragmentMyMonthNuBinding.monthMyKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMyMonthNuBinding.monthMyKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMyMonthNuBinding.monthMyKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
         fragmentMyMonthNuBinding.monthMyCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
+        if(sum_carbs > rec_Max_carbs || sum_carbs < rec_Min_carbs){
+            fragmentMyMonthNuBinding.monthMyCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMyMonthNuBinding.monthMyCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMyMonthNuBinding.monthMyCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
         fragmentMyMonthNuBinding.monthMyProteinVal.setText(String.format("%.2f(g)", sum_protein));
+        if(sum_protein > rec_Max_protein || sum_protein < rec_Min_protein){
+            fragmentMyMonthNuBinding.monthMyProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMyMonthNuBinding.monthMyProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMyMonthNuBinding.monthMyProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
         fragmentMyMonthNuBinding.monthMyFatVal.setText(String.format("%.2f(g)", sum_fat));
+        if(sum_fat > rec_Max_fat || sum_fat < rec_Min_fat){
+            fragmentMyMonthNuBinding.monthMyFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMyMonthNuBinding.monthMyFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMyMonthNuBinding.monthMyFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
         fragmentMyMonthNuBinding.monthMySugarsVal.setText(String.format("%.2f(g)", sum_sugars));
+        if(sum_sugars > rec_sugars){
+            fragmentMyMonthNuBinding.monthMySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMyMonthNuBinding.monthMySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMyMonthNuBinding.monthMySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
         fragmentMyMonthNuBinding.monthMySodiumVal.setText(String.format("%.2f(mg)", sum_sodium));
+        if(sum_sodium > rec_sodium){
+            fragmentMyMonthNuBinding.monthMySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMyMonthNuBinding.monthMySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMyMonthNuBinding.monthMySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
         fragmentMyMonthNuBinding.monthMyCHVal.setText(String.format("%.2f(mg)", sum_CH));
+        if(sum_CH > rec_CH){
+            fragmentMyMonthNuBinding.monthMyCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMyMonthNuBinding.monthMyCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMyMonthNuBinding.monthMyCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
         fragmentMyMonthNuBinding.monthMySatFatVal.setText(String.format("%.2f(g)", sum_Sat_fat));
+        if(sum_Sat_fat > rec_Sat_fat){
+            fragmentMyMonthNuBinding.monthMySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMyMonthNuBinding.monthMySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMyMonthNuBinding.monthMySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
+
         fragmentMyMonthNuBinding.monthMyTransFatVal.setText(String.format("%.2f(g)", sum_trans_fat));
+        if(sum_trans_fat > rec_trans_fat){
+            fragmentMyMonthNuBinding.monthMyTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
+        }
+        else {
+            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
+                fragmentMyMonthNuBinding.monthMyTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
+            }
+            else {
+                fragmentMyMonthNuBinding.monthMyTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
+            }
+        }
     }
     ////////// 영양분 정보를 표시하는 함수들
 

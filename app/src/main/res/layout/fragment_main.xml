@@ -4,209 +4,220 @@
     android:layout_height="match_parent"
     tools:context="Fragment.MainFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_Recycler_View"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="230dp">
+        android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <TextView
-        android:id="@+id/my_Nu_Title"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="180dp"
-        android:background="@drawable/textview_style2"
-        android:gravity="center"
-        android:text="섭취 영양분"
-        android:textColor="@color/MyNuWhite"
-        android:textSize="20sp" />
-
-    <TableLayout
-        android:id="@+id/my_Nu_Table"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/textview_style"
-        android:stretchColumns="*">
-
-        <TableRow
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_Recycler_View"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_gravity="bottom"></androidx.recyclerview.widget.RecyclerView>
 
             <TextView
-                android:id="@+id/my_Kcal_Lable"
+                android:id="@+id/my_Nu_Title"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/main_Recycler_View"
+                android:background="@drawable/textview_style2"
                 android:gravity="center"
-                android:text="칼로리"
-                android:textSize="20sp"></TextView>
+                android:text="섭취 영양분"
+                android:textColor="@color/MyNuWhite"
+                android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/my_Carbs_Lable"
+            <TableLayout
+                android:id="@+id/my_Nu_Table"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="탄수화물"
-                android:textSize="20sp"></TextView>
+                android:layout_height="180dp"
+                android:layout_below="@id/my_Nu_Title"
+                android:layout_gravity="bottom"
+                android:background="@drawable/textview_style"
+                android:stretchColumns="*">
 
-            <TextView
-                android:id="@+id/my_Protein_Lable"
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:id="@+id/my_Kcal_Lable"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="칼로리"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Carbs_Lable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="탄수화물"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Protein_Lable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="단백질"
+                        android:textSize="20sp"></TextView>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:id="@+id/my_Kcal_Val"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Carbs_Val"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Protein_Val"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="20sp"></TextView>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:id="@+id/my_Fat_Lable"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="지방"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Sugars_Lable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="당분"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Sodium_Lable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="나트륨"
+                        android:textSize="20sp"></TextView>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:id="@+id/my_Fat_Val"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Sugars_Val"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Sodium_Val"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="20sp"></TextView>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:id="@+id/my_CH_Lable"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="콜레스테롤"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Sat_Fat_Lable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="포화지방산"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Trans_Fat_Lable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="트랜스지방"
+                        android:textSize="20sp"></TextView>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:id="@+id/my_CH_Val"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Sat_Fat_Val"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="20sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/my_Trans_Fat_Val"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textSize="20sp"></TextView>
+                </TableRow>
+            </TableLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_Nu_Recycler_View"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="단백질"
-                android:textSize="20sp"></TextView>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="30dp">
-
-            <TextView
-                android:id="@+id/my_Kcal_Val"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Carbs_Val"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Protein_Val"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="20sp"></TextView>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="30dp">
-
-            <TextView
-                android:id="@+id/my_Fat_Lable"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="지방"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Sugars_Lable"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="당분"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Sodium_Lable"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="나트륨"
-                android:textSize="20sp"></TextView>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="30dp">
-
-            <TextView
-                android:id="@+id/my_Fat_Val"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Sugars_Val"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Sodium_Val"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="20sp"></TextView>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="30dp">
-
-            <TextView
-                android:id="@+id/my_CH_Lable"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="콜레스테롤"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Sat_Fat_Lable"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="포화지방산"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Trans_Fat_Lable"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="트랜스지방"
-                android:textSize="20sp"></TextView>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="30dp">
-
-            <TextView
-                android:id="@+id/my_CH_Val"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Sat_Fat_Val"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:id="@+id/my_Trans_Fat_Val"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="20sp"></TextView>
-        </TableRow>
-
-    </TableLayout>
-
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_Nu_Table"/>
+        </RelativeLayout>
+    </ScrollView>
 </FrameLayout>

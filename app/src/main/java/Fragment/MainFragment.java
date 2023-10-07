@@ -35,16 +35,20 @@ import java.util.ArrayList;
 
 import Activity.PopupActivity.PopupEatFoodEditActivity;
 import Adapter.EatFoodAdapter;
+import Adapter.NuAdapter;
 import Interface.ListItemClickInterface;
 import Model.Food;
+import Model.Nutrients;
 import Request.GetEatFoodRequest;
 
 public class MainFragment extends Fragment implements ListItemClickInterface {
 
     private FragmentMainBinding fragmentMainBinding;
     private EatFoodAdapter eatFoodAdapter;
-    private LinearLayoutManager linearLayoutManager;
+    private NuAdapter nuAdapter;
+    private LinearLayoutManager linearLayoutManager, linearLayoutManager2;
     private ArrayList<Food> arrayList;
+    private ArrayList<Nutrients> nutrientsArrayList;
     private ActivityResultLauncher<Intent> eatFoodEditResultLauncher;
     ;
     private int selected_index;
@@ -75,6 +79,17 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
 
         fragmentMainBinding.mainRecyclerView.setAdapter(eatFoodAdapter);
 
+
+        fragmentMainBinding.mainNuRecyclerView.setHasFixedSize(true);
+        linearLayoutManager2 = new LinearLayoutManager(getActivity());
+        fragmentMainBinding.mainNuRecyclerView.setLayoutManager(linearLayoutManager2);
+
+        nutrientsArrayList = new ArrayList<>();
+        nuAdapter = new NuAdapter(nutrientsArrayList);
+
+        fragmentMainBinding.mainNuRecyclerView.setAdapter(nuAdapter);
+
+
         if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
             fragmentMainBinding.myNuTitle.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.MyNuGray));
             fragmentMainBinding.myNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_tablelayout_style));
@@ -82,6 +97,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
 
         cal_Recommend_Nu(); //권장 영양분 섭취량 계산
         set_Food_list(); //오늘 먹은 음식 데이터를 데이터베이스로 부터 가져와 리사이클러 뷰에 표시
+        set_Nu_list();
 
         eatFoodEditResultLauncher = registerForActivityResult( //RecyclerView의 아이템 클릭시 발생하는 클릭 이벤트 작성 부분
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -136,7 +152,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
     }
 
     @Override
-    public void onItemClick(View v, int position) {
+    public void onItemClick(View v, int position) { //먹은 음식 리사이클러뷰 아이템 클릭 시 발생하는 이벤트 -> 먹은 음식 수정 팝업 창을 띄움
         selected_index = position;
         Intent intent = new Intent(getContext(), PopupEatFoodEditActivity.class);
         intent.putExtra("food_code", arrayList.get(position).getFood_code());
@@ -146,7 +162,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         eatFoodEditResultLauncher.launch(intent);
     }
 
-    public void set_Food_list() {
+    public void set_Food_list() { //먹은 음식 리사이클러뷰에 먹은 음식 정보를 채우는 함수
         sum_kcal = 0;
         sum_carbs = 0;
         sum_protein = 0;
@@ -209,6 +225,19 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         queue.add(getEatfoodRequest);
     }
 
+    public void set_Nu_list(){
+        nutrientsArrayList.add(new Nutrients("칼로리", "kcal", sum_kcal, rec_kcal));
+        nutrientsArrayList.add(new Nutrients("탄수화물", "g", sum_carbs, rec_Max_carbs, rec_Min_carbs));
+        nutrientsArrayList.add(new Nutrients("단백질", "g", sum_protein, rec_Max_protein, rec_Min_protein));
+        nutrientsArrayList.add(new Nutrients("지방", "g", sum_fat, rec_Max_fat, rec_Min_fat));
+        nutrientsArrayList.add(new Nutrients("당류", "g", sum_sugars, rec_sugars));
+        nutrientsArrayList.add(new Nutrients("나트륨", "mg", sum_sodium, rec_sodium));
+        nutrientsArrayList.add(new Nutrients("콜레스테롤", "mg", sum_CH, rec_CH));
+        nutrientsArrayList.add(new Nutrients("포화지방", "g", sum_Sat_fat, rec_Sat_fat));
+        nutrientsArrayList.add(new Nutrients("트랜스지방", "g", sum_trans_fat, rec_trans_fat));
+        nuAdapter.notifyDataSetChanged();
+    }
+
     public void EatFoodDelete(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
         sum_kcal -= food_kcal;
         sum_carbs -= food_carbs;
@@ -241,8 +270,8 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         sum_CH += food_CH;
         sum_Sat_fat += food_Sat_fat;
         sum_trans_fat += food_trans_fat;
-        set_My_Nu_Val(); //삭제된 음식의 영양분 정보를 표에 반영
-    } //병경된 인분 값과 이전 인분 값을 통해 변경된 값 만큼 반영
+        set_My_Nu_Val();
+    }
 
     public void set_My_Nu_Val() { //영양분 정보를 표에 표시
         fragmentMainBinding.myKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));

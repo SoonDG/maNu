@@ -11,8 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 
 import com.example.my_first_project.R;
+import com.example.my_first_project.databinding.NuRecyclerviewItemBinding;
 import com.example.my_first_project.databinding.RecyclerviewItemBinding;
 
 import java.util.ArrayList;
@@ -38,7 +41,8 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull NuAdapter.ViewHolder holder, int position) {
         holder.nu_Title.setText(arrayList.get(position).getName());
         holder.nu_Amount.setText(arrayList.get(position).getAmount() + " / " + arrayList.get(position).getRec_Max_Amount());
-        holder.nu_ProgressBar.setProgress((int) (arrayList.get(position).getRec_Max_Amount() / arrayList.get(position).getAmount()));
+        if(arrayList.get(position).getAmount() != 0) holder.nu_ProgressBar.setProgress((int) (arrayList.get(position).getRec_Max_Amount() / arrayList.get(position).getAmount()));
+        else holder.nu_ProgressBar.setProgress(0);
     }
 
     @Override
@@ -51,9 +55,10 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
         protected ProgressBar nu_ProgressBar;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            nu_Title = itemView.findViewById(R.id.nu_Title);
-            nu_Amount = itemView.findViewById(R.id.nu_Amount);
-            nu_ProgressBar = itemView.findViewById(R.id.nu_ProgressBar);
+            NuRecyclerviewItemBinding itemBinding = NuRecyclerviewItemBinding.bind(itemView);
+            nu_Title = itemBinding.nuTitle;
+            nu_Amount = itemBinding.nuAmount;
+            nu_ProgressBar = itemBinding.nuProgressBar;
         }
     }
 

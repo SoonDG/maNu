@@ -4,7 +4,13 @@
     <color name="MyNuBlack">#212121</color>
     <color name="MyNuGray">#464646</color>
     <color name="MyNuMediumGray">#A6A6A6</color>
-    <color name="MyNuGreen">#006400</color>
-    <color name="MyNuMediumGreen">#3CB371</color>
     <color name="MyNuRed">#DB4455</color>
+    <color name="MyNuOrange">#FFA400</color>
+    <color name="MyNuYellow">#FFD400</color>
+    <color name="MyNuGreen">#006400</color>
+    <color name="MyNuPeagreen">#9DD84B</color>
+    <color name="MyNuSky">#79EDFF</color>
+    <color name="MyNuBlue">#0067A3</color>
+    <color name="MyNuIndigo">#11264F</color>
+    <color name="MyNuPurple">#8977AD</color>
 </resources>

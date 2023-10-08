@@ -92,7 +92,6 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
 
         if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
             fragmentMainBinding.myNuTitle.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.MyNuGray));
-            fragmentMainBinding.myNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_tablelayout_style));
         }
 
         cal_Recommend_Nu(); //권장 영양분 섭취량 계산
@@ -206,7 +205,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
                             sum_Sat_fat += food_Sat_fat;
                             sum_trans_fat += food_trans_fat;
                         }
-                        set_My_Nu_Val(); //영양분 합을 아래 표에 반영
+                        set_Nu_list(); //영양분 합을 아래 영양분 리스트에 반영
                         eatFoodAdapter.notifyDataSetChanged(); //리스트의 변경 내용을 리스트 뷰에 반영
                     } else if (success == 1) {
                         Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
@@ -226,6 +225,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
     }
 
     public void set_Nu_list(){
+        nutrientsArrayList.clear();
         nutrientsArrayList.add(new Nutrients("칼로리", "kcal", sum_kcal, rec_kcal));
         nutrientsArrayList.add(new Nutrients("탄수화물", "g", sum_carbs, rec_Max_carbs, rec_Min_carbs));
         nutrientsArrayList.add(new Nutrients("단백질", "g", sum_protein, rec_Max_protein, rec_Min_protein));
@@ -257,7 +257,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         if (sum_CH < 0) sum_CH = 0;
         if (sum_Sat_fat < 0) sum_Sat_fat = 0;
         if (sum_trans_fat < 0) sum_trans_fat = 0;
-        set_My_Nu_Val(); //삭제된 음식의 영양분 정보를 표에 반영
+        set_Nu_list(); //삭제된 음식의 영양분 정보를 아래 영양분 리스트에 반영
     } //먹은 음식을 클릭하여 삭제했을 때 실행되는 메소드.
 
     public void EatFoodAdd(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
@@ -270,128 +270,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         sum_CH += food_CH;
         sum_Sat_fat += food_Sat_fat;
         sum_trans_fat += food_trans_fat;
-        set_My_Nu_Val();
-    }
-
-    public void set_My_Nu_Val() { //영양분 정보를 표에 표시
-        fragmentMainBinding.myKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
-        fragmentMainBinding.myCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
-        fragmentMainBinding.myProteinVal.setText(String.format("%.2f(g)", sum_protein));
-        fragmentMainBinding.myFatVal.setText(String.format("%.2f(g)", sum_fat));
-        fragmentMainBinding.mySugarsVal.setText(String.format("%.2f(g)", sum_sugars));
-        fragmentMainBinding.mySodiumVal.setText(String.format("%.2f(mg)", sum_sodium));
-        fragmentMainBinding.myCHVal.setText(String.format("%.2f(mg)", sum_CH));
-        fragmentMainBinding.mySatFatVal.setText(String.format("%.2f(g)", sum_Sat_fat));
-        fragmentMainBinding.myTransFatVal.setText(String.format("%.2f(g)", sum_trans_fat));
-        check_Nu();
-    }
-
-    public void check_Nu() { //영양분을 적절히 섭취 했는지 확인
-        if(sum_kcal < rec_kcal){
-            fragmentMainBinding.myKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMainBinding.myKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMainBinding.myKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        if(sum_carbs < rec_Min_carbs || sum_carbs > rec_Max_carbs){
-            fragmentMainBinding.myCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMainBinding.myCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMainBinding.myCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        if(sum_protein < rec_Min_protein || sum_protein > rec_Max_protein){
-            fragmentMainBinding.myProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMainBinding.myProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMainBinding.myProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        if(sum_fat < rec_Min_fat || sum_fat > rec_Max_fat){
-            fragmentMainBinding.myFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMainBinding.myFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMainBinding.myFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        if(sum_sugars > rec_sugars){
-            fragmentMainBinding.mySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMainBinding.mySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMainBinding.mySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        if(sum_sodium > rec_sodium){
-            fragmentMainBinding.mySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMainBinding.mySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMainBinding.mySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        if(sum_CH > rec_CH){
-            fragmentMainBinding.myCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMainBinding.myCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-            fragmentMainBinding.myCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        if(sum_Sat_fat > rec_Sat_fat){
-            fragmentMainBinding.mySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMainBinding.mySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            } else {
-                fragmentMainBinding.mySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        if(sum_trans_fat > rec_trans_fat){
-            fragmentMainBinding.myTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMainBinding.myTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            } else {
-                fragmentMainBinding.myTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
+        set_Nu_list(); //변경된 음식의 영양분 정보를 아래 영양분 리스트에 반영
     }
 
     public void cal_Recommend_Nu(){ //권장 영양분 섭취량 계산
@@ -445,19 +324,5 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         }
 
         rec_trans_fat = rec_kcal * 0.01 / 9; //트랜스지방의 권장 섭취량은 권장 섭취 칼로리 * 권장 트랜스 지방 비율(1%) / 9g
-        set_Tooltips();
-    }
-    public void set_Tooltips() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            fragmentMainBinding.myKcalLable.setTooltipText("권장 칼로리는 " + rec_kcal + "(kcal) 입니다.");
-            fragmentMainBinding.myCarbsLable.setTooltipText("탄수화물의 권장 섭취량은 " + rec_Min_carbs + "(g) ~ " + rec_Max_carbs + "(g) 입니다.");
-            fragmentMainBinding.myProteinLable.setTooltipText("단백질의 권장 섭취량은 " + rec_Min_protein + "(g) ~ " + rec_Max_protein + "(g) 입니다.");
-            fragmentMainBinding.myFatLable.setTooltipText("지방의 권장 섭취량은 " + rec_Min_fat + "(g) ~ " + rec_Max_fat + "(g) 입니다.");
-            fragmentMainBinding.mySugarsLable.setTooltipText("당류의 권장 섭취량은 " + rec_sugars + "(g) 입니다.");
-            fragmentMainBinding.mySodiumLable.setTooltipText("나트륨의 권장 섭취량은 " + rec_sodium + "(mg) 입니다.");
-            fragmentMainBinding.myCHLable.setTooltipText("콜레스테롤의 권장 섭취량은" + rec_CH + "(mg) 입니다.");
-            fragmentMainBinding.mySatFatLable.setTooltipText("포화지방의 권장 섭취량은 " + rec_Sat_fat + "(g) 입니다.");
-            fragmentMainBinding.myTransFatLable.setTooltipText("트랜스지방의 권장 섭취량은 " + rec_trans_fat + "(g) 입니다.");
-        }
     }
 }

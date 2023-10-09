@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Handler;
 import android.view.Gravity;
@@ -41,13 +42,17 @@ import java.util.Calendar;
 
 import Activity.PopupActivity.PopupDetailShowNuActivity;
 import Activity.PopupActivity.PopupSelecteDate;
+import Adapter.NuAdapter;
+import Model.Nutrients;
 import Request.GetEatFoodRequest;
 
 public class MyMonthNuFragment extends Fragment {
     private FragmentMyMonthNuBinding fragmentMyMonthNuBinding;
+    private ArrayList<Nutrients> arrayList;
+    private NuAdapter nuAdapter;
+    private LinearLayoutManager linearLayoutManager;
     private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0; //아래 영양분 표에 표시될 영양분 정보를 담는 변수
     private double rec_kcal = 0, rec_Max_carbs = 0, rec_Min_carbs = 0, rec_Max_protein = 0, rec_Min_protein = 0, rec_Max_fat = 0, rec_Min_fat = 0, rec_sugars = 0, rec_sodium = 0, rec_CH = 0, rec_Sat_fat = 0, rec_trans_fat = 0; //권장되는 영양분
-    private ArrayList<Integer> goodDay = new ArrayList<>(), badDay = new ArrayList<>(); //표시되는 날의 적정 영양분을 섭취한 날짜, 적정 영양분을 섭취하지 못한 날짜를 담는 리스트
     private int year = 0, month = 0, day = 0; //현재 표시 되는 년도, 월, 일
     private int cur_year = 0, cur_month = 0, cur_day = 0; //오늘 날짜
 
@@ -71,8 +76,16 @@ public class MyMonthNuFragment extends Fragment {
         fragmentMyMonthNuBinding = fragmentMyMonthNuBinding.inflate(inflater, container, false);
         View view = fragmentMyMonthNuBinding.getRoot();
 
+        fragmentMyMonthNuBinding.myMonthNuRecyclerView.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        fragmentMyMonthNuBinding.myMonthNuRecyclerView.setLayoutManager(linearLayoutManager);
+
+        arrayList = new ArrayList<>();
+        nuAdapter = new NuAdapter(arrayList);
+
+        fragmentMyMonthNuBinding.myMonthNuRecyclerView.setAdapter(nuAdapter);
+
         if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
-            fragmentMyMonthNuBinding.myMonthNuTable.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_tablelayout_style));
             fragmentMyMonthNuBinding.showDetailNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
         }
 
@@ -248,7 +261,6 @@ public class MyMonthNuFragment extends Fragment {
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == Activity.RESULT_OK){
                             set_display_Nu(day); //자세히 보기 화면에서 변경된 음식 정보와 관련하여 바뀐 영양분 정보를 다시 표시
-                            check_Nu(day); //변경된 영양분정보가 적합한지 확인
                         }
                     }
                 });
@@ -308,7 +320,8 @@ public class MyMonthNuFragment extends Fragment {
                             sum_Sat_fat += jsonObject.getDouble("food_Sat_fat") * serving;
                             sum_trans_fat += jsonObject.getDouble("food_trans_fat") * serving;
                         }
-                        set_My_Nu_Val(); //위에 값을 저장한 변수(sum_***)의 값을 통해 아래에 있는 영양분 표에 값을 표싯
+
+                        set_Nu_list(); //위에 값을 저장한 변수(sum_***)의 값을 통해 아래에 있는 영양분 리스트에 값을 표시
                     }
                     else if(success == 1){
                         Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
@@ -328,182 +341,23 @@ public class MyMonthNuFragment extends Fragment {
         queue.add(getEatfoodRequest);
     }
 
-    public void set_My_Nu_Val(){ //레이아웃 밑에 있는 영양분 표시를 수정하는 함수.
-        fragmentMyMonthNuBinding.monthMyKcalVal.setText(String.format("%.2f(kcal)", sum_kcal));
-        if(sum_kcal < rec_kcal){
-            fragmentMyMonthNuBinding.monthMyKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMyMonthNuBinding.monthMyKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMyMonthNuBinding.monthMyKcalVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        fragmentMyMonthNuBinding.monthMyCarbsVal.setText(String.format("%.2f(g)", sum_carbs));
-        if(sum_carbs > rec_Max_carbs || sum_carbs < rec_Min_carbs){
-            fragmentMyMonthNuBinding.monthMyCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMyMonthNuBinding.monthMyCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMyMonthNuBinding.monthMyCarbsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        fragmentMyMonthNuBinding.monthMyProteinVal.setText(String.format("%.2f(g)", sum_protein));
-        if(sum_protein > rec_Max_protein || sum_protein < rec_Min_protein){
-            fragmentMyMonthNuBinding.monthMyProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMyMonthNuBinding.monthMyProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMyMonthNuBinding.monthMyProteinVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        fragmentMyMonthNuBinding.monthMyFatVal.setText(String.format("%.2f(g)", sum_fat));
-        if(sum_fat > rec_Max_fat || sum_fat < rec_Min_fat){
-            fragmentMyMonthNuBinding.monthMyFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMyMonthNuBinding.monthMyFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMyMonthNuBinding.monthMyFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        fragmentMyMonthNuBinding.monthMySugarsVal.setText(String.format("%.2f(g)", sum_sugars));
-        if(sum_sugars > rec_sugars){
-            fragmentMyMonthNuBinding.monthMySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMyMonthNuBinding.monthMySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMyMonthNuBinding.monthMySugarsVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        fragmentMyMonthNuBinding.monthMySodiumVal.setText(String.format("%.2f(mg)", sum_sodium));
-        if(sum_sodium > rec_sodium){
-            fragmentMyMonthNuBinding.monthMySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMyMonthNuBinding.monthMySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMyMonthNuBinding.monthMySodiumVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        fragmentMyMonthNuBinding.monthMyCHVal.setText(String.format("%.2f(mg)", sum_CH));
-        if(sum_CH > rec_CH){
-            fragmentMyMonthNuBinding.monthMyCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMyMonthNuBinding.monthMyCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMyMonthNuBinding.monthMyCHVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        fragmentMyMonthNuBinding.monthMySatFatVal.setText(String.format("%.2f(g)", sum_Sat_fat));
-        if(sum_Sat_fat > rec_Sat_fat){
-            fragmentMyMonthNuBinding.monthMySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMyMonthNuBinding.monthMySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMyMonthNuBinding.monthMySatFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
-
-        fragmentMyMonthNuBinding.monthMyTransFatVal.setText(String.format("%.2f(g)", sum_trans_fat));
-        if(sum_trans_fat > rec_trans_fat){
-            fragmentMyMonthNuBinding.monthMyTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuRed));
-        }
-        else {
-            if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면4
-                fragmentMyMonthNuBinding.monthMyTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuWhite));
-            }
-            else {
-                fragmentMyMonthNuBinding.monthMyTransFatVal.setTextColor(ContextCompat.getColor(getContext(), R.color.MyNuBlack));
-            }
-        }
+    public void set_Nu_list(){
+        arrayList.clear();
+        arrayList.add(new Nutrients("칼로리", "kcal", sum_kcal, rec_kcal));
+        arrayList.add(new Nutrients("탄수화물", "g", sum_carbs, rec_Max_carbs, rec_Min_carbs));
+        arrayList.add(new Nutrients("단백질", "g", sum_protein, rec_Max_protein, rec_Min_protein));
+        arrayList.add(new Nutrients("지방", "g", sum_fat, rec_Max_fat, rec_Min_fat));
+        arrayList.add(new Nutrients("당류", "g", sum_sugars, rec_sugars));
+        arrayList.add(new Nutrients("나트륨", "mg", sum_sodium, rec_sodium));
+        arrayList.add(new Nutrients("콜레스테롤", "mg", sum_CH, rec_CH));
+        arrayList.add(new Nutrients("포화지방", "g", sum_Sat_fat, rec_Sat_fat));
+        arrayList.add(new Nutrients("트랜스지방", "g", sum_trans_fat, rec_trans_fat));
+        nuAdapter.notifyDataSetChanged();
     }
     ////////// 영양분 정보를 표시하는 함수들
 
     ////////// 각 날짜의 영양분 정보를 가져오는 함수
-    public void check_Nu(int check_day){ //표시되는 달의 각 날짜의 영양분 정보를 데이터 베이스에서 가져와서, 적합한 영양분 섭취했는지 확인
-        goodDay.remove(Integer.valueOf(check_day));
-        badDay.remove(Integer.valueOf(check_day));
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    int success = jsonArray.getJSONObject(0).getInt("success");
-                    if(success == 0) {
-                        TextView textView = textViews[check_day + first_day];
-                        int serving;
-                        double food_kcal = 0, food_carbs = 0, food_protein = 0, food_fat = 0, food_sugars = 0, food_sodium = 0, food_CH = 0, food_Sat_fat = 0, food_trans_fat = 0;
-                        for (int i = 1; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            serving = jsonObject.getInt("serving");
-                            food_kcal += jsonObject.getDouble("food_kcal") * serving;
-                            food_carbs += jsonObject.getDouble("food_carbs") * serving;
-                            food_protein += jsonObject.getDouble("food_protein") * serving;
-                            food_fat += jsonObject.getDouble("food_fat") * serving;
-                            food_sugars += jsonObject.getDouble("food_sugars") * serving;
-                            food_sodium += jsonObject.getDouble("food_sodium") * serving;
-                            food_CH += jsonObject.getDouble("food_CH") * serving;
-                            food_Sat_fat += jsonObject.getDouble("food_Sat_fat") * serving;
-                            food_trans_fat += jsonObject.getDouble("food_trans_fat") * serving;
-                        }
-
-                        //적정 영양분 섭취 검사
-                        if(check_Appropriate_Nu(food_kcal, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat)){
-                            goodDay.add(check_day); //표 내용 갱신
-                        }
-                        else {
-                            badDay.add(check_day); //표 내용 갱신
-                        }
-                        fragmentMyMonthNuBinding.goodDay.setText(String.valueOf(goodDay.size())); //아래 표에 적정 섭취 날짜 정보 표시
-                        fragmentMyMonthNuBinding.badDay.setText(String.valueOf(badDay.size()));
-                    }
-                    else if(success == 1){
-                        Toast.makeText(getContext(), "데이터 전송 실패", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(success == 2){
-                        Toast.makeText(getContext(), "sql문 실행 실패", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        GetEatFoodRequest getEatfoodRequest = new GetEatFoodRequest(sharedPreferences.getString("ID", null), year + "-" + month + "-" + check_day, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(getEatfoodRequest);
-    }
 
     //적정 영양분 섭취를 했는지 확인하는 함수
     public boolean check_Appropriate_Nu(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat){ //적정 영양분 섭취인지 검사하는 함수
@@ -615,7 +469,6 @@ public class MyMonthNuFragment extends Fragment {
                     }
 
                     textView.setClickable(true);
-                    check_Nu(textView_day - first_day); //해당 날의 영양분 정보를 확인하고 적합한지의 여부에 따라 배경 변경 및 레이아웃 아래의 정보 수정
                 }
                 else { //달력에 표시 안되는 칸일 경우
                     textView.setText(""); //날짜 지우기
@@ -643,12 +496,9 @@ public class MyMonthNuFragment extends Fragment {
         sum_CH = 0;
         sum_Sat_fat = 0;
         sum_trans_fat = 0;
-        set_My_Nu_Val(); //영양분 정보 모두 초기화
 
-        goodDay.clear(); //달의 적합한&적합하지 않은 영양분 섭취 날 정보를 초기화
-        badDay.clear();;
-        fragmentMyMonthNuBinding.goodDay.setText("0");
-        fragmentMyMonthNuBinding.badDay.setText("0");
+        arrayList.clear();
+        nuAdapter.notifyDataSetChanged(); //아래의 영양분 리스트 제거
     }
 
     public void return_display_click_date_to_default(){ //이전에 선택한 날짜의 표시(초록색)을 제거하는 함수

@@ -42,6 +42,7 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull NuAdapter.ViewHolder holder, int position) {
+        Context context = holder.itemView.getContext();
         holder.itemView.setBackgroundColor(itemViewBackgroundColors[position]);
         holder.nu_Title.setText(arrayList.get(position).getName());
         if(arrayList.get(position).getRec_Min_Amount() == 0.0) { //권장 최소치가 없다면 권장 최소치를 표시하지 않음.
@@ -50,9 +51,11 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
             holder.nu_ProgressBar.setProgress((int)percentage);
             if(percentage > 100){
                 holder.nu_Notice.setText("※권장 최대치 초과");
+                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuBlack));
             }
             else {
                 holder.nu_Notice.setText("※권장량 섭취 중");
+                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuWhite));
             }
         }
         else {
@@ -63,12 +66,15 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
             holder.nu_ProgressBar.setSecondaryProgress((int)MinPercentage); //권장 최소치를 프로그레스 바에 표시
             if(MaxPercentage > 100){ //권장 최대치를 넘었을 경우
                 holder.nu_Notice.setText("※권장 최대치 초과");
+                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuBlack));
             }
             else if(MinPercentage > MaxPercentage){ //권장 최소치를 못 넘었을 경우
                 holder.nu_Notice.setText("※권장 최소치 미달");
+                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuBlack));
             }
             else {
                 holder.nu_Notice.setText("※권장량 섭취 중");
+                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuWhite));
             }
         }
     }

@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,7 +42,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
         if((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
-            holder.itemView.setBackground(ContextCompat.getDrawable(context, R.drawable.night_textview_style));
+            holder.line.setImageResource(R.drawable.night_line);
         }
 
         holder.serving.setText(arrayList.get(position).getServing() + " 인분");
@@ -75,6 +76,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder {
        protected TextView serving, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
        protected String food_code;
+       protected ImageView line;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             RecyclerviewItemBinding itemBinding = RecyclerviewItemBinding.bind(itemView);
@@ -90,6 +92,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
             this.food_CH = itemBinding.foodCH;
             this.food_Sat_fat = itemBinding.foodSatFat;
             this.food_trans_fat = itemBinding.foodTransFat;
+            this.line = itemBinding.line;
         }
     }
 }

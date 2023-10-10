@@ -86,7 +86,7 @@ public class MyMonthNuFragment extends Fragment {
         fragmentMyMonthNuBinding.myMonthNuRecyclerView.setAdapter(nuAdapter);
 
         if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
-            fragmentMyMonthNuBinding.showDetailNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
+            fragmentMyMonthNuBinding.showEatFoodBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
         }
 
         cal_Recommend_Nu(); //권장 영양분 섭취량 계산
@@ -265,7 +265,7 @@ public class MyMonthNuFragment extends Fragment {
                     }
                 });
 
-        fragmentMyMonthNuBinding.showDetailNuBtn.setOnClickListener(new View.OnClickListener() {
+        fragmentMyMonthNuBinding.showEatFoodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //그 날의 먹은 음식을 보여주는 팝업 창 띄우기

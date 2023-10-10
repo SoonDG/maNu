@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,7 +26,6 @@ import Model.Nutrients;
 
 public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
     private ArrayList<Nutrients> arrayList;
-    private int [] itemViewBackgroundColors;
     public NuAdapter(ArrayList<Nutrients> arrayList){
         this.arrayList = arrayList;
     }
@@ -34,7 +34,6 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
     @Override
     public NuAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        itemViewBackgroundColors = new int[]{ContextCompat.getColor(context, R.color.MyNuRed), ContextCompat.getColor(context, R.color.MyNuOrange), ContextCompat.getColor(context, R.color.MyNuYellow), ContextCompat.getColor(context, R.color.MyNuPeagreen), ContextCompat.getColor(context, R.color.MyNuGreen), ContextCompat.getColor(context, R.color.MyNuSky), ContextCompat.getColor(context, R.color.MyNuBlue), ContextCompat.getColor(context, R.color.MyNuIndigo), ContextCompat.getColor(context, R.color.MyNuPurple)};
         View view = LayoutInflater.from(context).inflate(R.layout.nu_recyclerview_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -43,7 +42,12 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull NuAdapter.ViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
-        holder.itemView.setBackgroundColor(itemViewBackgroundColors[position]);
+
+        if((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면
+            holder.nu_ProgressBar.setProgressBackgroundTintList(ContextCompat.getColorStateList(context, R.color.MyNuMediumGray));
+            holder.nu_Line.setImageResource(R.drawable.night_line);
+        }
+
         holder.nu_Title.setText(arrayList.get(position).getName());
         if(arrayList.get(position).getRec_Min_Amount() == 0.0) { //권장 최소치가 없다면 권장 최소치를 표시하지 않음.
             holder.nu_Amount.setText(String.format("%.2f", arrayList.get(position).getAmount()) + " / " + String.format("%.2f", arrayList.get(position).getRec_Max_Amount()) + arrayList.get(position).getUnit());
@@ -51,11 +55,11 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
             holder.nu_ProgressBar.setProgress((int)percentage);
             if(percentage > 100){
                 holder.nu_Notice.setText("※권장 최대치 초과");
-                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuBlack));
+                holder.nu_Notice.setTextColor(ContextCompat.getColor(context, R.color.MyNuRed));
+                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuRed));
             }
             else {
                 holder.nu_Notice.setText("※권장량 섭취 중");
-                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuWhite));
             }
         }
         else {
@@ -66,15 +70,16 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
             holder.nu_ProgressBar.setSecondaryProgress((int)MinPercentage); //권장 최소치를 프로그레스 바에 표시
             if(MaxPercentage > 100){ //권장 최대치를 넘었을 경우
                 holder.nu_Notice.setText("※권장 최대치 초과");
-                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuBlack));
+                holder.nu_Notice.setTextColor(ContextCompat.getColor(context, R.color.MyNuRed));
+                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuRed));
             }
             else if(MinPercentage > MaxPercentage){ //권장 최소치를 못 넘었을 경우
                 holder.nu_Notice.setText("※권장 최소치 미달");
-                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuBlack));
+                holder.nu_Notice.setTextColor(ContextCompat.getColor(context, R.color.MyNuRed));
+                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuRed));
             }
             else {
                 holder.nu_Notice.setText("※권장량 섭취 중");
-                holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuWhite));
             }
         }
     }
@@ -87,6 +92,7 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder{
         protected TextView nu_Title, nu_Notice, nu_Amount;
         protected ProgressBar nu_ProgressBar;
+        protected ImageView nu_Line;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             NuRecyclerviewItemBinding itemBinding = NuRecyclerviewItemBinding.bind(itemView);
@@ -94,6 +100,7 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
             nu_Notice = itemBinding.nuNotice;
             nu_Amount = itemBinding.nuAmount;
             nu_ProgressBar = itemBinding.nuProgressBar;
+            nu_Line = itemBinding.nuLine;
         }
     }
 

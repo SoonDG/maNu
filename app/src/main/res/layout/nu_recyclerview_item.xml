@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/nu_recyclerview_item_style">
@@ -13,7 +14,6 @@
         android:layout_marginTop="20dp"
         android:text="TextView"
         android:textSize="30sp"
-        android:textColor="@color/MyNuWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:textSize="20sp"
-        android:textColor="@color/MyNuWhite"
         app:layout_constraintStart_toEndOf="@+id/nu_Title"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +35,6 @@
         android:layout_marginTop="20dp"
         android:text="TextView"
         android:textSize="20sp"
-        android:textColor="@color/MyNuWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nu_Title" />
 
@@ -48,10 +46,21 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
-        android:scaleY="7"
-        android:progressTint="@color/MyNuWhite"
+        android:progressBackgroundTint="@color/MyNuGray"
+        android:progressTint="@color/MyNuBlue"
+        android:scaleY="5"
+        android:secondaryProgressTint="@color/MyNuRed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nu_Amount" />
+
+    <ImageView
+        android:id="@+id/nu_Line"
+        android:layout_width="375dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/line" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

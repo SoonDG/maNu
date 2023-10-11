@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Activity.RegisterSecondActivity">
+    tools:context="Fragment.RegisterSecondFragment">
 
     <TextView
         android:id="@+id/register_Second_Title"

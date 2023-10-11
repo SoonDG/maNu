@@ -19,9 +19,6 @@
             android:name="Activity.PopupActivity.PopupDeleteProfile"
             android:exported="false" />
         <activity
-            android:name="Activity.RegisterSecondActivity"
-            android:exported="false" />
-        <activity
             android:name="Activity.PopupActivity.PopupCheckResetEatFoodActivity"
             android:exported="false"
             android:theme="@style/DialogTheme" />

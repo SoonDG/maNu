@@ -51,7 +51,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
     private ArrayList<Nutrients> nutrientsArrayList;
     private ActivityResultLauncher<Intent> eatFoodEditResultLauncher;
     ;
-    private int selected_index;
+    private int selected_index; //먹은 음식 수정 시 선택된 음식의 index 정보
 
     //오늘 유저가 먹은 음식의 영양분의 합을 저장할 변수들
     private double sum_kcal = 0, sum_carbs = 0, sum_protein = 0, sum_fat = 0, sum_sugars = 0, sum_sodium = 0, sum_CH = 0, sum_Sat_fat = 0, sum_trans_fat = 0; //오늘 먹은 영양분 총합
@@ -102,38 +102,20 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
+                        Food food = arrayList.get(selected_index);
                         if (result.getResultCode() == 1) { //먹은 음식 수정
-                            Food food = arrayList.get(selected_index);
                             int serving = result.getData().getIntExtra("serving", -1); //변경된 인분 정보
                             int pre_serving = food.getServing(); //변경되기 전의 인분 정보
 
                             if (serving == -1) { //오류 발생, 예외 처리 필요
 
                             } else {
-                                EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
-
-                                food.setServing(serving);
-                                food.setFood_size(food.getFood_size() / pre_serving * serving);
-                                food.setFood_kcal(food.getFood_kcal() / pre_serving * serving);
-                                food.setFood_carbs(food.getFood_carbs() / pre_serving * serving);
-                                food.setFood_protein(food.getFood_protein() / pre_serving * serving);
-                                food.setFood_fat(food.getFood_fat() / pre_serving * serving);
-                                food.setFood_sugars(food.getFood_sugars() / pre_serving * serving);
-                                food.setFood_sodium(food.getFood_sodium() / pre_serving * serving);
-                                food.setFood_CH(food.getFood_CH() / pre_serving * serving);
-                                food.setFood_Sat_fat(food.getFood_Sat_fat() / pre_serving * serving);
-                                food.setFood_trans_fat(food.getFood_trans_fat() / pre_serving * serving);
-                                //arrayList의 음식 정보를 수정
-
-                                EatFoodAdd(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
-
-                                arrayList.set(selected_index, food);
-                                eatFoodAdapter.notifyItemChanged(selected_index);
+                                EatFoodEdit(food, serving, pre_serving); //아래의 영양분 리스트에 변경된 영양분 반영
+                                arrayList.set(selected_index, food); //arrayList에서 변경된 음식정보 갱신
+                                eatFoodAdapter.notifyItemChanged(selected_index); //RecyclerView에 변경된 음식 정보 반영
                             }
                         } else if (result.getResultCode() == 2) { //먹은 음식 삭제
-                            Food food = arrayList.get(selected_index); //삭제된 음식 정보를 가져와서
-                            EatFoodDelete(food.getFood_kcal(), food.getFood_carbs(), food.getFood_protein(), food.getFood_fat(), food.getFood_sugars(), food.getFood_sodium(), food.getFood_CH(), food.getFood_Sat_fat(), food.getFood_trans_fat());
-                            //아래의 영야분 표에서 삭제된 음식의 영양분 정보를 제거
+                            EatFoodDelete(food); //아래의 영양분 리스트에서 삭제된 음식의 영양분 정보를 제거
                             arrayList.remove(selected_index); //arrayList에서 삭제한 음식정보 제거
                             eatFoodAdapter.notifyItemRemoved(selected_index); //RecyclerView에 삭제된 음식 정보 반영
                         }
@@ -152,7 +134,7 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
 
     @Override
     public void onItemClick(View v, int position) { //먹은 음식 리사이클러뷰 아이템 클릭 시 발생하는 이벤트 -> 먹은 음식 수정 팝업 창을 띄움
-        selected_index = position;
+        selected_index = position; //먹은 음식 중 클릭한 음식의 index 정보
         Intent intent = new Intent(getContext(), PopupEatFoodEditActivity.class);
         intent.putExtra("food_code", arrayList.get(position).getFood_code());
         intent.putExtra("eat_date", "");
@@ -238,16 +220,16 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         nuAdapter.notifyDataSetChanged();
     }
 
-    public void EatFoodDelete(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
-        sum_kcal -= food_kcal;
-        sum_carbs -= food_carbs;
-        sum_protein -= food_protein;
-        sum_fat -= food_fat;
-        sum_sugars -= food_sugars;
-        sum_sodium -= food_sodium;
-        sum_CH -= food_CH;
-        sum_Sat_fat -= food_Sat_fat;
-        sum_trans_fat -= food_trans_fat;
+    public void EatFoodDelete(Food food) {
+        sum_kcal -= food.getFood_kcal();
+        sum_carbs -= food.getFood_carbs();
+        sum_protein -= food.getFood_protein();
+        sum_fat -= food.getFood_fat();
+        sum_sugars -= food.getFood_sugars();
+        sum_sodium -= food.getFood_sodium();
+        sum_CH -= food.getFood_CH();
+        sum_Sat_fat -= food.getFood_Sat_fat();
+        sum_trans_fat -= food.getFood_trans_fat();
         if (sum_kcal < 0) sum_kcal = 0;
         if (sum_carbs < 0) sum_carbs = 0;
         if (sum_protein < 0) sum_protein = 0;
@@ -257,19 +239,35 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         if (sum_CH < 0) sum_CH = 0;
         if (sum_Sat_fat < 0) sum_Sat_fat = 0;
         if (sum_trans_fat < 0) sum_trans_fat = 0;
+
         set_Nu_list(); //삭제된 음식의 영양분 정보를 아래 영양분 리스트에 반영
     } //먹은 음식을 클릭하여 삭제했을 때 실행되는 메소드.
 
-    public void EatFoodAdd(double food_kcal, double food_carbs, double food_protein, double food_fat, double food_sugars, double food_sodium, double food_CH, double food_Sat_fat, double food_trans_fat) {
-        sum_kcal += food_kcal;
-        sum_carbs += food_carbs;
-        sum_protein += food_protein;
-        sum_fat += food_fat;
-        sum_sugars += food_sugars;
-        sum_sodium += food_sodium;
-        sum_CH += food_CH;
-        sum_Sat_fat += food_Sat_fat;
-        sum_trans_fat += food_trans_fat;
+    public void EatFoodEdit(Food food, int serving, int pre_serving) {
+        EatFoodDelete(food);
+
+        food.setServing(serving);
+        food.setFood_size(food.getFood_size() / pre_serving * serving);
+        food.setFood_kcal(food.getFood_kcal() / pre_serving * serving);
+        food.setFood_carbs(food.getFood_carbs() / pre_serving * serving);
+        food.setFood_protein(food.getFood_protein() / pre_serving * serving);
+        food.setFood_fat(food.getFood_fat() / pre_serving * serving);
+        food.setFood_sugars(food.getFood_sugars() / pre_serving * serving);
+        food.setFood_sodium(food.getFood_sodium() / pre_serving * serving);
+        food.setFood_CH(food.getFood_CH() / pre_serving * serving);
+        food.setFood_Sat_fat(food.getFood_Sat_fat() / pre_serving * serving);
+        food.setFood_trans_fat(food.getFood_trans_fat() / pre_serving * serving);
+
+        sum_kcal += food.getFood_kcal();
+        sum_carbs += food.getFood_carbs();
+        sum_protein += food.getFood_protein();
+        sum_fat += food.getFood_fat();
+        sum_sugars += food.getFood_sugars();
+        sum_sodium += food.getFood_sodium();
+        sum_CH += food.getFood_CH();
+        sum_Sat_fat += food.getFood_Sat_fat();
+        sum_trans_fat += food.getFood_trans_fat();
+
         set_Nu_list(); //변경된 음식의 영양분 정보를 아래 영양분 리스트에 반영
     }
 

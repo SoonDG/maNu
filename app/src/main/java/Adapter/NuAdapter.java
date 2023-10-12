@@ -46,7 +46,12 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
         if((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) { //나이트 모드라면
             holder.nu_ProgressBar.setProgressBackgroundTintList(ContextCompat.getColorStateList(context, R.color.MyNuMediumGray));
             holder.nu_Line.setImageResource(R.drawable.night_line);
+            holder.nu_Notice.setTextColor(ContextCompat.getColor(context, R.color.MyNuWhite));
         }
+        else{
+            holder.nu_Notice.setTextColor(ContextCompat.getColor(context, R.color.MyNuBlack));
+        }
+        holder.nu_ProgressBar.setProgressTintList(ContextCompat.getColorStateList(context, R.color.MyNuBlue));
 
         holder.nu_Title.setText(arrayList.get(position).getName());
         if(arrayList.get(position).getRec_Min_Amount() == 0.0) { //권장 최소치가 없다면 권장 최소치를 표시하지 않음.

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.my_first_project.R;
@@ -46,18 +45,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
         }
 
         holder.serving.setText(arrayList.get(position).getServing() + " 인분");
-        holder.food_code = arrayList.get(position).getFood_code();
         holder.food_name.setText(arrayList.get(position).getFood_name());
         holder.food_kcal.setText(arrayList.get(position).getFood_kcal() + "(kcal)");
         holder.food_size.setText(arrayList.get(position).getFood_size() + "(g)");
         holder.food_carbs.setText(arrayList.get(position).getFood_carbs() + "(g)");
         holder.food_protein.setText(arrayList.get(position).getFood_protein() + "(g)");
         holder.food_fat.setText(arrayList.get(position).getFood_fat() + "(g)");
-        holder.food_sugars.setText(arrayList.get(position).getFood_sugars() + "(g)");
-        holder.food_sodium.setText(arrayList.get(position).getFood_sodium() + "(mg)");
-        holder.food_CH.setText(arrayList.get(position).getFood_CH() + "(mg)");
-        holder.food_Sat_fat.setText(arrayList.get(position).getFood_Sat_fat() + "(g)");
-        holder.food_trans_fat.setText(arrayList.get(position).getFood_trans_fat() + "(g)");
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -74,8 +67,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-       protected TextView serving, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
-       protected String food_code;
+       protected TextView serving, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat;
        protected ImageView line;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -87,11 +79,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
             this.food_carbs = itemBinding.foodCarbs;
             this.food_protein = itemBinding.foodProtein;
             this.food_fat = itemBinding.foodFat;
-            this.food_sugars = itemBinding.foodSugars;
-            this.food_sodium = itemBinding.foodSodium;
-            this.food_CH = itemBinding.foodCH;
-            this.food_Sat_fat = itemBinding.foodSatFat;
-            this.food_trans_fat = itemBinding.foodTransFat;
             this.line = itemBinding.line;
         }
     }

@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ import Request.EditEatFoodRequest;
 
 public class PopupEatFoodEditActivity extends AppCompatActivity {
     private ActivityPopupEatFoodEditBinding popupEatFoodEditBinding;
+    private int serving;
+    private double food_kcal, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +62,20 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
         String food_code = intent.getStringExtra("food_code");
         String eat_date = intent.getStringExtra("eat_date");
         String food_name = intent.getStringExtra("food_name");
-        int serving = intent.getIntExtra("serving", -1);
 
         popupEatFoodEditBinding.editFoodName.setText(food_name);
+
+        serving = intent.getIntExtra("serving", -1);
+        food_kcal = intent.getDoubleExtra("food_kcal", 0);
+        food_carbs = intent.getDoubleExtra("food_carbs", 0);
+        food_protein = intent.getDoubleExtra("food_protein", 0);
+        food_fat = intent.getDoubleExtra("food_fat", 0);
+        food_sugars = intent.getDoubleExtra("food_sugars", 0);
+        food_sodium = intent.getDoubleExtra("food_sodium", 0);
+        food_CH = intent.getDoubleExtra("food_CH", 0);
+        food_Sat_fat = intent.getDoubleExtra("food_Sat_fat", 0);
+        food_trans_fat = intent.getDoubleExtra("food_trans_fat", 0);
+        set_Nu(serving); //현재 인분에 대한 먹은 음식의 영양분을 표시
 
         if(serving == -1){
             Toast.makeText(getApplicationContext(), "데이터 전송 오류 발생", Toast.LENGTH_SHORT).show();
@@ -71,6 +85,18 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
         popupEatFoodEditBinding.eatFoodServingSpinner.setAdapter(servingAdapter);
 
         popupEatFoodEditBinding.eatFoodServingSpinner.setSelection(serving - 1); //이전 serving값이 default 값
+
+        popupEatFoodEditBinding.eatFoodServingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                set_Nu(Integer.parseInt(popupEatFoodEditBinding.eatFoodServingSpinner.getSelectedItem().toString()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         popupEatFoodEditBinding.eatFoodEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,5 +170,18 @@ public class PopupEatFoodEditActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void set_Nu(int selecte_serving){ //먹은 음식의 경우 인분값에 따른 영양분 정보가 들어있으므로 1인분 영양분을 계산하기 위해 먼저 기존의 인분 정보로 나눈 후 변경된 인분 정보에 대한 영양분 표시
+        popupEatFoodEditBinding.eatFoodEditKcal.setText("칼로리 : " + String.format("%.2f", food_kcal / serving * selecte_serving) + " (kcal)");
+        popupEatFoodEditBinding.eatFoodEditCarbs.setText("탄수화물 : " + String.format("%.2f", food_carbs / serving* selecte_serving) + " (g)");
+        popupEatFoodEditBinding.eatFoodEditProtein.setText("단백질 : " + String.format("%.2f", food_protein / serving* selecte_serving) + " (g)");
+        popupEatFoodEditBinding.eatFoodEditFat.setText("지방 : " + String.format("%.2f", food_fat / serving * selecte_serving) + " (g)");
+        popupEatFoodEditBinding.eatFoodEditSugars.setText("당분 : " + String.format("%.2f", food_sugars / serving * selecte_serving) + " (g)");
+        popupEatFoodEditBinding.eatFoodEditSodium.setText("나트륨 : " + String.format("%.2f", food_sodium / serving * selecte_serving) + " (mg)");
+        popupEatFoodEditBinding.eatFoodEditCH.setText("콜레스테롤 : " + String.format("%.2f", food_CH / serving * selecte_serving) + " (mg)");
+        popupEatFoodEditBinding.eatFoodEditSatFat.setText("포화지방 : " + String.format("%.2f", food_Sat_fat / serving * selecte_serving) + " (g)");
+        popupEatFoodEditBinding.eatFoodEditTransFat.setText("트랜스지방 : " + String.format("%.2f", food_trans_fat / serving * selecte_serving) + " (g)");
+
     }
 }

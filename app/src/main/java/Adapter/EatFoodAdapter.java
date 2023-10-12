@@ -48,18 +48,12 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
         }
 
         holder.serving.setText(arrayList.get(position).getServing() + " 인분");
-        holder.food_code = arrayList.get(position).getFood_code();
         holder.food_name.setText(arrayList.get(position).getFood_name());
         holder.food_kcal.setText(String.format("%.2f(kcal)", arrayList.get(position).getFood_kcal()));
         holder.food_size.setText(arrayList.get(position).getFood_size() + "(g)");
         holder.food_carbs.setText(String.format("%.2f(g)", arrayList.get(position).getFood_carbs()));
         holder.food_protein.setText(String.format("%.2f(g)", arrayList.get(position).getFood_protein()));
         holder.food_fat.setText(String.format("%.2f(g)", arrayList.get(position).getFood_fat()));
-        holder.food_sugars.setText(String.format("%.2f(g)", arrayList.get(position).getFood_sugars()));
-        holder.food_sodium.setText(String.format("%.2f(mg)", arrayList.get(position).getFood_sodium()));
-        holder.food_CH.setText(String.format("%.2f(mg)", arrayList.get(position).getFood_CH()));
-        holder.food_Sat_fat.setText(String.format("%.2f(g)", arrayList.get(position).getFood_Sat_fat()));
-        holder.food_trans_fat.setText(String.format("%.2f(g)", arrayList.get(position).getFood_trans_fat()));
 
         holder.itemView.setTag(position);
 
@@ -77,13 +71,11 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        protected TextView serving, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat, food_sugars, food_sodium, food_CH, food_Sat_fat, food_trans_fat;
-        protected String food_code;
+        protected TextView serving, food_name, food_kcal, food_size, food_carbs, food_protein, food_fat;
         protected ImageView line;
-        protected RecyclerviewItemBinding itemBinding;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            itemBinding = RecyclerviewItemBinding.bind(itemView);
+            RecyclerviewItemBinding itemBinding = RecyclerviewItemBinding.bind(itemView);
             this.serving = itemBinding.serving;
             this.food_name = itemBinding.foodName;
             this.food_kcal = itemBinding.foodKcal;
@@ -91,11 +83,6 @@ public class EatFoodAdapter extends RecyclerView.Adapter<EatFoodAdapter.ViewHold
             this.food_carbs = itemBinding.foodCarbs;
             this.food_protein = itemBinding.foodProtein;
             this.food_fat = itemBinding.foodFat;
-            this.food_sugars = itemBinding.foodSugars;
-            this.food_sodium = itemBinding.foodSodium;
-            this.food_CH = itemBinding.foodCH;
-            this.food_Sat_fat = itemBinding.foodSatFat;
-            this.food_trans_fat = itemBinding.foodTransFat;
             this.line = itemBinding.line;
         }
     }

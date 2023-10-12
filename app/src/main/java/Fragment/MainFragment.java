@@ -140,6 +140,16 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
         intent.putExtra("eat_date", "");
         intent.putExtra("food_name", arrayList.get(position).getFood_name());
         intent.putExtra("serving", arrayList.get(position).getServing());
+
+        intent.putExtra("food_kcal", arrayList.get(position).getFood_kcal());
+        intent.putExtra("food_carbs", arrayList.get(position).getFood_carbs());
+        intent.putExtra("food_protein", arrayList.get(position).getFood_protein());
+        intent.putExtra("food_fat", arrayList.get(position).getFood_fat());
+        intent.putExtra("food_sugars", arrayList.get(position).getFood_sugars());
+        intent.putExtra("food_sodium", arrayList.get(position).getFood_sodium());
+        intent.putExtra("food_CH", arrayList.get(position).getFood_CH());
+        intent.putExtra("food_Sat_fat", arrayList.get(position).getFood_Sat_fat());
+        intent.putExtra("food_trans_fat", arrayList.get(position).getFood_trans_fat());
         eatFoodEditResultLauncher.launch(intent);
     }
 

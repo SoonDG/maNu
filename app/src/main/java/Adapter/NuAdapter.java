@@ -55,7 +55,7 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
 
         holder.nu_Title.setText(arrayList.get(position).getName());
         if(arrayList.get(position).getRec_Min_Amount() == 0.0) { //권장 최소치가 없다면 권장 최소치를 표시하지 않음.
-            holder.nu_Amount.setText(String.format("%.2f", arrayList.get(position).getAmount()) + " / " + String.format("%.2f", arrayList.get(position).getRec_Max_Amount()) + arrayList.get(position).getUnit());
+            holder.nu_Amount.setText(String.format("%.2f", arrayList.get(position).getAmount()) + " / " + String.format("%.2f", arrayList.get(position).getRec_Max_Amount()) + " (" + arrayList.get(position).getUnit() + ")");
             double percentage = arrayList.get(position).getAmount() / arrayList.get(position).getRec_Max_Amount() * 100;
             holder.nu_ProgressBar.setProgress((int)percentage);
             if(percentage > 100){
@@ -68,7 +68,7 @@ public class NuAdapter extends RecyclerView.Adapter<NuAdapter.ViewHolder>{
             }
         }
         else {
-            holder.nu_Amount.setText(String.format("%.2f", arrayList.get(position).getRec_Min_Amount()) + " / " + String.format("%.2f", arrayList.get(position).getAmount()) + " / " + String.format("%.2f", arrayList.get(position).getRec_Max_Amount()) + arrayList.get(position).getUnit());
+            holder.nu_Amount.setText(String.format("%.2f", arrayList.get(position).getRec_Min_Amount()) + " / " + String.format("%.2f", arrayList.get(position).getAmount()) + " / " + String.format("%.2f", arrayList.get(position).getRec_Max_Amount()) + " (" + arrayList.get(position).getUnit() + ")");
             double MaxPercentage = arrayList.get(position).getAmount() / arrayList.get(position).getRec_Max_Amount() * 100;
             double MinPercentage = arrayList.get(position).getRec_Min_Amount() / arrayList.get(position).getRec_Max_Amount() * 100;
             holder.nu_ProgressBar.setProgress((int)MaxPercentage); //권장 최대치에 대한 현재 먹은 영양분 백분율 값을 프로그레스 바에 표시

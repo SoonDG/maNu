@@ -13,4 +13,6 @@
     <color name="MyNuBlue">#0067A3</color>
     <color name="MyNuIndigo">#11264F</color>
     <color name="MyNuPurple">#8977AD</color>
+
+    <color name="Transparency">#00ff0000</color>
 </resources>

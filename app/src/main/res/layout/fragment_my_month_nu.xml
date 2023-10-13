@@ -112,7 +112,6 @@
                 android:layout_below="@id/calendar_View"
                 android:background="@drawable/button_style"
                 android:text="먹은 음식 보기"
-                android:textColor="@color/MyNuWhite"
                 android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView

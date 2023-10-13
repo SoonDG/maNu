@@ -55,4 +55,14 @@ public class RegisterActivity extends AppCompatActivity{
         registerFragment = new RegisterFragment();
         fragmentManager.beginTransaction().replace(R.id.register_Frame_Layout, registerFragment).commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        if(fragmentManager.getFragments().get(0) == registerFragment){
+            super.onBackPressed();
+        }
+        else {
+            fragmentManager.beginTransaction().replace(R.id.register_Frame_Layout, registerFragment).commit();
+        }
+    }
 }

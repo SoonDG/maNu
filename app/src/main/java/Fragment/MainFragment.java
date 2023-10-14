@@ -1,5 +1,7 @@
 package Fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -91,9 +93,29 @@ public class MainFragment extends Fragment implements ListItemClickInterface {
 
 
         if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
-            fragmentMainBinding.myNuTitle.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.MyNuGray));
+            fragmentMainBinding.mainHideNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
         }
 
+        fragmentMainBinding.mainHideNuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(fragmentMainBinding.mainNuRecyclerView.getVisibility() == View.GONE) { //영양분 리스트가 숨겨져 있다면
+                    fragmentMainBinding.mainNuRecyclerView.setAlpha(0.0f);
+                    fragmentMainBinding.mainNuRecyclerView.setVisibility(View.VISIBLE);
+                    fragmentMainBinding.mainNuRecyclerView.animate().alpha(1f).setDuration(300).setListener(null); //0.3초 동안 애니메이션 효과와 함께 영양분 리스트 표시
+                    fragmentMainBinding.mainHideNuBtn.setText("영양분 정보 숨기기"); // 다음 번 클릭 시 영양분 리스트가 숨겨진다는 것을 텍스트에 표시
+                }
+                else { //영양분 리스트가 표시되고 있다면
+                    fragmentMainBinding.mainNuRecyclerView.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            fragmentMainBinding.mainNuRecyclerView.setVisibility(View.GONE);
+                        }
+                    }); //0.3초 동안 애니메이션 효과와 함께 영양분 리스트 숨김
+                    fragmentMainBinding.mainHideNuBtn.setText("영양분 정보 표시하기"); // 다음 번 클릭 시 영양분 리스트가 표시 된다는 것을 텍스트에 표시
+                }
+            }
+        });
         cal_Recommend_Nu(); //권장 영양분 섭취량 계산
         set_Food_list(); //오늘 먹은 음식 데이터를 데이터베이스로 부터 가져와 리사이클러 뷰에 표시
         set_Nu_list();

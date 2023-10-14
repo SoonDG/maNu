@@ -1,5 +1,7 @@
 package Fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -87,6 +89,7 @@ public class MyMonthNuFragment extends Fragment {
 
         if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){ //나이트 모드라면
             fragmentMyMonthNuBinding.showEatFoodBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
+            fragmentMyMonthNuBinding.myMonthNuHideNuBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.night_button_style4));
         }
 
         cal_Recommend_Nu(); //권장 영양분 섭취량 계산
@@ -279,6 +282,27 @@ public class MyMonthNuFragment extends Fragment {
                 }
                 else {
                     Toast.makeText(getContext(), "날짜를 선택해 주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        fragmentMyMonthNuBinding.myMonthNuHideNuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(fragmentMyMonthNuBinding.myMonthNuRecyclerView.getVisibility() == View.GONE) { //영양분 리스트가 숨겨져 있다면
+                    fragmentMyMonthNuBinding.myMonthNuRecyclerView.setAlpha(0.0f);
+                    fragmentMyMonthNuBinding.myMonthNuRecyclerView.setVisibility(View.VISIBLE);
+                    fragmentMyMonthNuBinding.myMonthNuRecyclerView.animate().alpha(1f).setDuration(300).setListener(null); //0.3초 동안 애니메이션 효과와 함께 영양분 리스트 표시
+                    fragmentMyMonthNuBinding.myMonthNuHideNuBtn.setText("영양분 정보 숨기기"); // 다음 번 클릭 시 영양분 리스트가 숨겨진다는 것을 텍스트에 표시
+                }
+                else { //영양분 리스트가 표시되고 있다면
+                    fragmentMyMonthNuBinding.myMonthNuRecyclerView.animate().alpha(0.0f).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            fragmentMyMonthNuBinding.myMonthNuRecyclerView.setVisibility(View.GONE);
+                        }
+                    });
+                    fragmentMyMonthNuBinding.myMonthNuHideNuBtn.setText("영양분 정보 표시하기"); // 다음 번 클릭 시 영양분 리스트가 표시 된다는 것을 텍스트에 표시
                 }
             }
         });

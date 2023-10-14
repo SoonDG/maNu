@@ -27,9 +27,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="5dp"
                 android:text="2000.12"
-                android:textSize="30sp"
-                android:layout_marginTop="5dp"/>
+                android:textSize="30sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/next_Month_btn"
@@ -110,15 +110,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/calendar_View"
-                android:background="@drawable/button_style"
+                android:background="@drawable/button_style4"
                 android:text="먹은 음식 보기"
+                android:textColor="@color/MyNuWhite"
                 android:textSize="20sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/my_Month_Nu_Hide_Nu_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/show_Eat_Food_btn"
+                android:background="@drawable/button_style4"
+                android:text="영양분 정보 숨기기"
+                android:textColor="@color/MyNuWhite"
+                android:textSize="20sp"></androidx.appcompat.widget.AppCompatButton>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/my_Month_Nu_Recycler_View"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/show_Eat_Food_btn"/>
+                android:layout_below="@id/my_Month_Nu_Hide_Nu_btn" />
 
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

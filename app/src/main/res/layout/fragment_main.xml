@@ -19,14 +19,14 @@
                 android:layout_height="500dp"
                 android:layout_gravity="bottom"></androidx.recyclerview.widget.RecyclerView>
 
-            <TextView
-                android:id="@+id/my_Nu_Title"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/main_Hide_Nu_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/main_Recycler_View"
-                android:background="@drawable/textview_style2"
+                android:background="@drawable/button_style4"
                 android:gravity="center"
-                android:text="섭취 영양분"
+                android:text="영양분 정보 숨기기"
                 android:textColor="@color/MyNuWhite"
                 android:textSize="20sp" />
 
@@ -34,7 +34,7 @@
                 android:id="@+id/main_Nu_Recycler_View"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/my_Nu_Title" />
+                android:layout_below="@id/main_Hide_Nu_btn" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>
